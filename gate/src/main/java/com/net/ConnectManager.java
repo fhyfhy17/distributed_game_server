@@ -1,11 +1,11 @@
 package com.net;
 
-import com.pojo.ConnectUser;
+import com.enums.ServerTypeEnum;
 import com.manager.ConnectUserManger;
 import com.manager.ServerInfoManager;
-import com.enums.ServerTypeEnum;
 import com.net.handler.GateGroupHandler;
 import com.net.msg.Message;
+import com.pojo.ConnectUser;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
 import org.springframework.beans.factory.annotation.Autowired;

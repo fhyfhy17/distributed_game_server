@@ -1,8 +1,8 @@
 package com.config;
 
 
-import com.util.ContextUtil;
 import com.net.ConnectManager;
+import com.util.ContextUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,7 +18,6 @@ public class Config {
     }
 
     @Bean
-//    @DependsOn("contextUtil")
     public SocketAddress socketAddress() {
         return new InetSocketAddress(ContextUtil.tcpPort);
     }

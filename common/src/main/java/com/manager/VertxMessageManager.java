@@ -1,9 +1,10 @@
 package com.manager;
 
 import com.net.msg.Message;
+import com.util.SerializeUtil;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.logging.Logger;
-import io.vertx.core.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class VertxMessageManager extends AbstractVerticle {
     private static VertxMessageManager instance = null;
@@ -16,12 +17,13 @@ public class VertxMessageManager extends AbstractVerticle {
     }
 
     public static void sendMessage(String queue, Message message) {
-        sendMessageToServer(queue, message.objToString());
+        sendMessageToServer(queue, SerializeUtil.mts(message));
     }
 
 
+
     private static void sendMessageToServer(String queue, String msg) {
-        log.info("发送消息到集群，队列：{}，消息：{}", queue, msg);
+        log.info("发送消息到集群，目标= {}，消息= {}", queue, msg);
         try {
             instance.vertx.eventBus().send(queue, msg, rf -> {
                 if (rf.succeeded()) {

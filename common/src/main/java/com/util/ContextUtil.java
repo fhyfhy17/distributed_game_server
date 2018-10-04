@@ -12,7 +12,7 @@ public class ContextUtil {
 
     public static int tcpPort;
 
-    private static ActionFactory actionFactory;
+    public static ActionFactory actionFactory;
 
     @Value("${server.serverId}")
 
@@ -30,7 +30,4 @@ public class ContextUtil {
         ContextUtil.actionFactory = actionFactory;
     }
 
-    public static ActionFactory getActionFactory() {
-        return ContextUtil.actionFactory;
-    }
 }

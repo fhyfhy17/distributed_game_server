@@ -1,8 +1,8 @@
 package com.action;
 
-import com.pojo.ConnectUser;
 import com.manager.ConnectUserManger;
 import com.net.msg.LOGIN_MSG;
+import com.pojo.ConnectUser;
 import com.pojo.User;
 import com.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,6 @@ import com.hazelcast.core.*;
 import com.hazelcast.map.listener.EntryAddedListener;
 import com.manager.ServerInfoManager;
 import com.manager.VertxMessageManager;
-import com.net.msg.Message;
 import com.pojo.ServerInfo;
 import com.util.SerializeUtil;
 import io.vertx.core.AbstractVerticle;
@@ -27,9 +26,8 @@ public abstract class BaseVerticle extends AbstractVerticle {
 
         EventBus eventBus = vertx.eventBus();
         vertx.deployVerticle(VertxMessageManager.class, new DeploymentOptions().setWorker(true).setInstances(3));
-        eventBus.consumer(getServerInfo().getServerId(), msg -> {
-            getHandler().onReceive(SerializeUtil.toObj(msg.body().toString(),Message.class));
-        });
+        eventBus.consumer(getServerInfo().getServerId(),
+                msg -> getHandler().onReceive(SerializeUtil.stm(msg.body().toString())));
 
         publishService();
 
@@ -64,28 +62,26 @@ public abstract class BaseVerticle extends AbstractVerticle {
 
 
         ins.getCluster().addMembershipListener(new MembershipListener() {
+            @Override
+            public void memberAdded(MembershipEvent membershipEvent) {
+
+            }
 
             @Override
             public void memberRemoved(MembershipEvent membershipEvent) {
                 if (!membershipEvent.getMember().localMember()) {
                     Member member = membershipEvent.getMember();
-                    log.info("集群中节点关闭！" + member);
+                    log.info("集群中节点关闭 = {}", member);
                     ServerInfo remove = map.remove(membershipEvent.getMember().getUuid());
                     ServerInfoManager.removeServerInfo(remove.getServerId());
                 }
             }
 
+
             @Override
             public void memberAttributeChanged(MemberAttributeEvent memberAttributeEvent) {
             }
 
-            @Override
-            public void memberAdded(MembershipEvent membershipEvent) {
-//
-//                ServerInfo value = event.getValue();
-//                ServerInfoHelper.addServerInfo(value);
-//                System.out.println("来了一个节点" + value.getServerId());
-            }
         });
 
     }

@@ -1,79 +1,69 @@
 package com.manager;
 
+import cn.hutool.core.util.RandomUtil;
 import com.enums.ServerTypeEnum;
 import com.pojo.ServerInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class ServerInfoManager {
-    private static Random rand = new Random();
-    private static ConcurrentHashMap<String, ServerInfo> servicestatus = new ConcurrentHashMap<>();
+    private static final Logger log = LoggerFactory.getLogger(ServerInfoManager.class);
+    private static ConcurrentHashMap<String, ServerInfo> serverInfos = new ConcurrentHashMap<>();
 
     public static ConcurrentHashMap<String, ServerInfo> getAllServiceStatus() {
-        return servicestatus;
+        return serverInfos;
     }
 
     public static void addServerInfo(ServerInfo serverInfo) {
-        if (serverInfo != null)
-            servicestatus.put(serverInfo.getServerId(), serverInfo);
-        System.out.println("服务状态最新(add)：" + servicestatus.values());
+        if (serverInfo != null) {
+            ServerInfoManager.serverInfos.put(serverInfo.getServerId(), serverInfo);
+        }
+        log.info("增加节点={} 所有节点={}", serverInfo.getServerId(), ServerInfoManager.serverInfos.values());
     }
 
     public static void removeServerInfo(String serviceId) {
-        if (serviceId != null)
-            servicestatus.remove(serviceId);
-        System.out.println("服务状态最新(remove)：" + servicestatus.values());
+        if (serviceId != null) {
+            serverInfos.remove(serviceId);
+        }
+        log.info("删除节点={} 所有节点={}", serviceId, serverInfos.values());
     }
+
 
     /**
      * 随机一个服务
      */
     public static ServerInfo randomServerInfo(ServerTypeEnum serviceType) {
-        // 现在有几个当前的服务状态
-        List<ServerInfo> list = new ArrayList<>();
-        for (ServerInfo serverInfo : servicestatus.values()) {
-            if (serverInfo.getServerType() == serviceType) {
-                list.add(serverInfo);
-            }
-        }
-
-        return list.size() == 1 ? list.get(0) : list.get(randNum(0, list.size() - 1));
+        List<ServerInfo> list = serverInfos.values().stream().filter(
+                x -> x.getServerType() == serviceType
+        ).collect(Collectors.toList());
+        return list.size() < 1 ? null : RandomUtil.randomEle(list);
     }
 
     public static List<ServerInfo> getServerInfosByType(ServerTypeEnum serviceType) {
-        // 现在有几个当前的服务状态
-        List<ServerInfo> list = new ArrayList<>();
-        for (ServerInfo serverInfo : servicestatus.values()) {
-            if (serverInfo.getServerType() == serviceType) {
-                list.add(serverInfo);
-            }
-        }
-        return list;
+        return serverInfos.values().stream().filter(
+                x -> x.getServerType() == serviceType
+        ).collect(Collectors.toList());
     }
 
-    public static ServerInfo getServerInfo(String serviceId) {
-        for (ServerInfo serverInfo : servicestatus.values()) {
-            if (serverInfo.getServerId().equals(serviceId)) {
-                return serverInfo;
-            }
-        }
-        return null;
+    public static ServerInfo getServerInfo(String serverId) {
+        return serverInfos.values().stream().filter(
+                x -> x.getServerId() == serverId
+        ).findAny().orElse(null);
     }
 
     public static String hashChooseServer(String uid, ServerTypeEnum typeEnum) {
         List<ServerInfo> list = getServerInfosByType(typeEnum);
         if (list.size() < 1) {
-            return "";
+            log.error("所有 {} 服务器都挂了", typeEnum);
+            return null;
         }
         int index = uid.hashCode() % list.size();
         ServerInfo info = list.get(index);
         return info.getServerId();
     }
 
-    private static int randNum(int min, int max) {
-        return rand.nextInt(max - min + 1) + min;
-    }
 }

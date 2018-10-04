@@ -1,11 +1,11 @@
 package com.hanlder;
 
-import com.util.ContextUtil;
-import com.manager.VertxMessageManager;
 import com.action.ActionFactory;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.manager.VertxMessageManager;
 import com.net.msg.Message;
 import com.net.msg.Options;
+import com.util.ContextUtil;
 import io.vertx.core.logging.LoggerFactory;
 
 import java.lang.reflect.Constructor;
@@ -70,7 +70,7 @@ public abstract class MessageThreadHandler extends Thread {
                 Message message = pulseQueues.poll();
                 final int cmdId = message.getId();
 
-                ActionFactory.ActionMethodContext m = ContextUtil.getActionFactory().getActionMap().get(cmdId);
+                ActionFactory.ActionMethodContext m = ContextUtil.actionFactory.getActionMap().get(cmdId);
                 if (m == null) {
                     log.error("收到不存在的消息，消息ID={}", cmdId);
                 }
