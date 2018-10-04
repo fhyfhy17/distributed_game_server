@@ -6,24 +6,48 @@ import com.manager.ServerInfoManager;
 import com.manager.VertxMessageManager;
 import com.pojo.ServerInfo;
 import com.util.SerializeUtil;
-import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
+import io.vertx.core.Vertx;
+import io.vertx.core.VertxOptions;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
+import io.vertx.spi.cluster.hazelcast.HazelcastClusterManager;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
-
-public abstract class BaseVerticle extends AbstractVerticle {
+@Component
+public abstract class BaseVerticle {
     final transient static Logger log = LoggerFactory.getLogger(BaseVerticle.class);
+    private Vertx vertx;
+
+    @PostConstruct
+    void init() throws ExecutionException, InterruptedException {
+
+        VertxOptions options = new VertxOptions()
+                .setClusterManager(new HazelcastClusterManager());
+        CompletableFuture<Vertx> future = new CompletableFuture<>();
+        Vertx.clusteredVertx(options, ar -> {
+            if (ar.succeeded()) {
+                future.complete(ar.result());
+            } else {
+                future.completeExceptionally(ar.cause());
+            }
+        });
+        vertx = future.get();
+        start();
+    }
 
 
-    @Override
-    public void start() throws Exception {
-        super.start();
-
+    public void start() {
+        System.out.println("启动vertx");
         EventBus eventBus = vertx.eventBus();
         vertx.deployVerticle(VertxMessageManager.class, new DeploymentOptions().setWorker(true).setInstances(3));
         eventBus.consumer(getServerInfo().getServerId(),
@@ -86,9 +110,16 @@ public abstract class BaseVerticle extends AbstractVerticle {
 
     }
 
-    @Override
-    public void stop() throws Exception {
-        super.stop();
+    @Bean(destroyMethod = "")
+    Vertx vertx() {
+        return vertx;
+    }
+
+    @PreDestroy
+    void close() throws ExecutionException, InterruptedException {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        vertx.close(ar -> future.complete(null));
+        future.get();
     }
 
 

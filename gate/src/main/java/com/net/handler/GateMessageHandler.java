@@ -35,7 +35,7 @@ public class GateMessageHandler extends MessageThreadHandler {
     }
 
 
-    private void dispatch(Message message)  {
+    private void dispatch(Message message) {
         message.setFrom(ContextUtil.id);
         //fixme 多的时候要倒着写啊
         if (message.getId() == LOGIN_MSG.CTS_LOGIN.getDescriptor().getOptions().getExtension(Options.messageId)) {

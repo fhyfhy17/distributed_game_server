@@ -26,7 +26,6 @@ public class ConnectManager {
     private GateGroupHandler messageGroup;
 
 
-
     public Session initConnect(Channel channel) {
         //连接注册，绑定session到channel上，可以通过链路 channel取得对应的session信息
         String sessionId = UUID.randomUUID().toString();

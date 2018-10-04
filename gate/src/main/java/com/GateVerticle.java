@@ -3,7 +3,9 @@ package com;
 import com.enums.ServerTypeEnum;
 import com.pojo.ServerInfo;
 import com.util.ContextUtil;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GateVerticle extends BaseVerticle {
 
     @Override

@@ -59,9 +59,9 @@ public class NettyServerMsgHandler extends ChannelInboundHandlerAdapter {
                 message.setUid(session.getId());
 
             } else {
-                if(StringUtil.isNullOrEmpty(session.getUid())){
+                if (StringUtil.isNullOrEmpty(session.getUid())) {
                     //TODO 返回消息，请登录
-                return;
+                    return;
                 }
                 message.setUid(session.getUid());
             }

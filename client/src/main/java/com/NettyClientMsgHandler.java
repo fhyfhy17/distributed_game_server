@@ -30,7 +30,7 @@ public class NettyClientMsgHandler extends ChannelInboundHandlerAdapter {
         try {
 //            System.out.println(LOGIN_MSG.STC_LOGIN.parseFrom(((Message)msg).getData()).getUid());
 //            System.out.println(LOGIN_MSG.STC_LOGIN.parseFrom(((Message)msg).getData()).getSuc());
-            System.out.println(LOGIN_MSG.STC_TEST.parseFrom(((Message)msg).getData()).getWord());
+            System.out.println(LOGIN_MSG.STC_TEST.parseFrom(((Message) msg).getData()).getWord());
 
         } catch (Exception ex) {
             ex.printStackTrace();

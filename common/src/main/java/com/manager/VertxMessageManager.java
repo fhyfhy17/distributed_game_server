@@ -21,7 +21,6 @@ public class VertxMessageManager extends AbstractVerticle {
     }
 
 
-
     private static void sendMessageToServer(String queue, String msg) {
         log.info("发送消息到集群，目标= {}，消息= {}", queue, msg);
         try {

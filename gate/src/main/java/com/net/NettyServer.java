@@ -14,6 +14,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.net.SocketAddress;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -27,7 +28,9 @@ public class NettyServer {
     private EventLoopGroup workerGroup;
     private AtomicBoolean started = new AtomicBoolean(false);
 
+    @PostConstruct
     public void init() {
+        System.out.println("启动netty");
         if (started.compareAndSet(false, true)) {
             bossGroup = new NioEventLoopGroup();
             workerGroup = new NioEventLoopGroup();
