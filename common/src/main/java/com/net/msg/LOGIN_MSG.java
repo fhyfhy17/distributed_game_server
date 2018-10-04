@@ -4120,7 +4120,7 @@ public final class LOGIN_MSG {
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          Options.getDescriptor(),
+          com.net.msg.Options.getDescriptor(),
         }, assigner);
     internal_static_CTS_LOGIN_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -4166,10 +4166,10 @@ public final class LOGIN_MSG {
         new java.lang.String[] { "Uid", "Id", "Data", "From", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(Options.messageId);
+    registry.add(com.net.msg.Options.messageId);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    Options.getDescriptor();
+    com.net.msg.Options.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

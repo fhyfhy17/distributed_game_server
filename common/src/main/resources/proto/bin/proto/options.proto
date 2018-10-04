@@ -1,0 +1,9 @@
+syntax ="proto3";
+option java_package = "com.net.msg";
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.MessageOptions {
+
+   int32 messageId = 51235;
+
+}

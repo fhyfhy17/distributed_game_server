@@ -1,0 +1,43 @@
+syntax = "proto3";
+option java_package = "com.net.msg";
+option java_outer_classname = "LOGIN_MSG";
+
+import "options.proto";
+
+message CTS_LOGIN{
+	option(messageId) = 100001;
+	string username = 1;
+	string password =2;
+}
+message STC_LOGIN{
+	option(messageId) = 100002;
+	string uid = 1;
+	bool suc = 2;
+}
+
+message CTS_HEART{
+	option(messageId) = 100003;
+}
+
+message STC_HEART{
+	option(messageId) = 100004;
+}
+
+
+message CTS_TEST{
+	option(messageId) = 100005;
+	string word =1;
+}
+
+
+message STC_TEST{
+	option(messageId) = 100006;
+	string word =1;
+}
+
+message MyMessage{
+	string uid =1;
+	int32 id=2;
+	bytes data =3;
+	string from=4;
+}
