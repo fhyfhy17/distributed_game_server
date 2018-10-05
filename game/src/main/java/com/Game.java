@@ -28,7 +28,7 @@ public class Game implements CommandLineRunner {
 
 
     @EventListener
-    void deployVerticles(ApplicationReadyEvent event) throws Exception {
+    void afterSrpingBoot(ApplicationReadyEvent event) throws Exception {
     }
 }
 

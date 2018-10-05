@@ -1,7 +1,6 @@
 package com.config;
 
 
-import com.net.ConnectManager;
 import com.util.ContextUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,11 +10,6 @@ import java.net.SocketAddress;
 
 @Configuration
 public class Config {
-
-    @Bean
-    public ConnectManager connectManager() {
-        return new ConnectManager();
-    }
 
     @Bean
     public SocketAddress socketAddress() {

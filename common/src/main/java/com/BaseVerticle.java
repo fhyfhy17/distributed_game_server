@@ -13,6 +13,7 @@ import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.spi.cluster.hazelcast.HazelcastClusterManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +28,9 @@ import java.util.concurrent.ExecutionException;
 public abstract class BaseVerticle {
     final transient static Logger log = LoggerFactory.getLogger(BaseVerticle.class);
     private Vertx vertx;
+    @Autowired
+    private ServerInfo serverInfo;
+
 
     @PostConstruct
     void init() throws ExecutionException, InterruptedException {
@@ -47,11 +51,11 @@ public abstract class BaseVerticle {
 
 
     public void start() {
-        System.out.println("启动vertx");
+        log.info("启动vertx");
         EventBus eventBus = vertx.eventBus();
         vertx.deployVerticle(VertxMessageManager.class, new DeploymentOptions().setWorker(true).setInstances(3));
-        eventBus.consumer(getServerInfo().getServerId(),
-                msg -> getHandler().onReceive(SerializeUtil.stm(msg.body().toString())));
+        eventBus.consumer(serverInfo.getServerId(),
+                msg -> getReceiver().onReceive(SerializeUtil.stm(msg.body().toString())));
 
         publishService();
 
@@ -60,14 +64,14 @@ public abstract class BaseVerticle {
     protected void publishService() {
         // 发布服务信息
 
-        HazelcastInstance ins = Hazelcast.getHazelcastInstanceByName(getServerInfo().getServerId());
+        HazelcastInstance ins = Hazelcast.getHazelcastInstanceByName(serverInfo.getServerId());
         // 获取其他服务的信息缓存到本地
         IMap<String, ServerInfo> map = ins.getMap(Constant.SERVER_MAP);
         Set<Member> members = ins.getCluster().getMembers();
         for (Member member : members) {
             if (member.localMember()) {
                 // 发布本节点
-                map.put(member.getUuid(), getServerInfo());
+                map.put(member.getUuid(), serverInfo);
             } else {
                 // 读取其他节点
                 Set<Map.Entry<String, ServerInfo>> entries = map.entrySet();
@@ -122,8 +126,5 @@ public abstract class BaseVerticle {
         future.get();
     }
 
-
-    public abstract BaseHandler getHandler();
-
-    public abstract ServerInfo getServerInfo();
+    public abstract BaseReceiver getReceiver();
 }

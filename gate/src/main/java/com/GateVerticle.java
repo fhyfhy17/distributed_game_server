@@ -1,25 +1,15 @@
 package com;
 
-import com.enums.ServerTypeEnum;
-import com.pojo.ServerInfo;
-import com.util.ContextUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GateVerticle extends BaseVerticle {
+    @Autowired
+    private GateReceiver gateReceiver;
 
     @Override
-    public BaseHandler getHandler() {
-        return GateHandler.getInstance();
+    public BaseReceiver getReceiver() {
+        return gateReceiver;
     }
-
-    @Override
-    public ServerInfo getServerInfo() {
-        ServerInfo serverInfo = new ServerInfo();
-        serverInfo.setServerType(ServerTypeEnum.GATE);
-        serverInfo.setServerId(ContextUtil.id);
-        return serverInfo;
-    }
-
-
 }

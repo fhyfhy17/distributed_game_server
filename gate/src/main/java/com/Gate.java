@@ -29,6 +29,7 @@ public class Gate implements CommandLineRunner {
 
 
     @EventListener
-    void deployVerticles(ApplicationReadyEvent event) throws Exception {
+    void afterSrpingBoot(ApplicationReadyEvent event) throws Exception {
+        nettyServer.init();
     }
 }

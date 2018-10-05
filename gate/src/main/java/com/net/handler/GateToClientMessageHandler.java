@@ -8,11 +8,10 @@ import com.net.msg.Message;
 import com.net.msg.Options;
 import com.util.SpringUtils;
 import io.vertx.core.logging.LoggerFactory;
-import org.springframework.stereotype.Component;
 
-@Component
+
 public class GateToClientMessageHandler extends MessageThreadHandler {
-    final static io.vertx.core.logging.Logger log = LoggerFactory.getLogger(MessageThreadHandler.class);
+    final static io.vertx.core.logging.Logger log = LoggerFactory.getLogger(GateToClientMessageHandler.class);
 
     @Override
     public void pulse() {
@@ -30,7 +29,7 @@ public class GateToClientMessageHandler extends MessageThreadHandler {
 
 
     private void dispatch(Message message) throws InvalidProtocolBufferException {
-        ConnectManager connectManager = SpringUtils.getBeanByType(ConnectManager.class);
+        ConnectManager connectManager = SpringUtils.getBean(ConnectManager.class);
 
         //如果是登录返回消息
         if (message.getId() == LOGIN_MSG.STC_LOGIN.getDescriptor().getOptions().getExtension(Options.messageId)) {
