@@ -16,8 +16,6 @@ public class Login implements CommandLineRunner {
     private SpringUtils springUtils;
     @Autowired
     private ContextUtil contextUtil;
-    @Autowired
-    private BaseVerticle baseVerticle;
 
     public static void main(String[] args) {
         SpringApplication.run(Login.class, args);
@@ -30,8 +28,6 @@ public class Login implements CommandLineRunner {
 
     @EventListener
     void afterSrpingBoot(ApplicationReadyEvent event) throws Exception {
-        //启动 vertx
-        baseVerticle.init();
     }
 }
 

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.Map;
 import java.util.Set;
@@ -29,7 +30,7 @@ public abstract class BaseVerticle {
     private Vertx vertx;
     @Autowired
     private ServerInfo serverInfo;
-
+    @PostConstruct
     void init() throws ExecutionException, InterruptedException {
 
         VertxOptions options = new VertxOptions()
@@ -50,6 +51,7 @@ public abstract class BaseVerticle {
     public void start() {
         log.info("启动vertx");
         EventBus eventBus = vertx.eventBus();
+
         vertx.deployVerticle(VertxMessageManager.class, new DeploymentOptions().setWorker(true).setInstances(3));
         eventBus.consumer(serverInfo.getServerId(),
                 msg -> getReceiver().onReceive(SerializeUtil.stm(msg.body().toString())));
