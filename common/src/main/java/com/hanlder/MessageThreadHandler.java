@@ -15,7 +15,7 @@ import java.lang.reflect.Parameter;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public abstract class MessageThreadHandler extends Thread {
+public class MessageThreadHandler implements Runnable {
     final static io.vertx.core.logging.Logger log = LoggerFactory.getLogger(MessageThreadHandler.class);
     // 执行器ID
     protected String handlerId;
@@ -25,22 +25,10 @@ public abstract class MessageThreadHandler extends Thread {
 
     protected final ConcurrentLinkedQueue<Message> pulseQueues = new ConcurrentLinkedQueue<>();
 
-    private volatile boolean running = false;
-
-
-    public void startup() {
-        // 正在运行
-        if (running) {
-            return;
-        }
-        // 开始启动
-        running = true;
-        start();
-    }
 
     @Override
     public void run() {
-        while (running) {
+        for (; ; ) {
             long startTime = System.currentTimeMillis();
 
             // 执行心跳

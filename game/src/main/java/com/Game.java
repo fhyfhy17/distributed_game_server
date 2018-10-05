@@ -17,6 +17,8 @@ public class Game implements CommandLineRunner {
     SpringUtils springUtils;
     @Autowired
     ContextUtil contextUtil;
+    @Autowired
+    BaseVerticle baseVerticle;
 
     public static void main(String[] args) {
         SpringApplication.run(Game.class, args);
@@ -29,6 +31,8 @@ public class Game implements CommandLineRunner {
 
     @EventListener
     void afterSrpingBoot(ApplicationReadyEvent event) throws Exception {
+        //启动 vertx
+        baseVerticle.init();
     }
 }
 

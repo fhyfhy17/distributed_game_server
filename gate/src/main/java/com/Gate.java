@@ -17,6 +17,8 @@ public class Gate implements CommandLineRunner {
     @Autowired
     ContextUtil contextUtil;
     @Autowired
+    BaseVerticle baseVerticle;
+    @Autowired
     NettyServer nettyServer;
 
     public static void main(String[] args) {
@@ -30,6 +32,9 @@ public class Gate implements CommandLineRunner {
 
     @EventListener
     void afterSrpingBoot(ApplicationReadyEvent event) throws Exception {
+        //启动 vertx
+        baseVerticle.init();
+        //启动 netty
         nettyServer.init();
     }
 }

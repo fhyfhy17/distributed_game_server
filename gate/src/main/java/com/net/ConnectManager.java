@@ -1,16 +1,19 @@
 package com.net;
 
+import com.Constant;
 import com.enums.ServerTypeEnum;
+import com.hanlder.MessageGroup;
+import com.hanlder.MessageThreadHandler;
 import com.manager.ConnectUserManger;
 import com.manager.ServerInfoManager;
-import com.net.handler.GateGroupHandler;
+import com.net.handler.GateMessageHandler;
 import com.net.msg.Message;
 import com.pojo.ConnectUser;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,9 +25,19 @@ public class ConnectManager {
     private final ConcurrentHashMap<String, Session> idToSessionMap = new ConcurrentHashMap<>();
 
     private final ConcurrentHashMap<String, Session> userIdToConnectMap = new ConcurrentHashMap<>();
-    @Autowired
-    private GateGroupHandler messageGroup;
 
+    private MessageGroup m;
+
+    @PostConstruct
+    public void startup() {
+        m = new MessageGroup(Constant.GATE_GROUP) {
+            @Override
+            public MessageThreadHandler getMessageThreadHandler() {
+                return new GateMessageHandler();
+            }
+        };
+        m.startup();
+    }
 
     public Session initConnect(Channel channel) {
         //连接注册，绑定session到channel上，可以通过链路 channel取得对应的session信息
@@ -87,7 +100,7 @@ public class ConnectManager {
     }
 
     public void addMessage(Message message) {
-        messageGroup.messageReceived(message);
+        m.messageReceived(message);
     }
 
     /**

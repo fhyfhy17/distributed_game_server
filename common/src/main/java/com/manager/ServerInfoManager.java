@@ -14,7 +14,7 @@ public class ServerInfoManager {
     private static final Logger log = LoggerFactory.getLogger(ServerInfoManager.class);
     private static ConcurrentHashMap<String, ServerInfo> serverInfos = new ConcurrentHashMap<>();
 
-    public static ConcurrentHashMap<String, ServerInfo> getAllServiceStatus() {
+    public static ConcurrentHashMap<String, ServerInfo> getAllServerInfos() {
         return serverInfos;
     }
 
@@ -25,27 +25,27 @@ public class ServerInfoManager {
         log.info("增加节点={} 所有节点={}", serverInfo.getServerId(), ServerInfoManager.serverInfos.values());
     }
 
-    public static void removeServerInfo(String serviceId) {
-        if (serviceId != null) {
-            serverInfos.remove(serviceId);
+    public static void removeServerInfo(String serverId) {
+        if (serverId != null) {
+            serverInfos.remove(serverId);
         }
-        log.info("删除节点={} 所有节点={}", serviceId, serverInfos.values());
+        log.info("删除节点={} 所有节点={}", serverId, serverInfos.values());
     }
 
 
     /**
      * 随机一个服务
      */
-    public static ServerInfo randomServerInfo(ServerTypeEnum serviceType) {
+    public static ServerInfo randomServerInfo(ServerTypeEnum serverType) {
         List<ServerInfo> list = serverInfos.values().stream().filter(
-                x -> x.getServerType() == serviceType
+                x -> x.getServerType() == serverType
         ).collect(Collectors.toList());
         return list.size() < 1 ? null : RandomUtil.randomEle(list);
     }
 
-    public static List<ServerInfo> getServerInfosByType(ServerTypeEnum serviceType) {
+    public static List<ServerInfo> getServerInfosByType(ServerTypeEnum serverType) {
         return serverInfos.values().stream().filter(
-                x -> x.getServerType() == serviceType
+                x -> x.getServerType() == serverType
         ).collect(Collectors.toList());
     }
 
