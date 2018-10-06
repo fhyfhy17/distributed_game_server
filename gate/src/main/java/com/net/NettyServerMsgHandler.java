@@ -3,8 +3,8 @@ package com.net;
 
 import com.hazelcast.util.StringUtil;
 import com.net.msg.LOGIN_MSG;
-import com.net.msg.Message;
 import com.net.msg.Options;
+import com.pojo.Message;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;

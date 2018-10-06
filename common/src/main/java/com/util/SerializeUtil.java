@@ -7,7 +7,7 @@ import com.esotericsoftware.kryo.io.Output;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.net.msg.LOGIN_MSG;
-import com.net.msg.Message;
+import com.pojo.Message;
 import org.objenesis.strategy.StdInstantiatorStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

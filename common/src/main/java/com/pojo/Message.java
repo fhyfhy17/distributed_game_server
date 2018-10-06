@@ -1,4 +1,4 @@
-package com.net.msg;
+package com.pojo;
 
 import lombok.Data;
 

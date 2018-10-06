@@ -1,6 +1,6 @@
 package com;
 
-import com.net.msg.Message;
+import com.pojo.Message;
 
 
 public abstract class BaseReceiver {

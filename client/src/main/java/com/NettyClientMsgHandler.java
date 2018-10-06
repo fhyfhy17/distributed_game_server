@@ -1,7 +1,7 @@
 package com;
 
 import com.net.msg.LOGIN_MSG;
-import com.net.msg.Message;
+import com.pojo.Message;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

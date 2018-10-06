@@ -1,9 +1,10 @@
 package com;
 
+import com.enums.GroupEnum;
 import com.handler.GameMessageHandler;
 import com.hanlder.MessageGroup;
 import com.hanlder.MessageThreadHandler;
-import com.net.msg.Message;
+import com.pojo.Message;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -14,7 +15,7 @@ public class GameReceiver extends BaseReceiver {
 
     @PostConstruct
     public void startup() {
-        m = new MessageGroup(Constant.GAME_GROUP) {
+        m = new MessageGroup(GroupEnum.GAME_GROUP.name()) {
             @Override
             public MessageThreadHandler getMessageThreadHandler() {
                 return new GameMessageHandler();

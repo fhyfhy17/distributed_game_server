@@ -10,9 +10,9 @@ import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.eventbus.EventBus;
+import io.vertx.spi.cluster.hazelcast.HazelcastClusterManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import io.vertx.spi.cluster.hazelcast.HazelcastClusterManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -30,6 +30,7 @@ public abstract class BaseVerticle {
     private Vertx vertx;
     @Autowired
     private ServerInfo serverInfo;
+
     @PostConstruct
     void init() throws ExecutionException, InterruptedException {
 

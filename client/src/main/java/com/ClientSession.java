@@ -1,7 +1,7 @@
 package com;
 
 import com.net.msg.LOGIN_MSG;
-import com.net.msg.Message;
+import com.pojo.Message;
 import io.netty.channel.Channel;
 
 import java.util.Scanner;

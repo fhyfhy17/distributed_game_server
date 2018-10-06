@@ -1,6 +1,6 @@
 package com.hanlder;
 
-import com.net.msg.Message;
+import com.pojo.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

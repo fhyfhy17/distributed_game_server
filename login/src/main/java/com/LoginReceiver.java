@@ -1,9 +1,10 @@
 package com;
 
+import com.enums.GroupEnum;
 import com.handler.LoginMessageHandler;
 import com.hanlder.MessageGroup;
 import com.hanlder.MessageThreadHandler;
-import com.net.msg.Message;
+import com.pojo.Message;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -15,7 +16,7 @@ public class LoginReceiver extends BaseReceiver {
 
     @PostConstruct
     public void startup() {
-        m = new MessageGroup(Constant.LOGIN_GROUP) {
+        m = new MessageGroup(GroupEnum.LOGIN_GROUP.name()) {
             @Override
             public MessageThreadHandler getMessageThreadHandler() {
                 return new LoginMessageHandler();

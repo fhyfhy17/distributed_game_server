@@ -5,33 +5,33 @@ option java_outer_classname = "LOGIN_MSG";
 import "options.proto";
 
 message CTS_LOGIN{
-	option(messageId) = 100001;
+	option(messageId) = 10001;
 	string username = 1;
 	string password =2;
 }
 message STC_LOGIN{
-	option(messageId) = 100002;
+	option(messageId) = 10002;
 	string uid = 1;
 	bool suc = 2;
 }
 
 message CTS_HEART{
-	option(messageId) = 100003;
+	option(messageId) = 10003;
 }
 
 message STC_HEART{
-	option(messageId) = 100004;
+	option(messageId) = 10004;
 }
 
 
 message CTS_TEST{
-	option(messageId) = 100005;
+	option(messageId) = 10005;
 	string word =1;
 }
 
 
 message STC_TEST{
-	option(messageId) = 100006;
+	option(messageId) = 10006;
 	string word =1;
 }
 

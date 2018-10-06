@@ -1,14 +1,14 @@
 package com.net;
 
-import com.Constant;
+import com.enums.GroupEnum;
 import com.enums.ServerTypeEnum;
 import com.hanlder.MessageGroup;
 import com.hanlder.MessageThreadHandler;
 import com.manager.ConnectUserManger;
 import com.manager.ServerInfoManager;
 import com.net.handler.GateMessageHandler;
-import com.net.msg.Message;
 import com.pojo.ConnectUser;
+import com.pojo.Message;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
 import org.springframework.stereotype.Component;
@@ -30,7 +30,7 @@ public class ConnectManager {
 
     @PostConstruct
     public void startup() {
-        m = new MessageGroup(Constant.GATE_GROUP) {
+        m = new MessageGroup(GroupEnum.GATE_GROUP.name()) {
             @Override
             public MessageThreadHandler getMessageThreadHandler() {
                 return new GateMessageHandler();

@@ -3,8 +3,8 @@ package com.hanlder;
 import com.action.ActionFactory;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.manager.VertxMessageManager;
-import com.net.msg.Message;
 import com.net.msg.Options;
+import com.pojo.Message;
 import com.util.ContextUtil;
 import io.vertx.core.logging.LoggerFactory;
 

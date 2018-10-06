@@ -4,8 +4,8 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.hanlder.MessageThreadHandler;
 import com.net.ConnectManager;
 import com.net.msg.LOGIN_MSG;
-import com.net.msg.Message;
 import com.net.msg.Options;
+import com.pojo.Message;
 import com.util.SpringUtils;
 import io.vertx.core.logging.LoggerFactory;
 

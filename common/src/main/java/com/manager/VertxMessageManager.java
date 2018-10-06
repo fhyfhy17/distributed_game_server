@@ -1,6 +1,6 @@
 package com.manager;
 
-import com.net.msg.Message;
+import com.pojo.Message;
 import com.util.SerializeUtil;
 import io.vertx.core.AbstractVerticle;
 import org.slf4j.Logger;

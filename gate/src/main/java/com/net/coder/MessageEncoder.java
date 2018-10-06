@@ -1,6 +1,6 @@
 package com.net.coder;
 
-import com.net.msg.Message;
+import com.pojo.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
