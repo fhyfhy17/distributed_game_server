@@ -36,7 +36,7 @@ public class ClientSession {
                         builder.setPassword("1");
 
                         Message m = new Message();
-                        m.setId(100001);
+                        m.setId(10001);
                         m.setData(builder.build().toByteArray());
                         channel.writeAndFlush(m);
                     }
@@ -45,7 +45,7 @@ public class ClientSession {
                         LOGIN_MSG.CTS_TEST.Builder builder = LOGIN_MSG.CTS_TEST.newBuilder();
                         builder.setWord("啊啊等等");
                         Message m = new Message();
-                        m.setId(100005);
+                        m.setId(10005);
                         m.setData(builder.build().toByteArray());
                         channel.writeAndFlush(m);
                     }

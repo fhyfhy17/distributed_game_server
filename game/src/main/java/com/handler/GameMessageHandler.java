@@ -1,10 +1,11 @@
 package com.handler;
 
 import com.hanlder.MessageThreadHandler;
-import io.vertx.core.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class GameMessageHandler extends MessageThreadHandler {
-    final static io.vertx.core.logging.Logger log = LoggerFactory.getLogger(GameMessageHandler.class);
+    final static Logger log = LoggerFactory.getLogger(GameMessageHandler.class);
 
 }

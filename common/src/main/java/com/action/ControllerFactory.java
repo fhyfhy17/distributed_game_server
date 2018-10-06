@@ -4,8 +4,6 @@ import com.google.common.collect.Maps;
 import com.google.protobuf.Message;
 import com.net.msg.Options;
 import com.util.SpringUtils;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -14,15 +12,15 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 @Component
-public class ActionFactory {
+public class ControllerFactory {
 
-    public Map<Integer, ActionMethodContext> actionMap = Maps.newHashMap();
+    public Map<Integer, ControllerMethodContext> controllerMap = Maps.newHashMap();
 
     @PostConstruct
     private void init() {
-        Map<String, BaseController> allActions = SpringUtils.getBeansOfType(BaseController.class);
-        allActions.values().forEach(action -> {
-            Method[] declaredMethods = action.getClass().getDeclaredMethods();
+        Map<String, BaseController> allControllers = SpringUtils.getBeansOfType(BaseController.class);
+        allControllers.values().forEach(controller -> {
+            Method[] declaredMethods = controller.getClass().getDeclaredMethods();
             for (Method method : declaredMethods) {
 
                 for (Class<?> parameterClass : method.getParameterTypes()) {
@@ -33,14 +31,8 @@ public class ActionFactory {
                             Object obj = methodB.invoke(null, null);
                             Message.Builder msgBuilder = (Message.Builder) obj;
                             Integer msgId = msgBuilder.build().getDescriptorForType().getOptions().getExtension(Options.messageId);
-                            actionMap.put(msgId, new ActionMethodContext(action, method));
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchMethodException e) {
-                            e.printStackTrace();
-                        } catch (InvocationTargetException e) {
-                            e.printStackTrace();
-                        } catch (ClassNotFoundException e) {
+                            controllerMap.put(msgId, new ControllerMethodContext(controller, method));
+                        } catch (IllegalAccessException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException e) {
                             e.printStackTrace();
                         }
                         break;
@@ -50,23 +42,8 @@ public class ActionFactory {
         });
     }
 
-    public Map<Integer, ActionMethodContext> getActionMap() {
-        return actionMap;
+    public Map<Integer, ControllerMethodContext> getControllerMap() {
+        return controllerMap;
     }
 
-    @Data
-    @AllArgsConstructor
-    public static class ActionMethodContext {
-        private BaseController action;
-        private Method method;
-
-    }
-
-    @Data
-    @AllArgsConstructor
-    public static class UidContext {
-        private String uid;
-        private String from;
-
-    }
 }

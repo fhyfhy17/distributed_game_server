@@ -7,11 +7,12 @@ import com.net.msg.LOGIN_MSG;
 import com.net.msg.Options;
 import com.pojo.Message;
 import com.util.SpringUtils;
-import io.vertx.core.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class GateToClientMessageHandler extends MessageThreadHandler {
-    final static io.vertx.core.logging.Logger log = LoggerFactory.getLogger(GateToClientMessageHandler.class);
+    final static Logger log = LoggerFactory.getLogger(GateToClientMessageHandler.class);
 
     @Override
     public void pulse() {

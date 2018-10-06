@@ -1,6 +1,6 @@
 package com.util;
 
-import com.action.ActionFactory;
+import com.action.ControllerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ public class ContextUtil {
 
     public static int tcpPort;
 
-    public static ActionFactory actionFactory;
+    public static ControllerFactory controllerFactory;
 
     @Value("${server.serverId}")
 
@@ -26,8 +26,8 @@ public class ContextUtil {
     }
 
     @Autowired
-    public void setActionFactory(ActionFactory actionFactory) {
-        ContextUtil.actionFactory = actionFactory;
+    public void setActionFactory(ControllerFactory controllerFactory) {
+        ContextUtil.controllerFactory = controllerFactory;
     }
 
 }

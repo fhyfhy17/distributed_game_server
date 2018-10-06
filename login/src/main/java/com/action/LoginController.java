@@ -15,7 +15,7 @@ public class LoginController extends BaseController {
     @Autowired
     private LoginService loginService;
 
-    public LOGIN_MSG.STC_LOGIN login(ActionFactory.UidContext context, LOGIN_MSG.CTS_LOGIN req) {
+    public LOGIN_MSG.STC_LOGIN login(UidContext context, LOGIN_MSG.CTS_LOGIN req) {
         String username = req.getUsername();
         String password = req.getPassword();
 
