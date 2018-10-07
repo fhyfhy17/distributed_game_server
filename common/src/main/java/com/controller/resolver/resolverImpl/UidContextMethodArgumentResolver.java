@@ -1,8 +1,8 @@
-package com.action.resolver.resolverImpl;
+package com.controller.resolver.resolverImpl;
 
-import com.action.UidContext;
-import com.action.resolver.ActionMethodArgumentResolver;
-import com.action.resolver.MethodParameter;
+import com.controller.UidContext;
+import com.controller.resolver.ActionMethodArgumentResolver;
+import com.controller.resolver.MethodParameter;
 import com.pojo.Message;
 import org.springframework.stereotype.Component;
 

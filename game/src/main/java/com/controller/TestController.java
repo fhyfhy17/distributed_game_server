@@ -1,4 +1,4 @@
-package com.action;
+package com.controller;
 
 import com.net.msg.LOGIN_MSG;
 import org.springframework.stereotype.Controller;

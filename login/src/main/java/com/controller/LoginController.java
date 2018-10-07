@@ -1,4 +1,4 @@
-package com.action;
+package com.controller;
 
 import com.manager.ConnectUserManger;
 import com.net.msg.LOGIN_MSG;

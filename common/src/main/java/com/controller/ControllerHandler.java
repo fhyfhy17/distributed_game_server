@@ -1,7 +1,7 @@
-package com.action;
+package com.controller;
 
-import com.action.resolver.MethodParameter;
-import com.action.resolver.ResolverManager;
+import com.controller.resolver.MethodParameter;
+import com.controller.resolver.ResolverManager;
 import com.pojo.Message;
 import com.util.SpringUtils;
 import lombok.Data;
@@ -12,15 +12,18 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 
 @Data
-public class ControllerMethodContext {
-    private static final Logger log = LoggerFactory.getLogger(ControllerMethodContext.class);
+public class ControllerHandler {
+    private static final Logger log = LoggerFactory.getLogger(ControllerHandler.class);
     private BaseController action;
     private Method method;
     private MethodParameter[] parameters;
+    private int msgId;
 
-    public ControllerMethodContext(BaseController action, Method method) {
+    public ControllerHandler(BaseController action, Method method, int msgId) {
+
         this.action = action;
         this.method = method;
+        this.msgId = msgId;
         Class<?>[] parameterTypes = this.method.getParameterTypes();
         MethodParameter[] parameters = new MethodParameter[parameterTypes.length];
         for (int i = 0; i < parameterTypes.length; i++) {
@@ -49,4 +52,7 @@ public class ControllerMethodContext {
         return args;
     }
 
+    public int getMsgId() {
+        return msgId;
+    }
 }

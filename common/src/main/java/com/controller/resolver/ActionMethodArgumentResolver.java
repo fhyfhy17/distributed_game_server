@@ -1,4 +1,4 @@
-package com.action.resolver;
+package com.controller.resolver;
 
 import com.pojo.Message;
 

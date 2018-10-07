@@ -1,13 +1,12 @@
 package com.hanlder;
 
-import com.action.ControllerMethodContext;
-import com.manager.VertxMessageManager;
-import com.net.msg.Options;
+import com.controller.ControllerHandler;
+import com.controller.interceptor.HandlerExecutionChain;
 import com.pojo.Message;
 import com.util.ContextUtil;
+import com.util.SpringUtils;
 import io.vertx.core.logging.LoggerFactory;
 
-import java.util.Objects;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MessageThreadHandler implements Runnable {
@@ -53,30 +52,22 @@ public class MessageThreadHandler implements Runnable {
                 Message message = pulseQueues.poll();
                 final int cmdId = message.getId();
 
-                ControllerMethodContext m = ContextUtil.controllerFactory.getControllerMap().get(cmdId);
+                ControllerHandler m = ContextUtil.controllerFactory.getControllerMap().get(cmdId);
                 if (m == null) {
-                    log.error("收到不存在的消息，消息ID={}", cmdId);
+                    throw new IllegalStateException("收到不存在的消息，消息ID=" + cmdId);
+                }
+                HandlerExecutionChain chain = SpringUtils.getBean(HandlerExecutionChain.class);
+                chain.setHandler(m);
+                if (!chain.applyPreHandle(message)) {
                     continue;
                 }
                 //针对method的每个参数进行处理， 处理多参数,返回result
                 com.google.protobuf.Message result = (com.google.protobuf.Message) m.invokeForController(message);
-                if (!Objects.isNull(result)) {
-                    Message messageResult = buildMessage(result, message);
-                    VertxMessageManager.sendMessage(message.getFrom(), messageResult);
-                }
+                chain.applyPostHandle(message, result);
             } catch (Exception e) {
                 log.error("", e);
             }
         }
-    }
-
-    private Message buildMessage(com.google.protobuf.Message resultMessage, Message message) {
-        Message messageResult = new Message();
-        messageResult.setId(resultMessage.getDescriptorForType().getOptions().getExtension(Options.messageId));
-        messageResult.setUid(message.getUid());
-        messageResult.setFrom(ContextUtil.id);
-        messageResult.setData(resultMessage.toByteArray());
-        return messageResult;
     }
 
 

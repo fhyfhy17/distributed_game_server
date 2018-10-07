@@ -1,6 +1,6 @@
 package com.util;
 
-import com.action.ControllerFactory;
+import com.controller.ControllerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

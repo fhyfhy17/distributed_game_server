@@ -1,4 +1,4 @@
-package com.action.resolver;
+package com.controller.resolver;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
