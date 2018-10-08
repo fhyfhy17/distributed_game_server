@@ -3,9 +3,7 @@ package com.controller.interceptor;
 import com.annotation.Interceptor;
 import com.controller.ControllerHandler;
 import com.pojo.Message;
-import com.util.ReflectionUtil;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.util.SpringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
@@ -24,30 +22,29 @@ public class HandlerExecutionChain {
 
     public HandlerExecutionChain() {
 //        this.interceptorList = new ArrayList<>(  SpringUtils.getBeansOfType(HandlerInterceptor.class).values());
-        @Data
-        @AllArgsConstructor
-        class InterceptorTempClass {
-            private int order;
-            private Class<?> clazz;
-        }
-        //扫描所有拦截器，取出order 用临时类排序，并返回所有拦截器实体
-        this.interceptorList = ReflectionUtil.scan(HandlerInterceptor.class, Interceptor.class, "com.controller.interceptor")
-                .stream().
-                        map(x
-                                -> {
-                            Interceptor annotation = x.getAnnotation(Interceptor.class);
-                            int order = annotation.order();
-                            return new InterceptorTempClass(order, x);
-                        }).sorted(Comparator.comparingInt(o -> o.order)).map(y ->
-                        {
-                            try {
-                                return (HandlerInterceptor) y.getClazz().newInstance();
-                            } catch (InstantiationException | IllegalAccessException e) {
-                                e.printStackTrace();
-                            }
-                            return null;
-                        }
-                ).collect(Collectors.toList());
+
+        //扫描所有拦截器，取出order 排序，并返回所有拦截器实体
+//        this.interceptorList = ReflectionUtil.scan(HandlerInterceptor.class, Interceptor.class, "com.controller.interceptor")
+//                //这只是学，怎么用 Reflections扫包，还是spring的方便
+//                .stream()
+//                .sorted(Comparator.comparing(x->x.getAnnotation(Interceptor.class).order()))
+//                .map(y ->
+//                        {
+//                            try {
+//                                return (HandlerInterceptor) y.newInstance();
+//                            } catch (InstantiationException | IllegalAccessException e) {
+//                                e.printStackTrace();
+//                            }
+//                            return null;
+//                        })
+//                .collect(Collectors.toList());
+
+        this.interceptorList = SpringUtils.getBeansWithAnnotation(Interceptor.class).values()
+                .stream()
+                .sorted(Comparator.comparingInt(value -> value.getClass().getAnnotation(Interceptor.class).order()))
+                .map(x -> (HandlerInterceptor) x)
+                .collect(Collectors.toList());
+
     }
 
     public void setHandler(ControllerHandler handler) {
