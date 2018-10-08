@@ -33,6 +33,10 @@ public class ControllerFactory {
                             Object obj = methodB.invoke(null, null);
                             Message.Builder msgBuilder = (Message.Builder) obj;
                             int msgId = msgBuilder.build().getDescriptorForType().getOptions().getExtension(Options.messageId);
+                            if (controllerMap.containsKey(msgId)) {
+                                log.error("重复的msgid ={} controllerName ={} methodName ={}", msgId, controller.getClass().getSimpleName(), method.getName());
+                                continue;
+                            }
                             controllerMap.put(msgId, new ControllerHandler(controller, method, msgId));
                         } catch (IllegalAccessException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException e) {
                             log.error("", e);

@@ -10,6 +10,7 @@ public class Session {
     private String uid; // 用户唯一ID
     private Channel channel; // 连接通道
     private String gameId;// game服务器
+    private int autoIncrease;//自增序列
 
     // 向客户端发送消息
     public void writeMsg(Object msg) {

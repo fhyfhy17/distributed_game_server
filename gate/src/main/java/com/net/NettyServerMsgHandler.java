@@ -5,6 +5,7 @@ import com.hazelcast.util.StringUtil;
 import com.net.msg.LOGIN_MSG;
 import com.net.msg.Options;
 import com.pojo.Message;
+import com.pojo.NettyMessage;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
@@ -47,7 +48,7 @@ public class NettyServerMsgHandler extends ChannelInboundHandlerAdapter {
 
             Channel channel = ctx.channel();
 
-            Message message = (Message) msg;
+            NettyMessage message = (NettyMessage) msg;
             Session session = channel.attr(ConnectManager.USER_ID_KEY).get();
             if (session == null) {
                 return;
@@ -65,8 +66,7 @@ public class NettyServerMsgHandler extends ChannelInboundHandlerAdapter {
                 }
                 message.setUid(session.getUid());
             }
-
-            connectManager.addMessage(message);
+            connectManager.checkMessage(session,message);
         } catch (Exception ex) {
             log.error("将关闭客户端连接...", ex);
             ctx.close();

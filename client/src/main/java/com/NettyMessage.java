@@ -1,0 +1,25 @@
+package com;
+
+
+import com.pojo.Message;
+
+public class NettyMessage extends Message {
+    private int autoIncrease;
+    private long checkCode;
+
+    public int getAutoIncrease() {
+        return autoIncrease;
+    }
+
+    public void setAutoIncrease(int autoIncrease) {
+        this.autoIncrease = autoIncrease;
+    }
+
+    public long getCheckCode() {
+        return checkCode;
+    }
+
+    public void setCheckCode(long checkCode) {
+        this.checkCode = checkCode;
+    }
+}

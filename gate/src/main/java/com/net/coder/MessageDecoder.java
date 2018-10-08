@@ -1,6 +1,7 @@
 package com.net.coder;
 
 import com.pojo.Message;
+import com.pojo.NettyMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -12,7 +13,7 @@ public class MessageDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buffer, List<Object> out) throws Exception {
 
-        if (buffer.readableBytes() < 4) {
+        if (buffer.readableBytes() < 16) {
             return;
         }
 
@@ -26,13 +27,15 @@ public class MessageDecoder extends ByteToMessageDecoder {
         }
 
         // 解析成为消息格式
-        int commandId = buffer.readInt();
+        int msgId = buffer.readInt();
+        int autoIncrease = buffer.readInt();
+        long checkCode = buffer.readLong();
+        NettyMessage pushMsg = new NettyMessage();
+        pushMsg.setId(msgId);
+        pushMsg.setAutoIncrease(autoIncrease);
+        pushMsg.setCheckCode(checkCode);
 
-        Message pushMsg = new Message();
-        pushMsg.setId(commandId);
-
-        // 结算消息长度(总长度 - (自身 + 4byte))
-        int dataSize = length - 4;
+        int dataSize = length - 16;
         if (dataSize > 0) {
             byte[] data = new byte[dataSize];
             buffer.readBytes(data);

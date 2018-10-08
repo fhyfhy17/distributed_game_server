@@ -5,6 +5,7 @@ import com.pojo.Message;
 import io.netty.channel.Channel;
 
 import java.util.Scanner;
+import java.util.zip.CRC32;
 
 public class ClientSession {
     private static final ClientSession session = new ClientSession();
@@ -35,18 +36,24 @@ public class ClientSession {
                         builder.setUsername("aaa");
                         builder.setPassword("1");
 
-                        Message m = new Message();
+                        NettyMessage m = new NettyMessage();
                         m.setId(10001);
                         m.setData(builder.build().toByteArray());
+                        m.setAutoIncrease(getAutoIncrease()+1);
+                        setAutoIncrease(getAutoIncrease()+1);
+                        m.setCheckCode(buildCheckCode(m));
                         channel.writeAndFlush(m);
                     }
 
                     if ("2".equals(line)) {
                         LOGIN_MSG.CTS_TEST.Builder builder = LOGIN_MSG.CTS_TEST.newBuilder();
                         builder.setWord("啊啊等等");
-                        Message m = new Message();
+                        NettyMessage m = new NettyMessage();
                         m.setId(10005);
                         m.setData(builder.build().toByteArray());
+                        m.setAutoIncrease(getAutoIncrease()+1);
+                        setAutoIncrease(getAutoIncrease()+1);
+                        m.setCheckCode(buildCheckCode(m));
                         channel.writeAndFlush(m);
                     }
                 }
@@ -57,7 +64,7 @@ public class ClientSession {
 
     private String uid;
     private Channel channel;
-
+    private static int autoIncrease;
     public String getUid() {
         return uid;
     }
@@ -74,4 +81,17 @@ public class ClientSession {
         this.channel = channel;
     }
 
+    public static int getAutoIncrease() {
+        return autoIncrease;
+    }
+
+    public static void setAutoIncrease(int autoIncrease) {
+        ClientSession.autoIncrease = autoIncrease;
+    }
+
+    private static  long buildCheckCode(NettyMessage message){
+        CRC32 crc32 = new CRC32();
+        crc32.update(message.getData());
+        return crc32.getValue();
+    }
 }

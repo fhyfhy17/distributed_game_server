@@ -9,11 +9,14 @@ import com.manager.ServerInfoManager;
 import com.net.handler.GateMessageHandler;
 import com.pojo.ConnectUser;
 import com.pojo.Message;
+import com.pojo.NettyMessage;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -27,6 +30,8 @@ public class ConnectManager {
     private final ConcurrentHashMap<String, Session> userIdToConnectMap = new ConcurrentHashMap<>();
 
     private MessageGroup m;
+    @Autowired
+    private NettyMessageFilter nettyMessageFilter;
 
     @PostConstruct
     public void startup() {
@@ -99,7 +104,30 @@ public class ConnectManager {
         }
     }
 
-    public void addMessage(Message message) {
+    /**
+     * 包检测
+     */
+    public void checkMessage(Session session, NettyMessage message) {
+        if (!Objects.isNull(nettyMessageFilter)) {
+            // 重复包检测
+            if (!nettyMessageFilter.checkAutoIncrease(session, message)) {
+                return;
+            }
+
+            // 篡改包检测
+            if (!nettyMessageFilter.checkCode(session, message)) {
+                return;
+            }
+        }
+
+        // 解密  //TODO 加解密甚是爽朗
+//        if (session.getPacketEncrypt().isEncrypt()) {
+//            session.getPacketEncrypt().decode(packet.getByteArray(), packet.getIncode());
+//        }
+        addMessage(message);
+    }
+
+    public void addMessage(NettyMessage message) {
         m.messageReceived(message);
     }
 
