@@ -6,6 +6,5 @@ import org.slf4j.LoggerFactory;
 
 
 public class GameMessageHandler extends MessageThreadHandler {
-    final static Logger log = LoggerFactory.getLogger(GameMessageHandler.class);
 
 }

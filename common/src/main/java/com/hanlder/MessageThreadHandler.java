@@ -6,11 +6,11 @@ import com.pojo.Message;
 import com.util.ContextUtil;
 import com.util.SpringUtils;
 import io.vertx.core.logging.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
-
+@Slf4j
 public class MessageThreadHandler implements Runnable {
-    final static io.vertx.core.logging.Logger log = LoggerFactory.getLogger(MessageThreadHandler.class);
     // 执行器ID
     protected String handlerId;
     // 心跳频率10毫秒

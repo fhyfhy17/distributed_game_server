@@ -3,12 +3,12 @@ package com.manager;
 import com.pojo.Message;
 import com.util.SerializeUtil;
 import io.vertx.core.AbstractVerticle;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+@Slf4j
 public class VertxMessageManager extends AbstractVerticle {
     private static VertxMessageManager instance = null;
-    final transient static Logger log = LoggerFactory.getLogger(VertxMessageManager.class);
 
     @Override
     public void start() throws Exception {

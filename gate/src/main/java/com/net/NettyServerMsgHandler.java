@@ -12,11 +12,11 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
-import io.vertx.core.logging.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 @Sharable
+@Slf4j
 public class NettyServerMsgHandler extends ChannelInboundHandlerAdapter {
-    final static io.vertx.core.logging.Logger log = LoggerFactory.getLogger(NettyServerMsgHandler.class);
     private ConnectManager connectManager;
 
     public NettyServerMsgHandler(ConnectManager connectManager) {

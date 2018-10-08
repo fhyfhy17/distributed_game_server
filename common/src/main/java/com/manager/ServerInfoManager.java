@@ -3,15 +3,15 @@ package com.manager;
 import cn.hutool.core.util.RandomUtil;
 import com.enums.ServerTypeEnum;
 import com.pojo.ServerInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-
+@Slf4j
 public class ServerInfoManager {
-    private static final Logger log = LoggerFactory.getLogger(ServerInfoManager.class);
     private static ConcurrentHashMap<String, ServerInfo> serverInfos = new ConcurrentHashMap<>();
 
     public static ConcurrentHashMap<String, ServerInfo> getAllServerInfos() {

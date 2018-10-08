@@ -1,5 +1,6 @@
 package com;
 
+import com.hazelcast.config.Config;
 import com.hazelcast.core.*;
 import com.hazelcast.map.listener.EntryAddedListener;
 import com.manager.ServerInfoManager;
@@ -11,9 +12,10 @@ import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.spi.cluster.hazelcast.HazelcastClusterManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -25,17 +27,19 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 @Component
+@Slf4j
 public abstract class BaseVerticle {
-    final transient static Logger log = LoggerFactory.getLogger(BaseVerticle.class);
     private Vertx vertx;
     @Autowired
     private ServerInfo serverInfo;
-
+    @Autowired
+    @Qualifier("hazelcast")
+    private Config config;
     @PostConstruct
     void init() throws ExecutionException, InterruptedException {
 
         VertxOptions options = new VertxOptions()
-                .setClusterManager(new HazelcastClusterManager());
+                .setClusterManager(new HazelcastClusterManager(config));
         CompletableFuture<Vertx> future = new CompletableFuture<>();
         Vertx.clusteredVertx(options, ar -> {
             if (ar.succeeded()) {
@@ -85,7 +89,7 @@ public abstract class BaseVerticle {
             // 监听其他节点加入
             ServerInfo value = event.getValue();
             ServerInfoManager.addServerInfo(value);
-            System.out.println("来了一个节点" + value.getServerId());
+            log.info("来了一个节点= {}", value.getServerId());
         }, true);
 
 

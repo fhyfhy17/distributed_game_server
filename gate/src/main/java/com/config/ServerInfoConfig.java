@@ -6,6 +6,9 @@ import com.util.ContextUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+
 @Configuration
 public class ServerInfoConfig {
 
@@ -15,5 +18,10 @@ public class ServerInfoConfig {
         serverInfo.setServerType(ServerTypeEnum.GATE);
         serverInfo.setServerId(ContextUtil.id);
         return serverInfo;
+    }
+
+    @Bean
+    public SocketAddress socketAddress() {
+        return new InetSocketAddress(ContextUtil.tcpPort);
     }
 }

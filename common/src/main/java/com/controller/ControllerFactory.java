@@ -1,28 +1,22 @@
 package com.controller;
 
-import com.annotation.Interceptor;
-import com.controller.interceptor.HandlerExecutionChain;
-import com.controller.interceptor.HandlerInterceptor;
 import com.google.common.collect.Maps;
 import com.google.protobuf.Message;
 import com.net.msg.Options;
-import com.util.ReflectionUtil;
 import com.util.SpringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Component
+@Slf4j
 public class ControllerFactory {
 
     private Map<Integer, ControllerHandler> controllerMap = Maps.newHashMap();
-    private HandlerExecutionChain handlerExecutionChain;
-
 
     @PostConstruct
     private void init() {
@@ -41,7 +35,7 @@ public class ControllerFactory {
                             int msgId = msgBuilder.build().getDescriptorForType().getOptions().getExtension(Options.messageId);
                             controllerMap.put(msgId, new ControllerHandler(controller, method, msgId));
                         } catch (IllegalAccessException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException e) {
-                            e.printStackTrace();
+                            log.error("", e);
                         }
                         break;
                     }

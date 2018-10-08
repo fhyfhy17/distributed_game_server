@@ -8,17 +8,17 @@ import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.net.msg.LOGIN_MSG;
 import com.pojo.Message;
+import lombok.Cleanup;
+import lombok.extern.slf4j.Slf4j;
 import org.objenesis.strategy.StdInstantiatorStrategy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 
+@Slf4j
 public class SerializeUtil {
-    final static Logger log = LoggerFactory.getLogger(SerializeUtil.class);
     private static Kryo k = new Kryo();
 
     static {
@@ -75,27 +75,18 @@ public class SerializeUtil {
     public static String kryoMts(Message m) {
 
 
-        byte[] bys;
-        Output output = null;
-        ByteArrayOutputStream baos = null;
-        try {
-            baos = new ByteArrayOutputStream();
-            output = new Output(baos);
+        byte[] bys = null;
+
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            @Cleanup Output output = new Output(baos);
             k.writeObject(output, m);
             output.flush();
             bys = baos.toByteArray();
-        } finally {
-            if (output != null) {
-                output.close();
-            }
-            if (baos != null) {
-                try {
-                    baos.close();
-                } catch (IOException e) {
-                    log.error("", e);
-                }
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+
         return new String(java.util.Base64.getEncoder().encode(bys));
     }
 
@@ -147,7 +138,7 @@ public class SerializeUtil {
         m.setUid(sb.toString());
         byte[] bbb = new byte[8];
         m.setData(bbb);
-        int count = 1000;
+        int count = 10000;
 
         String kryoString = kryoMts(m);
         long start2 = System.currentTimeMillis();

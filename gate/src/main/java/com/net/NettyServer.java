@@ -11,6 +11,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ import java.net.SocketAddress;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Component
+@Slf4j
 public class NettyServer {
     @Autowired
     private SocketAddress socketAddress;
@@ -29,7 +31,7 @@ public class NettyServer {
 
 
     public void init() {
-        System.out.println("启动netty");
+        log.info("启动netty");
         if (started.compareAndSet(false, true)) {
             bossGroup = new NioEventLoopGroup();
             workerGroup = new NioEventLoopGroup();
@@ -53,7 +55,7 @@ public class NettyServer {
 
                 f.channel().closeFuture().sync();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error("", e);
             } finally {
                 workerGroup.shutdownGracefully();
                 bossGroup.shutdownGracefully();

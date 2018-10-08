@@ -109,6 +109,7 @@ public class ConnectManager {
      * @param uid
      * @return
      */
+    //TODO 待写
     private boolean loginMultipleCheck(String uid, String sessionId) {
         if (userIdToConnectMap.containsKey(uid)) {
             Session session = userIdToConnectMap.get(uid);

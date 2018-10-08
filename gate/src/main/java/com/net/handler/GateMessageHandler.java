@@ -12,13 +12,14 @@ import com.net.msg.Options;
 import com.pojo.ConnectUser;
 import com.pojo.Message;
 import com.util.ContextUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class GateMessageHandler extends MessageThreadHandler {
-    final static Logger log = LoggerFactory.getLogger(MessageThreadHandler.class);
 
     @Override
     public void pulse() {

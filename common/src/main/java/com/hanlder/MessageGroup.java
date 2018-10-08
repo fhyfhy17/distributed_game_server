@@ -1,15 +1,15 @@
 package com.hanlder;
 
 import com.pojo.Message;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 public abstract class MessageGroup {
 
-    final transient static Logger log = LoggerFactory.getLogger(MessageGroup.class);
     private volatile boolean running = false;
     private int handlerCount = 16; // 执行器数量
     private String name;
