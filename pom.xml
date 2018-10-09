@@ -23,6 +23,7 @@
         <boot.version>2.0.0.RELEASE</boot.version>
         <vertx.version>3.5.1</vertx.version>
         <spring.mybatis.version>1.3.2</spring.mybatis.version>
+        <ignite.version>2.6.0</ignite.version>
     </properties>
 
     <dependencyManagement>
@@ -53,6 +54,28 @@
             <artifactId>vertx-hazelcast</artifactId>
             <version>${vertx.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.ignite</groupId>
+            <artifactId>ignite-core</artifactId>
+            <version>${ignite.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ignite</groupId>
+            <artifactId>ignite-spring</artifactId>
+            <version>${ignite.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ignite</groupId>
+            <artifactId>ignite-indexing</artifactId>
+            <version>${ignite.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ignite</groupId>
+            <artifactId>ignite-spring-data</artifactId>
+            <version>${ignite.version}</version>
+        </dependency>
+
 
     </dependencies>
     <build>
