@@ -1,35 +1,23 @@
 package com.manager;
 
 import cn.hutool.core.util.RandomUtil;
+import com.Constant;
+import com.alibaba.fastjson.JSON;
 import com.enums.ServerTypeEnum;
 import com.pojo.ServerInfo;
+import com.util.ContextUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+
 @Slf4j
 public class ServerInfoManager {
-    private static ConcurrentHashMap<String, ServerInfo> serverInfos = new ConcurrentHashMap<>();
 
-    public static ConcurrentHashMap<String, ServerInfo> getAllServerInfos() {
-        return serverInfos;
-    }
 
-    public static void addServerInfo(ServerInfo serverInfo) {
-        if (serverInfo != null) {
-            ServerInfoManager.serverInfos.put(serverInfo.getServerId(), serverInfo);
-        }
-        log.info("增加节点={} 所有节点={}", serverInfo.getServerId(), ServerInfoManager.serverInfos.values());
-    }
+    public static List<ServerInfo> getAllServerInfos() {
 
-    public static void removeServerInfo(String serverId) {
-        if (serverId != null) {
-            serverInfos.remove(serverId);
-        }
-        log.info("删除节点={} 所有节点={}", serverId, serverInfos.values());
+        return ContextUtil.ignite.cluster().forServers().nodes().stream().map(x -> x.<ServerInfo>attribute(Constant.SERVER_INFO)).collect(Collectors.toList());
     }
 
 
@@ -37,21 +25,22 @@ public class ServerInfoManager {
      * 随机一个服务
      */
     public static ServerInfo randomServerInfo(ServerTypeEnum serverType) {
-        List<ServerInfo> list = serverInfos.values().stream().filter(
+        List<ServerInfo> list = getAllServerInfos().stream().filter(
                 x -> x.getServerType() == serverType
         ).collect(Collectors.toList());
         return list.size() < 1 ? null : RandomUtil.randomEle(list);
     }
 
     public static List<ServerInfo> getServerInfosByType(ServerTypeEnum serverType) {
-        return serverInfos.values().stream().filter(
+        return getAllServerInfos().stream().filter(
                 x -> x.getServerType() == serverType
         ).collect(Collectors.toList());
     }
 
     public static ServerInfo getServerInfo(String serverId) {
-        return serverInfos.values().stream().filter(
-                x -> x.getServerId() == serverId
+
+        return getAllServerInfos().stream().filter(
+                x -> x.getServerId().equals(serverId)
         ).findAny().orElse(null);
     }
 
@@ -64,6 +53,12 @@ public class ServerInfoManager {
         int index = uid.hashCode() % list.size();
         ServerInfo info = list.get(index);
         return info.getServerId();
+    }
+
+    public static void printServerStatus(ServerInfo serverInfo, boolean join) {
+        String action = join ? "加入" : "离开";
+        log.info(action + " 服务器 serverType= {} , serverId= {}", serverInfo.getServerId(), serverInfo.getServerType());
+        log.info("当前所有的服务器={}", getAllServerInfos());
     }
 
 }
