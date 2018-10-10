@@ -48,9 +48,7 @@ public class GateMessageHandler extends MessageThreadHandler {
             }
             VertxMessageManager.sendMessage(loginServerId, message);
         } else if (message.getId() > Constant.GAME_PROTO_BEGIN) {
-            //TODO 这样每次发消息，都有可能有一个内网查询map 的过程。。。以后试着改善一下吧
-            ConnectUser connectUser = ConnectUserManger.getConnectUser(message.getUid());
-
+            ConnectUser connectUser = ConnectUserManger.getConnectUserCache().get(message.getUid());
             VertxMessageManager.sendMessage(connectUser.getGameId(), message);
         } else {
 

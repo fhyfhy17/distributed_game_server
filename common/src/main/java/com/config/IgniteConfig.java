@@ -2,6 +2,7 @@ package com.config;
 
 import com.Constant;
 import com.alibaba.fastjson.JSON;
+import com.enums.CacheNameEnum;
 import com.google.common.collect.ImmutableMap;
 import com.manager.ServerInfoManager;
 import com.pojo.ServerInfo;
@@ -49,7 +50,13 @@ public class IgniteConfig {
         cacheConfiguration.setAtomicityMode(CacheAtomicityMode.ATOMIC);
         cacheConfiguration.setCacheMode(CacheMode.REPLICATED);
         cacheConfiguration.setWriteSynchronizationMode(CacheWriteSynchronizationMode.FULL_SYNC);
-        cfg.setCacheConfiguration(cacheConfiguration);
+
+        CacheConfiguration sessionConfiguration = new CacheConfiguration();
+        sessionConfiguration.setName(CacheNameEnum.session.name());
+        sessionConfiguration.setCacheMode(CacheMode.REPLICATED);//复制和 entryprocess有啥关系吗
+
+
+        cfg.setCacheConfiguration(cacheConfiguration,sessionConfiguration);
 
 
         TcpDiscoverySpi discoverySpi = new TcpDiscoverySpi();
@@ -66,7 +73,6 @@ public class IgniteConfig {
         Ignite ignite = Ignition.start(cfg);
 
 
-//        ignite.configuration().setUserAttributes(Collections.singletonMap(Constant.SERVER_INFO,serverInfo));
         // 监听打印信息
         ignite.events(ignite.cluster().forLocal()).remoteListen(null, (IgnitePredicate<DiscoveryEvent>) event -> {
             ServerInfo serverInfo =event.eventNode().attribute(Constant.SERVER_INFO);
