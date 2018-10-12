@@ -1,14 +1,9 @@
 package com.util;
 
-import com.annotation.Interceptor;
-import com.controller.interceptor.HandlerInterceptor;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.reflections.Reflections;
 
 import java.lang.annotation.Annotation;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ReflectionUtil {
 

@@ -28,7 +28,7 @@ public class LoginController extends BaseController {
             connectUser.setGateId(context.getFrom());
             //保存sessionId信息,登录成功之前,messeage里的uid就是sessionId
             connectUser.setSessionId(context.getUid());
-            ConnectUserManger.getConnectUserCache().put(user.getUid(),connectUser);
+            ConnectUserManger.saveConnectUser(connectUser);
 
             builder.setUid(user.getUid());
             builder.setSuc(true);

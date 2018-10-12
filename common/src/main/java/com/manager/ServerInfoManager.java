@@ -2,8 +2,9 @@ package com.manager;
 
 import cn.hutool.core.util.RandomUtil;
 import com.Constant;
-import com.alibaba.fastjson.JSON;
 import com.enums.ServerTypeEnum;
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
 import com.pojo.ServerInfo;
 import com.util.ContextUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +17,8 @@ public class ServerInfoManager {
 
 
     public static List<ServerInfo> getAllServerInfos() {
-
-        return ContextUtil.ignite.cluster().forServers().nodes().stream().map(x -> x.<ServerInfo>attribute(Constant.SERVER_INFO)).collect(Collectors.toList());
+        HazelcastInstance ins = Hazelcast.getHazelcastInstanceByName(ContextUtil.id);
+        return ins.getCluster().getMembers().stream().map(x -> (ServerInfo) x.getAttributes().get(Constant.SERVER_INFO)).collect(Collectors.toList());
     }
 
 

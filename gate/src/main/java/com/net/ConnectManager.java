@@ -67,11 +67,11 @@ public class ConnectManager {
         session.setUid(uid);
         //绑定一个game服务器
         //保存gameId信息
+        ConnectUser connectUser = ConnectUserManger.getConnectUser(uid);
         String gameId = ServerInfoManager.hashChooseServer(uid, ServerTypeEnum.GAME);
-        session.setGameId(gameId);
-        ConnectUser connectUser = ConnectUserManger.getConnectUserCache().get(uid);
         connectUser.setGameId(gameId);
-        ConnectUserManger.getConnectUserCache().put(uid,connectUser);
+        session.setGameId(gameId);
+        ConnectUserManger.saveConnectUser(connectUser);
         this.userIdToConnectMap.put(uid, session);
         return session;
     }

@@ -1,16 +1,24 @@
 package com.manager;
 
-import com.enums.CacheNameEnum;
+import com.Constant;
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.IMap;
 import com.pojo.ConnectUser;
 import com.util.ContextUtil;
-import org.apache.ignite.IgniteCache;
 
 
 public class ConnectUserManger {
-    public static IgniteCache<String, ConnectUser> getConnectUserCache() {
+    public static ConnectUser getConnectUser(String uid) {
+        HazelcastInstance ins = Hazelcast.getHazelcastInstanceByName(ContextUtil.id);
+        IMap<String, ConnectUser> map = ins.getMap(Constant.CONNECT_USER_MAP);
+        return map.get(uid);
+    }
 
-        IgniteCache<String, ConnectUser> cache = ContextUtil.ignite.cache(CacheNameEnum.session.name());
-        return cache;
+    public static void saveConnectUser(ConnectUser connectUser) {
+        HazelcastInstance ins = Hazelcast.getHazelcastInstanceByName(ContextUtil.id);
+        IMap<String, ConnectUser> map = ins.getMap(Constant.CONNECT_USER_MAP);
+        map.put(connectUser.getUid(), connectUser);
     }
 
 

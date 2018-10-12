@@ -4,8 +4,6 @@ import com.pojo.Message;
 import com.util.SerializeUtil;
 import io.vertx.core.AbstractVerticle;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 @Slf4j
 public class VertxMessageManager extends AbstractVerticle {
     private static VertxMessageManager instance = null;
@@ -21,8 +19,8 @@ public class VertxMessageManager extends AbstractVerticle {
     }
 
 
-    private static void sendMessageToServer(String queue, String msg) {
-        log.info("发送消息到集群，目标= {}，消息= {}", queue, msg);
+    private static void sendMessageToServer(String queue, byte[] msg) {
+        log.info("发送消息到集群，目标= {}", queue);
         try {
             instance.vertx.eventBus().send(queue, msg, rf -> {
                 if (rf.succeeded()) {

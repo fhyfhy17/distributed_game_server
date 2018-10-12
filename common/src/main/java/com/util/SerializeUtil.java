@@ -10,12 +10,10 @@ import com.net.msg.LOGIN_MSG;
 import com.pojo.Message;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
-import org.objenesis.strategy.StdInstantiatorStrategy;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Base64;
 
 @Slf4j
 public class SerializeUtil {
@@ -24,43 +22,42 @@ public class SerializeUtil {
     static {
         k.register(Message.class);
         k.setReferences(true);
-        k.setInstantiatorStrategy(new StdInstantiatorStrategy());
+//        k.setInstantiatorStrategy(new );
 
     }
 
-
-    //TODO 有机会还是要换个序列化方式 ，json还是太挫
-    //TODO 打脸 实际结果fastjson一点都不挫。比 gson kryo proto protostuff都要快得多,体积也小很小~~~~
-
-
     //kyro 1  proto 2 fast 3
-    public static final int type = 3;
+    public static final int type = 2;
 
 
-    public static Message stm(String s) {
+    public static Message stm(byte[] s) {
         if (type == 1) {
             return kryoStm(s);
-        } else if (type == 2) {
+        }
+        else if (type == 2) {
             return protoStm(s);
         } else {
             return fastStm(s);
         }
+//        return null;
     }
 
-    public static String mts(Message m) {
+    public static byte[] mts(Message m) {
         if (type == 1) {
             return kryoMts(m);
-        } else if (type == 2) {
+        }
+        else if (type == 2) {
             return protoMts(m);
         } else {
             return fastMts(m);
         }
+//        return null;
     }
 
-    public static Message kryoStm(String s) {
+    public static Message kryoStm(byte[] s) {
         Message m = null;
         try (
-                ByteArrayInputStream bais = new ByteArrayInputStream(java.util.Base64.getDecoder().decode(s.getBytes()));
+                ByteArrayInputStream bais = new ByteArrayInputStream(s);
                 Input input = new Input(bais)
 
         ) {
@@ -72,7 +69,7 @@ public class SerializeUtil {
         return m;
     }
 
-    public static String kryoMts(Message m) {
+    public static byte[] kryoMts(Message m) {
 
 
         byte[] bys = null;
@@ -87,33 +84,34 @@ public class SerializeUtil {
         }
 
 
-        return new String(java.util.Base64.getEncoder().encode(bys));
+        return bys;
     }
 
 
-    public static String fastMts(Message m) {
-        return JSON.toJSONString(m);
+    public static byte[] fastMts(Message m) {
+        String s = JSON.toJSONString(m);
+        return s.getBytes();
     }
 
-    public static Message fastStm(String s) {
+    public static Message fastStm(byte[] s) {
         return JSON.parseObject(s, Message.class);
     }
 
     static LOGIN_MSG.MyMessage.Builder builder = LOGIN_MSG.MyMessage.newBuilder();
 
-    public static String protoMts(Message m) {
-
+    public static byte[] protoMts(Message m) {
         builder.setUid(m.getUid());
         builder.setId(m.getId());
         builder.setData(ByteString.copyFrom(m.getData()));
         builder.setFrom(m.getFrom());
-        return new String(Base64.getEncoder().encode(builder.build().toByteArray()));
+        byte[] bytes = builder.build().toByteArray();
+        return bytes;
     }
 
-    public static Message protoStm(String s) {
+    public static Message protoStm(byte[] s) {
         Message m2 = new Message();
         try {
-            LOGIN_MSG.MyMessage m = LOGIN_MSG.MyMessage.parseFrom(Base64.getDecoder().decode(s.getBytes()));
+            LOGIN_MSG.MyMessage m = LOGIN_MSG.MyMessage.parseFrom(s);
 
             m2.setId(m.getId());
             m2.setUid(m.getUid());
@@ -129,18 +127,18 @@ public class SerializeUtil {
 
     public static void main(String[] args) throws IOException {
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 10; i++) {
             sb.append("这是测试");
         }
         Message m = new Message();
         m.setId(1);
         m.setFrom("a");
         m.setUid(sb.toString());
-        byte[] bbb = new byte[8];
+        byte[] bbb = new byte[800];
         m.setData(bbb);
         int count = 10000;
 
-        String kryoString = kryoMts(m);
+        byte[] kryoString = kryoMts(m);
         long start2 = System.currentTimeMillis();
         for (int i = 0; i < count; i++) {
             kryoMts(m);
@@ -174,7 +172,7 @@ public class SerializeUtil {
         log.info("kryo String to msg  = {}", (end4 - start4));
 
 
-        String fastString = fastMts(m);
+        byte[] fastString = fastMts(m);
         long start6 = System.currentTimeMillis();
         for (int i = 0; i < count; i++) {
             fastStm(fastString);
@@ -183,7 +181,7 @@ public class SerializeUtil {
         log.info("fast String to msg = {}", (end6 - start6));
 
 
-        String protoString = protoMts(m);
+        byte[] protoString = protoMts(m);
         long start12 = System.currentTimeMillis();
         for (int i = 0; i < count; i++) {
             protoStm(protoString);
@@ -191,9 +189,9 @@ public class SerializeUtil {
         long end12 = System.currentTimeMillis();
         log.info("proto String to msg = {}", (end12 - start12));
 
-        log.info("kryo String大小 = {}", kryoString.length());
-        log.info("fast String大小 = {}", fastString.length());
-        log.info("prorto String大小 = {}", protoString.length());
+        log.info("kryo String大小 = {}", kryoString.length);
+        log.info("fast String大小 = {}", fastString.length);
+        log.info("prorto String大小 = {}", protoString.length);
 
     }
 }

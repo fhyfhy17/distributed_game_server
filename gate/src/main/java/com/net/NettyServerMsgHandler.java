@@ -1,10 +1,8 @@
 package com.net;
 
 
-import com.hazelcast.util.StringUtil;
 import com.net.msg.LOGIN_MSG;
 import com.net.msg.Options;
-import com.pojo.Message;
 import com.pojo.NettyMessage;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler.Sharable;
@@ -14,6 +12,7 @@ import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 @Sharable
 @Slf4j
@@ -60,7 +59,7 @@ public class NettyServerMsgHandler extends ChannelInboundHandlerAdapter {
                 message.setUid(session.getId());
 
             } else {
-                if (StringUtil.isNullOrEmpty(session.getUid())) {
+                if (StringUtils.isEmpty(session.getUid())) {
                     //TODO 返回消息，请登录
                     return;
                 }

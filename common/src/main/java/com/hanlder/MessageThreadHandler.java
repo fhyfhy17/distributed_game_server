@@ -5,7 +5,6 @@ import com.controller.interceptor.HandlerExecutionChain;
 import com.pojo.Message;
 import com.util.ContextUtil;
 import com.util.SpringUtils;
-import io.vertx.core.logging.LoggerFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
