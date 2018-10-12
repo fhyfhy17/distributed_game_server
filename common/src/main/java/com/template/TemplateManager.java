@@ -7,22 +7,24 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import javax.annotation.PostConstruct;
+import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
 public class TemplateManager {
     @Autowired
     private TemplateLoader loader;
+    private Map<Class<? extends AbstractTemplate>, Map<Long, AbstractTemplate>> templates = new HashMap<>();
 
     /**
      * 加载模板数据的过程.
      */
+    @PostConstruct
     public void load() {
         Map<String, Object> templates = SpringUtils.getBeansWithAnnotation(Template.class);
         for (Map.Entry<String, Object> t : templates.entrySet()) {
@@ -34,28 +36,29 @@ public class TemplateManager {
                 continue;
             }
             Template templateAnno = o.getClass().getAnnotation(Template.class);
-
-
-            try (InputStream is = Files.newInputStream(Paths.get("templates/", templateAnno.path()), StandardOpenOption.READ)) {
-                loader.loadTemplate(is,((AbstractTemplate)o).getClass(),templateAnno.path());
-            } catch (IOException e) {
-                log.error("", e);
-            }
+            File file = new File(this.getClass().getResource("/templates/" + templateAnno.path()).getFile());
+            Class<? extends AbstractTemplate> subclass = o.getClass().asSubclass(AbstractTemplate.class);
+            this.templates.put(subclass,
+                    loader.loadTemplate(file, subclass)
+                            .stream()
+                            .collect(Collectors.toMap(AbstractTemplate::getId, Function.identity())));
 
         }
-        for (Object o : templates.values()) {
-            if (!(o instanceof AbstractTemplate)) {
-                log.error("非模板类");
-                continue;
-            }
-//            try (InputStream is = Files.newInputStream(Paths.get("templates/", file.value()), StandardOpenOption.READ)) {
-//
-//            }
-        }
-
     }
 
-    public void check() {
+    public Map<Class<? extends AbstractTemplate>, Map<Long, AbstractTemplate>> getTemplates() {
+        return this.templates;
+    }
 
+    public <T extends AbstractTemplate> Map<Long, T> getTemplateMap(Class<? extends T> clazz) {
+        return (Map<Long, T>) this.templates.get(clazz);
+    }
+
+    public <T extends AbstractTemplate> T getTemplate(Class<? extends T> clazz, Long id) {
+        return (T) this.templates.get(clazz).get(id);
+    }
+
+    public <T extends AbstractTemplate> T getTemplateSingle(Class<? extends T> clazz) {
+        return (T) this.templates.get(clazz).entrySet().iterator().next().getValue();
     }
 }
