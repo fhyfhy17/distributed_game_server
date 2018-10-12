@@ -31,15 +31,16 @@ public class TemplateLoader {
 
             while (it.hasNext()) {
                 T t = clazz.newInstance();
+                if (ts.stream().anyMatch(x -> x.getId() == t.getId())) {
+                    log.error("文件= {} 发现重复ID= {} ", file.getName(), t.getId());
+                    continue;
+                }
                 for (Object elem : it.next().getAttributes()) {
                     Attribute attr = (Attribute) elem;
                     String value = (null == attr.getValue()) ? "" : attr.getValue().trim();
                     setProperties(t, attr.getName(), value);
                 }
-                if (ts.stream().anyMatch(x -> x.getId() == t.getId())) {
-                    log.error("文件= {} 发现重复ID= {} ", file.getName(), t.getId());
-                    continue;
-                }
+
                 ts.add(t);
             }
 
