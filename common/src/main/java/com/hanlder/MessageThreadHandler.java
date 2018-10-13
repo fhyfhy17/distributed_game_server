@@ -50,18 +50,18 @@ public class MessageThreadHandler implements Runnable {
                 Message message = pulseQueues.poll();
                 final int cmdId = message.getId();
 
-                ControllerHandler m = ContextUtil.controllerFactory.getControllerMap().get(cmdId);
-                if (m == null) {
+                ControllerHandler handler = ContextUtil.controllerFactory.getControllerMap().get(cmdId);
+                if (handler == null) {
                     throw new IllegalStateException("收到不存在的消息，消息ID=" + cmdId);
                 }
                 //拦截器前
-                if (!HandlerExecutionChain.applyPreHandle(message, m)) {
+                if (!HandlerExecutionChain.applyPreHandle(message, handler)) {
                     continue;
                 }
                 //针对method的每个参数进行处理， 处理多参数,返回result
-                com.google.protobuf.Message result = (com.google.protobuf.Message) m.invokeForController(message);
+                com.google.protobuf.Message result = (com.google.protobuf.Message) handler.invokeForController(message);
                 //拦截器后
-                HandlerExecutionChain.applyPostHandle(message, result, m);
+                HandlerExecutionChain.applyPostHandle(message, result, handler);
             } catch (Exception e) {
                 log.error("", e);
             }
