@@ -1,10 +1,8 @@
 package com;
 
 import com.hazelcast.config.Config;
-import com.manager.VertxMessageManager;
 import com.pojo.ServerInfo;
 import com.util.SerializeUtil;
-import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.eventbus.EventBus;
@@ -49,12 +47,8 @@ public abstract class BaseVerticle {
     public void start() {
         log.info("启动vertx");
         EventBus eventBus = vertx.eventBus();
-
-//        vertx.deployVerticle(VertxMessageManager.class, new DeploymentOptions().setWorker(true));
         eventBus.consumer(serverInfo.getServerId(),
                 msg -> getReceiver().onReceive(SerializeUtil.stm((byte[]) msg.body())));
-
-
     }
 
     @Bean(destroyMethod = "")

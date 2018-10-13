@@ -1,17 +1,18 @@
 package com.controller.interceptor.handlerInterceptorImpl;
 
-import com.annotation.Interceptor;
 import com.controller.ControllerHandler;
 import com.controller.interceptor.HandlerInterceptor;
 import com.manager.VertxMessageManager;
 import com.net.msg.Options;
 import com.pojo.Message;
 import com.util.ContextUtil;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
+
+@Order(5)
 @Component
-@Interceptor(order =5)
 //结果拦截器 （根据执行完消息返回的结果，执行回消息操作）
 public class ResultReplyInterceptor implements HandlerInterceptor {
     @Override

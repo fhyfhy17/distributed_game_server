@@ -4,10 +4,10 @@ import com.controller.ControllerHandler;
 import com.controller.interceptor.HandlerExecutionChain;
 import com.pojo.Message;
 import com.util.ContextUtil;
-import com.util.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+
 @Slf4j
 public class MessageThreadHandler implements Runnable {
     // 执行器ID
@@ -17,7 +17,6 @@ public class MessageThreadHandler implements Runnable {
 
 
     protected final ConcurrentLinkedQueue<Message> pulseQueues = new ConcurrentLinkedQueue<>();
-
 
     @Override
     public void run() {
@@ -55,14 +54,14 @@ public class MessageThreadHandler implements Runnable {
                 if (m == null) {
                     throw new IllegalStateException("收到不存在的消息，消息ID=" + cmdId);
                 }
-                HandlerExecutionChain chain = SpringUtils.getBean(HandlerExecutionChain.class);
-                chain.setHandler(m);
-                if (!chain.applyPreHandle(message)) {
+                //拦截器前
+                if (!HandlerExecutionChain.applyPreHandle(message, m)) {
                     continue;
                 }
                 //针对method的每个参数进行处理， 处理多参数,返回result
                 com.google.protobuf.Message result = (com.google.protobuf.Message) m.invokeForController(message);
-                chain.applyPostHandle(message, result);
+                //拦截器后
+                HandlerExecutionChain.applyPostHandle(message, result, m);
             } catch (Exception e) {
                 log.error("", e);
             }
