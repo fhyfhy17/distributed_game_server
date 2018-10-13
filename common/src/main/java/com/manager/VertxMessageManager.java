@@ -2,17 +2,16 @@ package com.manager;
 
 import com.pojo.Message;
 import com.util.SerializeUtil;
-import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Vertx;
 import lombok.extern.slf4j.Slf4j;
-@Slf4j
-public class VertxMessageManager extends AbstractVerticle {
-    private static VertxMessageManager instance = null;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-    @Override
-    public void start() throws Exception {
-        super.start();
-        instance = this;
-    }
+@Slf4j
+@Component
+public class VertxMessageManager {
+
+    private static Vertx vertx;
 
     public static void sendMessage(String queue, Message message) {
         sendMessageToServer(queue, SerializeUtil.mts(message));
@@ -22,7 +21,7 @@ public class VertxMessageManager extends AbstractVerticle {
     private static void sendMessageToServer(String queue, byte[] msg) {
         log.info("发送消息到集群，目标= {}", queue);
         try {
-            instance.vertx.eventBus().send(queue, msg, rf -> {
+            vertx.eventBus().send(queue, msg, rf -> {
                 if (rf.succeeded()) {
 
                 }
@@ -32,4 +31,8 @@ public class VertxMessageManager extends AbstractVerticle {
         }
     }
 
+    @Autowired
+    public void setVertx(Vertx vertx) {
+        VertxMessageManager.vertx = vertx;
+    }
 }

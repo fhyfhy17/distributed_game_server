@@ -2,14 +2,18 @@ package com.util;
 
 import com.alibaba.fastjson.JSON;
 import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import com.esotericsoftware.kryo.serializers.DefaultSerializers;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.net.msg.LOGIN_MSG;
 import com.pojo.Message;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
+import org.objenesis.strategy.SerializingInstantiatorStrategy;
+import org.objenesis.strategy.StdInstantiatorStrategy;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -22,7 +26,9 @@ public class SerializeUtil {
     static {
         k.register(Message.class);
         k.setReferences(true);
-//        k.setInstantiatorStrategy(new );
+        k.setInstantiatorStrategy(new StdInstantiatorStrategy());
+        k.setDefaultSerializer(DefaultSerializers.ByteSerializer.class);
+
 
     }
 
@@ -136,7 +142,7 @@ public class SerializeUtil {
         m.setUid(sb.toString());
         byte[] bbb = new byte[800];
         m.setData(bbb);
-        int count = 10000;
+        int count = 100000;
 
         byte[] kryoString = kryoMts(m);
         long start2 = System.currentTimeMillis();

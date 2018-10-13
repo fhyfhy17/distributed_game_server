@@ -50,7 +50,7 @@ public abstract class BaseVerticle {
         log.info("启动vertx");
         EventBus eventBus = vertx.eventBus();
 
-        vertx.deployVerticle(VertxMessageManager.class, new DeploymentOptions().setWorker(true).setInstances(3));
+//        vertx.deployVerticle(VertxMessageManager.class, new DeploymentOptions().setWorker(true));
         eventBus.consumer(serverInfo.getServerId(),
                 msg -> getReceiver().onReceive(SerializeUtil.stm((byte[]) msg.body())));
 
