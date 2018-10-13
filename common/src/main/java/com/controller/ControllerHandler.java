@@ -42,8 +42,7 @@ public class ControllerHandler {
         Object[] args = new Object[parameters.length];
         for (int i = 0; i < args.length; i++) {
             MethodParameter methodParameter = this.parameters[i];
-            ResolverManager resolverManager = SpringUtils.getBean(ResolverManager.class);
-            Object o = resolverManager.resolve(methodParameter, message);
+            Object o = ResolverManager.resolve(methodParameter, message);
             if (Objects.isNull(o)) {
                 throw new IllegalArgumentException("出现了不支持的参数 = " + methodParameter);
             }

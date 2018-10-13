@@ -2,8 +2,8 @@ package com.controller.resolver;
 
 import com.pojo.Message;
 
-//TODO 还要再支持一个Player参数实现！！！！
-//TODO 再做个拦截器~~~ 实现 白名单黑名单功能好不
+//TODO Player参数实现
+//TODO 拦截器可以实现 白名单黑名单功能，类似于多少级以下的不能访问某些协议之类的
 public interface ActionMethodArgumentResolver {
 
     boolean supportsParameter(MethodParameter parameter);
