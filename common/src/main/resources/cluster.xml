@@ -152,5 +152,7 @@
     <semaphore name="__vertx.*">
         <initial-permits>1</initial-permits>
     </semaphore>
-
+    <!--<listeners>-->
+        <!--<listener>com.config.ClusterMembershipListener</listener>-->
+    <!--</listeners>-->
 </hazelcast>

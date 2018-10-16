@@ -12,6 +12,7 @@ public class ContextUtil {
 
     public static int tcpPort;
 
+
     public static ControllerFactory controllerFactory;
 
     @Value("${server.serverId}")

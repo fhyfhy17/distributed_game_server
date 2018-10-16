@@ -1,10 +1,7 @@
 package com.config;
 
 import com.Constant;
-import com.hazelcast.config.ClasspathXmlConfig;
-import com.hazelcast.config.Config;
-import com.hazelcast.config.InterfacesConfig;
-import com.hazelcast.config.TcpIpConfig;
+import com.hazelcast.config.*;
 import com.pojo.ServerInfo;
 import com.util.ContextUtil;
 import com.util.IpUtil;
@@ -38,7 +35,8 @@ public class HazelCastConfig {
 
         interfaces.setEnabled(true);
         interfaces.addInterface("192.168.*.*");
-
+        classpathXmlConfig.addListenerConfig(
+                new ListenerConfig( "com.config.ClusterMembershipListener" ) );
         return classpathXmlConfig;
     }
 }
