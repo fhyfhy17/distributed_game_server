@@ -108,11 +108,19 @@ public class ConnectManager {
      * 包检测
      */
     long start;
+    int count;
     public void checkMessage(Session session, NettyMessage message) {
-        if(session.getAutoIncrease()==5){
-            start=System.currentTimeMillis();
+        if(message.getId()==10001){
+            start=0;
+        }else{
+            if(start==0){
+                start =System.currentTimeMillis();
+                count=0;
+            }
         }
-        if(session.getAutoIncrease()==1000000){
+        count++;
+
+        if(count==100000){
             log.info("完成，共用时 ={}",System.currentTimeMillis()-start);
         }
         if (!Objects.isNull(nettyMessageFilter)) {

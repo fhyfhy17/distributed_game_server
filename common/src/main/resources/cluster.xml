@@ -29,8 +29,8 @@
                 <multicast-port>54327</multicast-port>
             </multicast>
             <!--<tcp-ip enabled="true">-->
-                <!--&lt;!&ndash;<interface>192.168.1.4</interface>&ndash;&gt;-->
-                <!--<interface>192.168.56.1</interface>-->
+            <!--&lt;!&ndash;<interface>192.168.1.4</interface>&ndash;&gt;-->
+            <!--<interface>192.168.56.1</interface>-->
             <!--</tcp-ip>-->
             <aws enabled="false">
                 <access-key>my-access-key</access-key>
@@ -153,6 +153,6 @@
         <initial-permits>1</initial-permits>
     </semaphore>
     <!--<listeners>-->
-        <!--<listener>com.config.ClusterMembershipListener</listener>-->
+    <!--<listener>com.config.ClusterMembershipListener</listener>-->
     <!--</listeners>-->
 </hazelcast>
