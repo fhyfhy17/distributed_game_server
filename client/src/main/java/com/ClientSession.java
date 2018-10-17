@@ -45,7 +45,7 @@ public class ClientSession {
                     }
 
                     if ("2".equals(line)) {
-                        for (int i = 0; i < 100000; i++) {
+                        for (int i = 0; i < 1000000; i++) {
                             LOGIN_MSG.CTS_TEST.Builder builder = LOGIN_MSG.CTS_TEST.newBuilder();
                             builder.setWord("啊啊等等");
                             NettyMessage m = new NettyMessage();

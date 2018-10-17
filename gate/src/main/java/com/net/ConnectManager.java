@@ -120,7 +120,7 @@ public class ConnectManager {
         }
         count++;
 
-        if(count==100000){
+        if(count==1000000){
             log.info("完成，共用时 ={}",System.currentTimeMillis()-start);
         }
         if (!Objects.isNull(nettyMessageFilter)) {
