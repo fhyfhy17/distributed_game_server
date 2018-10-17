@@ -5,7 +5,7 @@ import com.hazelcast.core.Member;
 import com.hazelcast.core.MemberAttributeEvent;
 import com.hazelcast.core.MembershipEvent;
 import com.hazelcast.core.MembershipListener;
-import com.manager.ServerInfoManager;
+import com.manager.ServerManager;
 import com.pojo.ServerInfo;
 
 public class ClusterMembershipListener
@@ -15,7 +15,7 @@ public class ClusterMembershipListener
 
         if (!membershipEvent.getMember().localMember()) {
             Member member = membershipEvent.getMember();
-            ServerInfoManager.addServerInfo(
+            ServerManager.addServerInfo(
                     (ServerInfo) member.getAttributes().get(Constant.SERVER_INFO));
 
         }
@@ -26,7 +26,7 @@ public class ClusterMembershipListener
     public void memberRemoved(MembershipEvent membershipEvent) {
         if (!membershipEvent.getMember().localMember()) {
             Member member = membershipEvent.getMember();
-            ServerInfoManager.removeServerInfo(
+            ServerManager.removeServerInfo(
                     ((ServerInfo) member.getAttributes().get(Constant.SERVER_INFO)).getServerId());
         }
     }

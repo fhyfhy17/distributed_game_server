@@ -2,7 +2,7 @@ package com.controller.interceptor.handlerInterceptorImpl;
 
 import com.controller.ControllerHandler;
 import com.controller.interceptor.HandlerInterceptor;
-import com.manager.VertxMessageManager;
+import com.manager.ServerManager;
 import com.net.msg.Options;
 import com.pojo.Message;
 import com.util.ContextUtil;
@@ -19,7 +19,7 @@ public class ResultReplyInterceptor implements HandlerInterceptor {
     public void postHandle(Message message, ControllerHandler handler, com.google.protobuf.Message result) throws Exception {
         if (!Objects.isNull(result)) {
             Message messageResult = buildMessage(result, message);
-            VertxMessageManager.sendMessage(message.getFrom(), messageResult);
+            ServerManager.sendMessage(message.getFrom(), messageResult);
         }
     }
 

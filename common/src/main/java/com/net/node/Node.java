@@ -1,11 +1,8 @@
-package com.net.msg;
+package com.net.node;
 
 import com.BaseReceiver;
 import com.github.zkclient.ZkClient;
-import com.hazelcast.core.Hazelcast;
-import com.hazelcast.core.HazelcastInstance;
 import com.pojo.ServerInfo;
-import com.util.ContextUtil;
 import com.util.SerializeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +55,7 @@ public class Node {
         String host = selfServerInfo.getIp() + ":" + selfServerInfo.getPort();
         try {
 
-            log.info("[启动Node]节点 {} ...[监听节点]", host);
+            log.info("[启动Node]节点 ={}", host);
 
             zmqContext = new ZContext();
             zmqContext.setIoThreads(1);
@@ -68,7 +65,7 @@ public class Node {
             zmqPull.setRcvHWM(0);
             zmqPull.bind("tcp://" + host);
 
-            log.info("...[监听节点]完毕");
+            log.info("启动节点 ={} 完毕", host);
 
             while (running) {
                 try {
@@ -108,9 +105,5 @@ public class Node {
 
     public void setBaseReceiver(BaseReceiver baseReceiver) {
         this.baseReceiver = baseReceiver;
-    }
-
-    public void setZkClient(ZkClient zkClient) {
-        this.zkClient = zkClient;
     }
 }

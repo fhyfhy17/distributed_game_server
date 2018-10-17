@@ -1,7 +1,6 @@
 package com.pojo;
 
 import com.enums.ServerTypeEnum;
-import com.net.msg.RemoteNode;
 import lombok.Data;
 
 import java.io.Serializable;

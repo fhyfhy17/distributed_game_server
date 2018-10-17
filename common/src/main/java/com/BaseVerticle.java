@@ -2,7 +2,7 @@ package com;
 
 import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
-import com.net.msg.Node;
+import com.net.node.Node;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,7 +28,7 @@ public abstract class BaseVerticle {
     protected void publishService() {
         // 发布服务信息
         node.setBaseReceiver(getReceiver());
-        node.start();
+        new Thread(() -> node.start()).start();
     }
 
     public abstract BaseReceiver getReceiver();

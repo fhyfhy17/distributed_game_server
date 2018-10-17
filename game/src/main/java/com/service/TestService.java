@@ -13,6 +13,6 @@ public class TestService {
 
     @Subscribe
     public void test(TestEvent testEvent) {
-        log.info("test = {}", testEvent.getTestWord());
+//        log.info("test = {}", testEvent.getTestWord());
     }
 }

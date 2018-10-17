@@ -16,12 +16,11 @@ public class Gate implements CommandLineRunner {
     SpringUtils springUtils;
     @Autowired
     ContextUtil contextUtil;
-
-    private  static NettyServer nettyServer;
+    @Autowired
+    NettyServer nettyServer;
 
     public static void main(String[] args) {
         SpringApplication.run(Gate.class, args);
-        nettyServer.init();
     }
 
     public void run(String... args) throws Exception {
@@ -29,9 +28,9 @@ public class Gate implements CommandLineRunner {
     }
 
 
-    @Autowired
-    public void setNettyServer(NettyServer nettyServer) {
-        Gate.nettyServer = nettyServer;
+    @EventListener
+    void afterSrpingBoot(ApplicationReadyEvent event) throws Exception {
+        nettyServer.init();
     }
 
 }

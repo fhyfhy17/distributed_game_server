@@ -4,14 +4,13 @@ import com.enums.GroupEnum;
 import com.enums.ServerTypeEnum;
 import com.hanlder.MessageGroup;
 import com.hanlder.MessageThreadHandler;
-import com.manager.ConnectUserManger;
-import com.manager.ServerInfoManager;
+import com.manager.ServerManager;
 import com.net.handler.GateMessageHandler;
-import com.pojo.ConnectUser;
 import com.pojo.Message;
 import com.pojo.NettyMessage;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +20,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
+@Slf4j
 public class ConnectManager {
 
     public static AttributeKey<Session> USER_ID_KEY = AttributeKey.valueOf("userId");
@@ -67,11 +67,11 @@ public class ConnectManager {
         session.setUid(uid);
         //绑定一个game服务器
         //保存gameId信息
-        ConnectUser connectUser = ConnectUserManger.getConnectUser(uid);
-        String gameId = ServerInfoManager.hashChooseServer(uid, ServerTypeEnum.GAME);
-        connectUser.setGameId(gameId);
+//        ConnectUser connectUser = ConnectUserManger.getConnectUser(uid);
+        String gameId = ServerManager.hashChooseServer(uid, ServerTypeEnum.GAME);
+//        connectUser.setGameId(gameId);
         session.setGameId(gameId);
-        ConnectUserManger.saveConnectUser(connectUser);
+//        ConnectUserManger.saveConnectUser(connectUser);
         this.userIdToConnectMap.put(uid, session);
         return session;
     }
@@ -107,7 +107,14 @@ public class ConnectManager {
     /**
      * 包检测
      */
+    long start;
     public void checkMessage(Session session, NettyMessage message) {
+        if(session.getAutoIncrease()==5){
+            start=System.currentTimeMillis();
+        }
+        if(session.getAutoIncrease()==1000000){
+            log.info("完成，共用时 ={}",System.currentTimeMillis()-start);
+        }
         if (!Objects.isNull(nettyMessageFilter)) {
             // 重复包检测
             if (!nettyMessageFilter.checkAutoIncrease(session, message)) {

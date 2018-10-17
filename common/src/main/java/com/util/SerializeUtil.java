@@ -9,6 +9,7 @@ import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.net.msg.LOGIN_MSG;
 import com.pojo.Message;
+import com.pojo.NettyMessage;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 import org.objenesis.strategy.StdInstantiatorStrategy;
@@ -27,7 +28,7 @@ public class SerializeUtil {
         k.setInstantiatorStrategy(new StdInstantiatorStrategy());
         k.setDefaultSerializer(DefaultSerializers.ByteSerializer.class);
 
-
+        k.register(NettyMessage.class);
     }
 
     //kyro 1  proto 2 fast 3

@@ -45,15 +45,18 @@ public class ClientSession {
                     }
 
                     if ("2".equals(line)) {
-                        LOGIN_MSG.CTS_TEST.Builder builder = LOGIN_MSG.CTS_TEST.newBuilder();
-                        builder.setWord("啊啊等等");
-                        NettyMessage m = new NettyMessage();
-                        m.setId(10005);
-                        m.setData(builder.build().toByteArray());
-                        m.setAutoIncrease(getAutoIncrease()+1);
-                        setAutoIncrease(getAutoIncrease()+1);
-                        m.setCheckCode(buildCheckCode(m));
-                        channel.writeAndFlush(m);
+                        for (int i = 0; i < 1000000; i++) {
+                            LOGIN_MSG.CTS_TEST.Builder builder = LOGIN_MSG.CTS_TEST.newBuilder();
+                            builder.setWord("啊啊等等");
+                            NettyMessage m = new NettyMessage();
+                            m.setId(10005);
+                            m.setData(builder.build().toByteArray());
+                            m.setAutoIncrease(getAutoIncrease()+1);
+                            setAutoIncrease(getAutoIncrease()+1);
+                            m.setCheckCode(buildCheckCode(m));
+                            channel.writeAndFlush(m);
+                        }
+
                     }
                 }
             }

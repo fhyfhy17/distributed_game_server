@@ -2,10 +2,7 @@ package com.net.handler;
 
 import com.enums.ServerTypeEnum;
 import com.hanlder.MessageThreadHandler;
-import com.manager.ConnectUserManger;
-import com.manager.ServerInfoManager;
-import com.manager.VertxMessageManager;
-import com.pojo.ConnectUser;
+import com.manager.ServerManager;
 import com.pojo.Message;
 import com.util.ContextUtil;
 import com.util.RouteUtil;
@@ -38,16 +35,16 @@ public class GateMessageHandler extends MessageThreadHandler {
         int msgId = message.getId();
         switch (RouteUtil.route(msgId)) {
             case LOGIN:
-                String loginServerId = ServerInfoManager.hashChooseServer(message.getUid(), ServerTypeEnum.LOGIN);
+                String loginServerId = ServerManager.hashChooseServer(message.getUid(), ServerTypeEnum.LOGIN);
                 if (StringUtils.isEmpty(loginServerId)) {
                     log.error("没有发现loginServer");
                     return;
                 }
-                VertxMessageManager.sendMessage(loginServerId, message);
+                ServerManager.sendMessage(loginServerId, message);
                 break;
             case GAME:
-                ConnectUser connectUser = ConnectUserManger.getConnectUser(message.getUid());
-                VertxMessageManager.sendMessage(connectUser.getGameId(), message);
+//                ConnectUser connectUser = ConnectUserManger.getConnectUser(message.getUid());
+                ServerManager.sendMessage("game-1", message);
                 break;
             case X:
                 break;

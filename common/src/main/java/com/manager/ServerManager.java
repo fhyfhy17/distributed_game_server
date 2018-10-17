@@ -2,53 +2,46 @@ package com.manager;
 
 import cn.hutool.core.util.RandomUtil;
 import com.enums.ServerTypeEnum;
-import com.net.msg.RemoteNode;
+import com.net.node.RemoteNode;
+import com.pojo.Message;
 import com.pojo.ServerInfo;
 import com.util.ContextUtil;
+import com.util.SerializeUtil;
 import lombok.extern.slf4j.Slf4j;
 
-import java.net.UnknownHostException;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class ServerInfoManager {
+public class ServerManager {
 
-    private static ConcurrentHashMap<String, ServerInfo> servicestatus = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, ServerInfo> servers = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<String, RemoteNode> remotes = new ConcurrentHashMap<>();
 
     public static ConcurrentHashMap<String, ServerInfo> getAllServerInfos() {
-        return servicestatus;
+        return servers;
     }
 
     public static void addServerInfo(ServerInfo serverInfo) {
         if (serverInfo != null) {
-
             String hostAddress = serverInfo.getIp() + ":" + serverInfo.getPort();
-
-            if (serverInfo.getServerId() == ContextUtil.id) {
-                log.info("这是本地");
-            } else {
-                log.info("这是远端");
+            if (serverInfo.getServerId() != ContextUtil.id) {
                 RemoteNode remoteNode = new RemoteNode(hostAddress);
-                remotes.put(serverInfo.getServerId(),remoteNode);
+                remotes.put(serverInfo.getServerId(), remoteNode);
                 remoteNode.startup();
             }
-
-
-            servicestatus.put(serverInfo.getServerId(), serverInfo);
+            servers.put(serverInfo.getServerId(), serverInfo);
         }
-        log.info("服务加入={}： 所有服务器状态={}", serverInfo, servicestatus.values());
+        log.info("服务加入={}： 所有服务器状态={}", serverInfo, servers.values());
     }
 
     public static void removeServerInfo(String serviceId) {
         if (serviceId != null) {
-            ServerInfo serverInfo = servicestatus.remove(serviceId);
             RemoteNode remoteNode = remotes.remove(serviceId);
             remoteNode.stop();
         }
-        log.info("服务删除={}： 所有服务器状态={}", serviceId, servicestatus.values());
+        log.info("服务删除={}： 所有服务器状态={}", serviceId, servers.values());
     }
 
     /**
@@ -69,11 +62,10 @@ public class ServerInfoManager {
 
     public static ServerInfo getServerInfo(String serverId) {
 
-        return servicestatus.get(serverId);
+        return servers.get(serverId);
     }
 
     public static RemoteNode getRemote(String serverId) {
-
         return remotes.get(serverId);
     }
 
@@ -88,10 +80,12 @@ public class ServerInfoManager {
         return info.getServerId();
     }
 
-    public static void printServerStatus(ServerInfo serverInfo, boolean join) {
-        String action = join ? "加入" : "离开";
-        log.info(action + " 服务器 serverType= {} , serverId= {}", serverInfo.getServerId(), serverInfo.getServerType());
-        log.info("当前所有的服务器={}", getAllServerInfos());
+    public static void sendMessage(String serverId, Message message) {
+        RemoteNode remote = ServerManager.getRemote(serverId);
+        if (remote == null) {
+            log.error("发送信息， 节点={} 已挂", serverId);
+            return;
+        }
+        remote.sendReqMsg(SerializeUtil.mts(message));
     }
-
 }
