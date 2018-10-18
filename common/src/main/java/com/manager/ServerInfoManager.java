@@ -1,49 +1,54 @@
 package com.manager;
 
 import cn.hutool.core.util.RandomUtil;
-import com.Constant;
+import com.alibaba.fastjson.JSON;
 import com.enums.ServerTypeEnum;
 import com.pojo.ServerInfo;
-import com.util.ContextUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Slf4j
 public class ServerInfoManager {
 
+    private static ConcurrentHashMap<String, ServerInfo> serverInfos = new ConcurrentHashMap<>();
 
-    public static List<ServerInfo> getAllServerInfos() {
-//        Zookeeper
-//
-//        HazelcastInstance ins = Hazelcast.getHazelcastInstanceByName(ContextUtil.id);
-//        return ins.getCluster().getMembers().stream().map(x -> (ServerInfo) x.getAttributes().get(Constant.SERVER_INFO)).collect(Collectors.toList());
-        return null;
+    public static ConcurrentHashMap<String, ServerInfo> getAllServerInfos() {
+        return serverInfos;
     }
 
+    public static void addServer(String serverString) {
+        ServerInfo serverInfo = JSON.parseObject(serverString.split("==")[1], ServerInfo.class);
+        serverInfos.put(serverInfo.getServerId(), serverInfo);
+        log.info("新服务加入={}  ,所有服务={}", serverInfo.getServerId(), serverInfos);
+    }
+
+    public static void removeServer(String serverString) {
+        ServerInfo serverInfo = JSON.parseObject(serverString.split("==")[1], ServerInfo.class);
+        serverInfos.remove(serverInfo.getServerId());
+        log.info("服务退出={}  ,所有服务={}", serverInfo.getServerId(), serverInfos);
+    }
 
     /**
      * 随机一个服务
      */
     public static ServerInfo randomServerInfo(ServerTypeEnum serverType) {
-        List<ServerInfo> list = getAllServerInfos().stream().filter(
+        List<ServerInfo> list = getAllServerInfos().values().stream().filter(
                 x -> x.getServerType() == serverType
         ).collect(Collectors.toList());
         return list.size() < 1 ? null : RandomUtil.randomEle(list);
     }
 
     public static List<ServerInfo> getServerInfosByType(ServerTypeEnum serverType) {
-        return getAllServerInfos().stream().filter(
+        return getAllServerInfos().values().stream().filter(
                 x -> x.getServerType() == serverType
         ).collect(Collectors.toList());
     }
 
     public static ServerInfo getServerInfo(String serverId) {
-
-        return getAllServerInfos().stream().filter(
-                x -> x.getServerId().equals(serverId)
-        ).findAny().orElse(null);
+        return serverInfos.get(serverId);
     }
 
     public static String hashChooseServer(String uid, ServerTypeEnum typeEnum) {

@@ -13,6 +13,7 @@ import io.vertx.core.spi.cluster.NodeListener;
 import io.vertx.spi.cluster.zookeeper.ZookeeperClusterManager;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.leader.LeaderLatchListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,42 +31,11 @@ public abstract class BaseVerticle {
     private Vertx vertx;
     @Autowired
     @Qualifier("zookeeper")
-    private JsonObject zookeeperConfig;
-    ZookeeperClusterManager clusterManager;
-    @Autowired
-    private ServerInfo serverInfo;
-
+    private ZookeeperClusterManager clusterManager;
 
     @PostConstruct
     void init() throws ExecutionException, InterruptedException {
-         clusterManager = new ZookeeperClusterManager(zookeeperConfig);
-         clusterManager.nodeListener(new NodeListener() {
-             @Override
-             public void nodeAdded(String nodeID) {
-                 System.out.println(nodeID);
-//                 for (String s : clusterManager.getNodes()) {
-//                     System.out.println("!!!!!!!!!!!   "+s);
-//                 }
-//                 if(clusterManager.getNodeID().equals(nodeID)){
-//                     try {
-//                         clusterManager.getCuratorFramework()
-//                                 .setData()
-//                                 .forPath("/cluster/nodes/"+nodeID,JSON.toJSONString(serverInfo).getBytes());
-//                     } catch (Exception e) {
-//                         e.printStackTrace();
-//                     }
-//                 }else{
-//                     System.out.println("新加入 == "+nodeID);
-//                 }
 
-
-             }
-
-             @Override
-             public void nodeLeft(String nodeID) {
-
-             }
-         });
         VertxOptions options = new VertxOptions()
                 .setClusterManager(clusterManager);
 
