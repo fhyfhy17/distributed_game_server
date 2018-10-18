@@ -10,10 +10,10 @@ public class GameVerticle extends BaseVerticle {
     @Autowired
     private GameReceiver gameReceiver;
 
-    @Override
-    public BaseReceiver getReceiver() {
-        return gameReceiver;
-    }
+//    @Override
+//    public BaseReceiver getReceiver() {
+//        return gameReceiver;
+//    }
 
 
 }

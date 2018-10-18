@@ -2,14 +2,14 @@ package com.manager;
 
 import com.pojo.Message;
 import com.util.SerializeUtil;
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Context;
+import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 @Slf4j
-@Component
-public class VertxMessageManager {
+public class VertxMessageManager extends AbstractVerticle {
 
     private static Vertx vertx;
 
@@ -31,8 +31,20 @@ public class VertxMessageManager {
         }
     }
 
-    @Autowired
-    public void setVertx(Vertx vertx) {
+    @Override
+    public void init(Vertx vertx, Context context) {
+        super.init(vertx, context);
         VertxMessageManager.vertx = vertx;
     }
+
+    @Override
+    public void start(Future<Void> startFuture) throws Exception {
+        super.start(startFuture);
+    }
+
+    @Override
+    public void stop(Future<Void> stopFuture) throws Exception {
+        super.stop(stopFuture);
+    }
+
 }
