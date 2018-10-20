@@ -8,7 +8,7 @@
 - Vert.x       构建服务间消息发送系统
 - Zookeeper       分布式发现与注册
 - Springboot       采用非web方式启动，注解编程，方便嫁接Spring系列和其它第三方框架
-- Kryo，fastjson       Vert.x传递消息为String，此两个做为序列化工具，最终还是采用protobuf做为序列化工具了
+- Kryo，fastjson       此两个做为序列化工具，最终还是采用protobuf做为序列化工具了
 - protobuf3       协议
 - hutool       方便的工具包，顺便学学怎么写各类工具代码-----用了几天，这玩意几乎完全没有用武之地，实属废材。
 - netty       tcp连接，毕竟Vert.x不熟，暂时先使用netty做为tcp服务器包，后期会继续变更
