@@ -46,8 +46,8 @@ public class GateMessageHandler extends MessageThreadHandler {
                 VertxMessageManager.sendMessage(loginServerId, message);
                 break;
             case GAME:
-                ConnectUser connectUser = ConnectUserManger.getConnectUser(message.getUid());
-                VertxMessageManager.sendMessage(connectUser.getGameId(), message);
+//                ConnectUser connectUser = ConnectUserManger.getConnectUser(message.getUid());
+                VertxMessageManager.sendMessage("game-1", message);
                 break;
             case X:
                 break;
