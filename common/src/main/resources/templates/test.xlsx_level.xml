@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <tr id="long" level="int" strs="stringarray" ints="intarray" length2="float" floats="floatarray" />
+  <tr id="1" level="2" strs="在1,在11" ints="11,111" length2="10.3" floats="10.3,10.3" />
+  <tr id="2" level="3" strs="在2,在22" ints="12,122" length2="42.66666" floats="42.66666,42.66666" />
+  <tr id="3" level="" strs="" ints="13" length2="" floats="" />
+</root>
+

@@ -10,7 +10,4 @@ public abstract class AbstractTemplate {
     public void setId(long id) {
         this.id = id;
     }
-
-    abstract void init();
-
 }
