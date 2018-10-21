@@ -28,8 +28,13 @@ public class TemplateLoader {
             Document doc = new SAXBuilder().build(file);
             Element root = doc.getRootElement();
             Iterator<Element> it = root.getChildren().<Element>iterator();
-
+            int count = 0;
             while (it.hasNext()) {
+                count++;
+                if (count == 1) {
+                    continue;
+                }
+
                 T t = clazz.newInstance();
                 if (ts.stream().anyMatch(x -> x.getId() == t.getId())) {
                     log.error("文件= {} 发现重复ID= {} ", file.getName(), t.getId());
