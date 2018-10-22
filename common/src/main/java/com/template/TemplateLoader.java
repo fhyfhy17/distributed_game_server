@@ -10,7 +10,11 @@ import org.springframework.stereotype.Component;
 
 import java.beans.PropertyDescriptor;
 import java.io.File;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -73,9 +77,71 @@ public class TemplateLoader {
 
             Method m = prop.getWriteMethod();
             boolean emptyVal = "".equals(fieldValue);
-            Object val;
+            Object val = null;
+            if (field.equals("List")) {
+                Field f = null;
+                try {
+                    f = object.getClass().getDeclaredField(fieldName.trim());
+                } catch (Exception e) {
+                    log.error("", e);
+                }
 
-            if (field.equals("String")) {
+                Type genericReturnType = f.getGenericType();
+
+                Class<?> typeClass = null;
+                if (genericReturnType instanceof ParameterizedType) {
+                    Type[] actualTypeArguments = ((ParameterizedType) genericReturnType).getActualTypeArguments();
+                    typeClass = (Class<?>) actualTypeArguments[0];
+                }
+
+                if (typeClass == String.class) {
+                    String[] vs = fieldValue.split(",");
+                    List<String> list = new ArrayList<>();
+                    for (String string : vs) {
+                        list.add(string);
+                    }
+                    val = list;
+                } else if (typeClass == Integer.class) {
+                    String[] vs = fieldValue.split(",");
+
+                    if (vs.length > 0) {
+                        List<Integer> list = new ArrayList<>();
+                        for (int i = 0; i < vs.length; i++) {
+                            if (null == vs[i] || "".equals(vs[i].trim())) {
+                                continue;
+                            }
+                            list.add(Integer.parseInt(vs[i]));
+                        }
+                        val = list;
+                    }
+                } else if (typeClass == Double.class) {
+                    String[] vs = fieldValue.split(",");
+
+                    if (vs.length > 0) {
+                        List<Double> list = new ArrayList<>();
+                        for (int i = 0; i < vs.length; i++) {
+                            if (null == vs[i] || "".equals(vs[i].trim())) {
+                                continue;
+                            }
+                            list.add(formatDouble(vs[i]));
+                        }
+                        val = list;
+                    }
+                } else if (typeClass == Float.class) {
+                    String[] vs = fieldValue.split(",");
+
+                    if (vs.length > 0) {
+                        List<Float> list = new ArrayList<>();
+                        for (int i = 0; i < vs.length; i++) {
+                            if (null == vs[i] || "".equals(vs[i].trim())) {
+                                continue;
+                            }
+                            list.add(formatFloat(vs[i]));
+                        }
+                        val = list;
+                    }
+                }
+            } else if (field.equals("String")) {
                 val = fieldValue;
             } else if (field.equals("int")) {
                 val = emptyVal ? 0 : Integer.parseInt(fieldValue);
@@ -110,5 +176,23 @@ public class TemplateLoader {
                     "Config namespace error {}: class={} colName={} type={} namespace={}",
                     e.getMessage(), object.getClass().getSimpleName(), fieldName, field, fieldValue);
         }
+    }
+
+    private static double formatDouble(String strVal) {
+        if (strVal.equals("")) {
+            return 0;
+        }
+        DecimalFormat df = new DecimalFormat("#.000000");// six
+        String temp = df.format(Double.parseDouble(strVal));
+        return Double.parseDouble(temp);
+    }
+
+    private static float formatFloat(String strVal) {
+        if (strVal.equals("")) {
+            return 0;
+        }
+        DecimalFormat df = new DecimalFormat("#.000000");// six
+        String temp = df.format(Float.parseFloat(strVal));
+        return Float.parseFloat(temp);
     }
 }

@@ -12,6 +12,7 @@ import com.pojo.Message;
 import com.pojo.NettyMessage;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
+@Slf4j
 public class ConnectManager {
 
     public static AttributeKey<Session> USER_ID_KEY = AttributeKey.valueOf("userId");
@@ -104,7 +106,23 @@ public class ConnectManager {
     /**
      * 包检测
      */
+    long start;
+    int count;
     public void checkMessage(Session session, NettyMessage message) {
+        if(message.getId()==10001){
+            start=0;
+        }else{
+            if(start==0){
+                start =System.currentTimeMillis();
+                count=0;
+            }
+        }
+        count++;
+
+        if(count==1000000){
+            log.error("完成，共用时 ={}",System.currentTimeMillis()-start);
+        }
+
         if (!Objects.isNull(nettyMessageFilter)) {
             // 重复包检测
             if (!nettyMessageFilter.checkAutoIncrease(session, message)) {

@@ -1,20 +1,12 @@
 package com;
 
-import com.alibaba.fastjson.JSON;
 import com.manager.MessageReceiveManager;
 import com.manager.VertxMessageManager;
-import com.pojo.ServerInfo;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
-import io.vertx.core.json.JsonObject;
-import io.vertx.core.spi.cluster.ClusterManager;
-import io.vertx.core.spi.cluster.NodeListener;
 import io.vertx.spi.cluster.zookeeper.ZookeeperClusterManager;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.CuratorFrameworkFactory;
-import org.apache.curator.framework.recipes.leader.LeaderLatchListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -56,7 +48,7 @@ public abstract class BaseVerticle {
         log.info("启动vertx");
         DeploymentOptions deploymentOptions = new DeploymentOptions();
         deploymentOptions.setWorker(true);
-        deploymentOptions.setInstances(5);
+        deploymentOptions.setInstances(3);
         //部署发送1
         vertx.deployVerticle(VertxMessageManager.class, deploymentOptions);
         //部署接收1
@@ -70,7 +62,7 @@ public abstract class BaseVerticle {
     }
 
     @Bean
-    ZookeeperClusterManager clusterManager(){
+    ZookeeperClusterManager clusterManager() {
         return clusterManager;
     }
 

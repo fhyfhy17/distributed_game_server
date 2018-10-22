@@ -6,8 +6,10 @@ import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
+import lombok.extern.slf4j.Slf4j;
 
 @Sharable
+@Slf4j
 public class NettyClientMsgHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -30,7 +32,7 @@ public class NettyClientMsgHandler extends ChannelInboundHandlerAdapter {
         try {
 //            System.out.println(LOGIN_MSG.STC_LOGIN.parseFrom(((Message)msg).getData()).getUid());
 //            System.out.println(LOGIN_MSG.STC_LOGIN.parseFrom(((Message)msg).getData()).getSuc());
-            System.out.println(LOGIN_MSG.STC_TEST.parseFrom(((Message) msg).getData()).getWord());
+           log.info(LOGIN_MSG.STC_TEST.parseFrom(((Message) msg).getData()).getWord());
 
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -32,7 +32,7 @@ public class ZookeeperConfig {
         CuratorFramework curator = CuratorFrameworkFactory.builder()
                 .connectString("127.0.0.1")
                 .namespace("io.vertx")
-                .sessionTimeoutMs(2000)
+                .sessionTimeoutMs(3000)
                 .retryPolicy(retryPolicy).build();
 
         curator.start();
@@ -43,11 +43,8 @@ public class ZookeeperConfig {
         try {
             childrenCache.start();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("", e);
         }
-
-
-//
         childrenCache.getListenable().addListener(
                 (client, event) -> {
                     switch (event.getType()) {
