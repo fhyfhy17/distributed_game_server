@@ -30,22 +30,21 @@ public class TemplateLoader {
             Iterator<Element> it = root.getChildren().<Element>iterator();
             int count = 0;
             while (it.hasNext()) {
+                Element next = it.next();
                 count++;
                 if (count == 1) {
                     continue;
                 }
-
                 T t = clazz.newInstance();
-                if (ts.stream().anyMatch(x -> x.getId() == t.getId())) {
-                    log.error("文件= {} 发现重复ID= {} ", file.getName(), t.getId());
-                    continue;
-                }
-                for (Object elem : it.next().getAttributes()) {
+                for (Object elem : next.getAttributes()) {
                     Attribute attr = (Attribute) elem;
                     String value = (null == attr.getValue()) ? "" : attr.getValue().trim();
                     setProperties(t, attr.getName(), value);
                 }
-
+                if (ts.stream().anyMatch(x -> x.getId() == t.getId())) {
+                    log.error("文件= {} 发现重复ID= {} ", file.getName(), t.getId());
+                    continue;
+                }
                 ts.add(t);
             }
 

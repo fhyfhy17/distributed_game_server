@@ -33,5 +33,4 @@ public class MessageReceiveManager extends AbstractVerticle {
     public void stop(Future<Void> stopFuture) throws Exception {
         super.stop(stopFuture);
     }
-
 }
