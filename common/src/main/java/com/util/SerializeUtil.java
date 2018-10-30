@@ -27,7 +27,6 @@ public class SerializeUtil {
         k.setInstantiatorStrategy(new StdInstantiatorStrategy());
         k.setDefaultSerializer(DefaultSerializers.ByteSerializer.class);
 
-
     }
 
     //kyro 1  proto 2 fast 3
@@ -58,7 +57,7 @@ public class SerializeUtil {
 //        return null;
     }
 
-    public static Message kryoStm(byte[] s) {
+    private static Message kryoStm(byte[] s) {
         Message m = null;
         try (
                 ByteArrayInputStream bais = new ByteArrayInputStream(s);
@@ -73,7 +72,7 @@ public class SerializeUtil {
         return m;
     }
 
-    public static byte[] kryoMts(Message m) {
+    private static byte[] kryoMts(Message m) {
 
 
         byte[] bys = null;
@@ -92,18 +91,18 @@ public class SerializeUtil {
     }
 
 
-    public static byte[] fastMts(Message m) {
+    private static byte[] fastMts(Message m) {
         String s = JSON.toJSONString(m);
         return s.getBytes();
     }
 
-    public static Message fastStm(byte[] s) {
+    private static Message fastStm(byte[] s) {
         return JSON.parseObject(s, Message.class);
     }
 
     static LOGIN_MSG.MyMessage.Builder builder = LOGIN_MSG.MyMessage.newBuilder();
 
-    public static byte[] protoMts(Message m) {
+    private static byte[] protoMts(Message m) {
         builder.setUid(m.getUid());
         builder.setId(m.getId());
         builder.setData(ByteString.copyFrom(m.getData()));
@@ -112,7 +111,7 @@ public class SerializeUtil {
         return bytes;
     }
 
-    public static Message protoStm(byte[] s) {
+    private static Message protoStm(byte[] s) {
         Message m2 = new Message();
         try {
             LOGIN_MSG.MyMessage m = LOGIN_MSG.MyMessage.parseFrom(s);
