@@ -35,6 +35,10 @@ message STC_TEST{
 	string word =1;
 }
 
+
+message LTGAME_RESET_COUNT{
+	option(messageId) = 10007;
+}
 message MyMessage{
 	string uid =1;
 	int32 id=2;

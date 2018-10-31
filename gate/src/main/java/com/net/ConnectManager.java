@@ -107,19 +107,6 @@ public class ConnectManager {
     long start;
     int count;
     public void checkMessage(Session session, NettyMessage message) {
-        if(message.getId()==10001){
-            start=0;
-        }else{
-            if(start==0){
-                start =System.currentTimeMillis();
-                count=0;
-            }
-        }
-        count++;
-
-        if(count==1000000){
-            log.error("完成，共用时 ={}",System.currentTimeMillis()-start);
-        }
 
         if (!Objects.isNull(nettyMessageFilter)) {
             // 重复包检测
