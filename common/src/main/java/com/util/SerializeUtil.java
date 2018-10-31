@@ -34,7 +34,7 @@ public class SerializeUtil {
     }
 
     //kyro 1  proto 2 fast 3 colfer 4
-    public static final int type = 2;
+    public static final int type = 4;
 
 
     public static Message stm(byte[] s) {

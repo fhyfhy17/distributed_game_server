@@ -13,5 +13,6 @@ public class ServerInfo implements Serializable {
     private static final long serialVersionUID = -533104123L;
     private ServerTypeEnum serverType;
     private String serverId;
-
+    private String ip;
+    private int port;
 }

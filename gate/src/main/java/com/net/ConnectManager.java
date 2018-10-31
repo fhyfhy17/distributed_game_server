@@ -4,7 +4,7 @@ import com.enums.GroupEnum;
 import com.enums.ServerTypeEnum;
 import com.hanlder.MessageGroup;
 import com.hanlder.MessageThreadHandler;
-import com.manager.ServerInfoManager;
+import com.manager.ServerManager;
 import com.net.handler.GateMessageHandler;
 import com.pojo.Message;
 import com.pojo.NettyMessage;
@@ -67,7 +67,7 @@ public class ConnectManager {
         session.setUid(uid);
         //绑定一个game服务器
         //保存gameId信息
-        String gameId = ServerInfoManager.hashChooseServer(uid, ServerTypeEnum.GAME);
+        String gameId = ServerManager.hashChooseServer(uid, ServerTypeEnum.GAME);
         session.setGameId(gameId);
         this.userIdToConnectMap.put(uid, session);
         return session;

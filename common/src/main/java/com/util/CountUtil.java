@@ -13,7 +13,7 @@ public class CountUtil {
         if (count == 1) {
             start = System.currentTimeMillis();
         }
-        if (count == 1000000) {
+        if (count == 10000000) {
             System.out.println("共用时：" + (System.currentTimeMillis() - start));
         }
     }

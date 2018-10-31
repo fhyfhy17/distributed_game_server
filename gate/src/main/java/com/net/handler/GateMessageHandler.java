@@ -2,8 +2,7 @@ package com.net.handler;
 
 import com.enums.ServerTypeEnum;
 import com.hanlder.MessageThreadHandler;
-import com.manager.ServerInfoManager;
-import com.manager.VertxMessageManager;
+import com.manager.ServerManager;
 import com.net.ConnectManager;
 import com.net.Session;
 import com.pojo.Message;
@@ -38,17 +37,17 @@ public class GateMessageHandler extends MessageThreadHandler {
         int msgId = message.getId();
         switch (RouteUtil.route(msgId)) {
             case LOGIN:
-                String loginServerId = ServerInfoManager.hashChooseServer(message.getUid(), ServerTypeEnum.LOGIN);
+                String loginServerId = ServerManager.hashChooseServer(message.getUid(), ServerTypeEnum.LOGIN);
                 if (StringUtils.isEmpty(loginServerId)) {
                     log.error("没有发现loginServer");
                     return;
                 }
-                VertxMessageManager.sendMessage(loginServerId, message);
+                ServerManager.sendMessage(loginServerId, message);
                 break;
             case GAME:
                 ConnectManager connectManager =  SpringUtils.getBean(ConnectManager.class);
                 Session session = connectManager.getUserIdToConnectMap().get(message.getUid());
-                VertxMessageManager.sendMessage(session.getGameId(), message);
+                ServerManager.sendMessage(session.getGameId(), message);
                 break;
             case X:
                 break;

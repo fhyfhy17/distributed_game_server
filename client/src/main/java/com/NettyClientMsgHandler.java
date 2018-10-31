@@ -1,7 +1,5 @@
 package com;
 
-import com.net.msg.LOGIN_MSG;
-import com.pojo.Message;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -32,7 +30,7 @@ public class NettyClientMsgHandler extends ChannelInboundHandlerAdapter {
         try {
 //            System.out.println(LOGIN_MSG.STC_LOGIN.parseFrom(((Message)msg).getData()).getUid());
 //            System.out.println(LOGIN_MSG.STC_LOGIN.parseFrom(((Message)msg).getData()).getSuc());
-           log.info(LOGIN_MSG.STC_TEST.parseFrom(((Message) msg).getData()).getWord());
+//           log.info(LOGIN_MSG.STC_TEST.parseFrom(((Message) msg).getData()).getWord());
 
         } catch (Exception ex) {
             ex.printStackTrace();

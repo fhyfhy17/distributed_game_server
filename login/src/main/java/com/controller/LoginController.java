@@ -1,13 +1,12 @@
 package com.controller;
 
-import com.manager.VertxMessageManager;
+import com.manager.ServerManager;
 import com.net.msg.LOGIN_MSG;
 import com.net.msg.Options;
 import com.pojo.Message;
 import com.pojo.User;
 import com.service.LoginService;
 import com.util.ContextUtil;
-import com.util.SerializeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -39,7 +38,7 @@ public class LoginController extends BaseController {
         mLtG.setUid(context.getUid());
         mLtG.setFrom(ContextUtil.id);
         mLtG.setData(build.toByteArray());
-        VertxMessageManager.sendMessage("game-1", mLtG);
+        ServerManager.sendMessage("game-1", mLtG);
         return builder.build();
 
     }

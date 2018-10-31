@@ -10,10 +10,10 @@ public class LoginVerticle extends BaseVerticle {
     @Autowired
     private LoginReceiver loginReceiver;
 
-//    @Override
-//    public BaseReceiver getReceiver() {
-//        return loginReceiver;
-//    }
+    @Override
+    public BaseReceiver getReceiver() {
+        return loginReceiver;
+    }
 
 
 }
