@@ -21,11 +21,12 @@ public class VertxMessageManager extends AbstractVerticle {
     private static void sendMessageToServer(String queue, byte[] msg) {
 //        log.info("发送消息到集群，目标= {}", queue);
         try {
-            vertx.eventBus().send(queue, msg, rf -> {
-                if (rf.succeeded()) {
-
-                }
-            });
+            vertx.eventBus().publish(queue,msg);
+//            vertx.eventBus().send(queue, msg, rf -> {
+//                if (rf.succeeded()) {
+//
+//                }
+//            });
         } catch (Exception e) {
             e.printStackTrace();
         }
