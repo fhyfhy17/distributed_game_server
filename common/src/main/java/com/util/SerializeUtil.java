@@ -11,6 +11,7 @@ import com.net.msg.LOGIN_MSG;
 import com.pojo.Message;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
+import org.nustaq.serialization.FSTConfiguration;
 import org.objenesis.strategy.StdInstantiatorStrategy;
 
 import java.io.*;
@@ -32,7 +33,9 @@ public class SerializeUtil {
         k.setDefaultSerializer(DefaultSerializers.ByteSerializer.class);
 
     }
-
+    static FSTConfiguration configuration = FSTConfiguration
+            // .createDefaultConfiguration();
+            .createStructConfiguration();
     //kyro 1  proto 2 fast 3 colfer 4
     public static final int type = 2;
 
@@ -87,6 +90,20 @@ public class SerializeUtil {
         byte[] body = new byte[length];
         System.arraycopy(temp, 0, body, 0, length);
         return body;
+    }
+
+    private static Message fstStm(byte[] s){
+        return (Message)configuration.asObject(s);
+    }
+
+    private static byte[] fstMts(Message message){
+        Message m = new Message();
+        m.setData(message.getData());
+        m.setFrom(message.getFrom());
+        m.setUid(message.getUid());
+        m.setId(message.getId());
+
+        return configuration.asByteArray(m);
     }
 
     private static Message kryoStm(byte[] s) {
@@ -173,12 +190,14 @@ public class SerializeUtil {
         m.setId(1);
         m.setFrom("a");
         m.setUid(sb.toString());
-        byte[] bbb = new byte[8];
+        byte[] bbb = new byte[800];
         m.setData(bbb);
-        int count = 10000000;
+        int count = 100000;
 
         byte[] kryoString = kryoMts(m);
         byte[] colferString = colferMts(m);
+        byte[] fstString = fstMts(m);
+
         long start2 = System.currentTimeMillis();
         for (int i = 0; i < count; i++) {
             kryoMts(m);
@@ -211,6 +230,16 @@ public class SerializeUtil {
         long end11 = System.currentTimeMillis();
 
         log.info("proto msg to String = {}", (end11 - start11));
+
+        long start13 = System.currentTimeMillis();
+        for (int i = 0; i < count; i++) {
+            fstMts(m);
+        }
+        long end13 = System.currentTimeMillis();
+
+        log.info("fst msg to String = {}", (end13 - start13));
+
+
         log.info("");
         long start4 = System.currentTimeMillis();
         for (int i = 0; i < count; i++) {
@@ -223,7 +252,7 @@ public class SerializeUtil {
 
         long start14 = System.currentTimeMillis();
         for (int i = 0; i < count; i++) {
-            Message m1 = colferStm(colferString);
+            colferStm(colferString);
         }
         long end14 = System.currentTimeMillis();
 
@@ -246,12 +275,20 @@ public class SerializeUtil {
         }
         long end12 = System.currentTimeMillis();
         log.info("proto String to msg = {}", (end12 - start12));
+
+        long start16 = System.currentTimeMillis();
+        for (int i = 0; i < count; i++) {
+            fstStm(fstString);
+        }
+        long end16 = System.currentTimeMillis();
+        log.info("fst String to msg = {}", (end16 - start16));
+
         log.info("");
         log.info("kryo String大小 = {}", kryoString.length);
         log.info("colfer String大小 = {}", colferString.length);
         log.info("fast String大小 = {}", fastString.length);
         log.info("prorto String大小 = {}", protoString.length);
-
+        log.info("fst String大小 = {}", fstString.length);
     }
 }
 
