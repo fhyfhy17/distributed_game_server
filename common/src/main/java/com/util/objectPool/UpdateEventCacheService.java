@@ -42,9 +42,9 @@ public class UpdateEventCacheService {
             try {
                 t = T.class.newInstance();
             } catch (InstantiationException e) {
-                e.printStackTrace();
+                log.error("", e);
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                log.error("", e);
             }
             return t;
         }
