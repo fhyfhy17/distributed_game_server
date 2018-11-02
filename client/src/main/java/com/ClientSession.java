@@ -4,6 +4,9 @@ import com.net.msg.LOGIN_MSG;
 import io.netty.channel.Channel;
 
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.CRC32;
 
 public class ClientSession {
@@ -13,10 +16,15 @@ public class ClientSession {
         return session;
     }
 
+    static ExecutorService executorService = Executors.newFixedThreadPool(10);
+    static AtomicInteger count = new AtomicInteger(1);
+
     public static void init(final Channel channel) {
         ClientSession.getInstance().setUid("a123");
         ClientSession.getInstance().setChannel(channel);
         System.out.println("客户端打开连接");
+
+
         new Thread(new Runnable() {
 
             @Override
@@ -38,25 +46,32 @@ public class ClientSession {
                         NettyMessage m = new NettyMessage();
                         m.setId(10001);
                         m.setData(builder.build().toByteArray());
-                        m.setAutoIncrease(getAutoIncrease()+1);
-                        setAutoIncrease(getAutoIncrease()+1);
+                        m.setAutoIncrease(getAutoIncrease() + 1);
+                        setAutoIncrease(getAutoIncrease() + 1);
                         m.setCheckCode(buildCheckCode(m));
                         channel.writeAndFlush(m);
                     }
 
                     if ("2".equals(line)) {
-                        for (int i = 0; i < 1000000; i++) {
-                            LOGIN_MSG.CTS_TEST.Builder builder = LOGIN_MSG.CTS_TEST.newBuilder();
-                            builder.setWord("啊啊等等");
-                            NettyMessage m = new NettyMessage();
-                            m.setId(10005);
-                            m.setData(builder.build().toByteArray());
-                            m.setAutoIncrease(getAutoIncrease()+1);
-                            setAutoIncrease(getAutoIncrease()+1);
-                            m.setCheckCode(buildCheckCode(m));
-                            channel.writeAndFlush(m);
+                        int num = count.intValue();
+
+                        while (num <= 1000000) {
+                            executorService.execute(() -> {
+                                LOGIN_MSG.CTS_TEST.Builder builder = LOGIN_MSG.CTS_TEST.newBuilder();
+                                builder.setWord("啊啊等等");
+                                NettyMessage m = new NettyMessage();
+                                m.setId(10005);
+                                m.setData(builder.build().toByteArray());
+                                m.setAutoIncrease(getAutoIncrease() + 1);
+                                setAutoIncrease(getAutoIncrease() + 1);
+                                m.setCheckCode(buildCheckCode(m));
+                                channel.writeAndFlush(m);
+
+                            });
+                            num = count.incrementAndGet();
                         }
                     }
+
                 }
             }
         }).start();
@@ -66,6 +81,7 @@ public class ClientSession {
     private String uid;
     private Channel channel;
     private static int autoIncrease;
+
     public String getUid() {
         return uid;
     }
@@ -90,7 +106,7 @@ public class ClientSession {
         ClientSession.autoIncrease = autoIncrease;
     }
 
-    private static  long buildCheckCode(NettyMessage message){
+    private static long buildCheckCode(NettyMessage message) {
         CRC32 crc32 = new CRC32();
         crc32.update(message.getData());
         return crc32.getValue();
