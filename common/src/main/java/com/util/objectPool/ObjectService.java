@@ -5,7 +5,7 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.apache.poi.ss.formula.functions.T;
 
 @Slf4j
-public class UpdateEventCacheService {
+public class ObjectService {
 
     public static ObjectReUseFactory objectReUseFactory;
 
@@ -68,16 +68,9 @@ public class UpdateEventCacheService {
         return size;
     }
 
-    public static void setSize(int size) {
-        UpdateEventCacheService.size = size;
-    }
 
     public static int getMaxSize() {
         return maxSize;
-    }
-
-    public static void setMaxSize(int maxSize) {
-        UpdateEventCacheService.maxSize = maxSize;
     }
 
     public static boolean isPoolOpenFlag() {
@@ -85,6 +78,6 @@ public class UpdateEventCacheService {
     }
 
     public static void setPoolOpenFlag(boolean poolOpenFlag) {
-        UpdateEventCacheService.poolOpenFlag = poolOpenFlag;
+        ObjectService.poolOpenFlag = poolOpenFlag;
     }
 }
