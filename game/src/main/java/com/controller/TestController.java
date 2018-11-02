@@ -23,7 +23,7 @@ public class TestController extends BaseController {
 //        player.setGold(10);
 //        EventDispatcher.dispatch(new TestEvent(player,"测试"));
         CountUtil.count();
-        return builder.build();
+        return null;
     }
 
     public MessageLite resetCount(LOGIN_MSG.LTGAME_RESET_COUNT req) {
