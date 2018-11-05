@@ -22,9 +22,9 @@ public final class Options {
   public static final
     com.google.protobuf.GeneratedMessage.GeneratedExtension<
       com.google.protobuf.DescriptorProtos.MessageOptions,
-      java.lang.Integer> messageId = com.google.protobuf.GeneratedMessage
+      Integer> messageId = com.google.protobuf.GeneratedMessage
           .newFileScopedGeneratedExtension(
-        java.lang.Integer.class,
+        Integer.class,
         null);
 
   public static com.google.protobuf.Descriptors.FileDescriptor
@@ -34,7 +34,7 @@ public final class Options {
   private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
-    java.lang.String[] descriptorData = {
+    String[] descriptorData = {
       "\n\roptions.proto\032 google/protobuf/descrip" +
       "tor.proto:4\n\tmessageId\022\037.google.protobuf" +
       ".MessageOptions\030\243\220\003 \001(\005B\r\n\013com.net.msgb\006" +

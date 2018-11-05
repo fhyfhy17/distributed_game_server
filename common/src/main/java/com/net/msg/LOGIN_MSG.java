@@ -21,7 +21,7 @@ public final class LOGIN_MSG {
     /**
      * <code>string username = 1;</code>
      */
-    java.lang.String getUsername();
+    String getUsername();
     /**
      * <code>string username = 1;</code>
      */
@@ -31,7 +31,7 @@ public final class LOGIN_MSG {
     /**
      * <code>string password = 2;</code>
      */
-    java.lang.String getPassword();
+    String getPassword();
     /**
      * <code>string password = 2;</code>
      */
@@ -55,7 +55,7 @@ public final class LOGIN_MSG {
       password_ = "";
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -66,7 +66,7 @@ public final class LOGIN_MSG {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new NullPointerException();
       }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -80,13 +80,13 @@ public final class LOGIN_MSG {
               done = true;
               break;
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               username_ = s;
               break;
             }
             case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               password_ = s;
               break;
@@ -115,8 +115,8 @@ public final class LOGIN_MSG {
       return com.net.msg.LOGIN_MSG.internal_static_CTS_LOGIN_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.net.msg.LOGIN_MSG.internal_static_CTS_LOGIN_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
@@ -124,18 +124,18 @@ public final class LOGIN_MSG {
     }
 
     public static final int USERNAME_FIELD_NUMBER = 1;
-    private volatile java.lang.Object username_;
+    private volatile Object username_;
     /**
      * <code>string username = 1;</code>
      */
-    public java.lang.String getUsername() {
-      java.lang.Object ref = username_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getUsername() {
+      Object ref = username_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         username_ = s;
         return s;
       }
@@ -145,11 +145,11 @@ public final class LOGIN_MSG {
      */
     public com.google.protobuf.ByteString
         getUsernameBytes() {
-      java.lang.Object ref = username_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+      Object ref = username_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         username_ = b;
         return b;
       } else {
@@ -158,18 +158,18 @@ public final class LOGIN_MSG {
     }
 
     public static final int PASSWORD_FIELD_NUMBER = 2;
-    private volatile java.lang.Object password_;
+    private volatile Object password_;
     /**
      * <code>string password = 2;</code>
      */
-    public java.lang.String getPassword() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getPassword() {
+      Object ref = password_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         password_ = s;
         return s;
       }
@@ -179,11 +179,11 @@ public final class LOGIN_MSG {
      */
     public com.google.protobuf.ByteString
         getPasswordBytes() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+      Object ref = password_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         password_ = b;
         return b;
       } else {
@@ -192,7 +192,7 @@ public final class LOGIN_MSG {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -202,7 +202,7 @@ public final class LOGIN_MSG {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getUsernameBytes().isEmpty()) {
@@ -214,7 +214,7 @@ public final class LOGIN_MSG {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -231,8 +231,8 @@ public final class LOGIN_MSG {
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
@@ -250,7 +250,7 @@ public final class LOGIN_MSG {
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -336,7 +336,7 @@ public final class LOGIN_MSG {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -344,15 +344,15 @@ public final class LOGIN_MSG {
     public static Builder newBuilder(com.net.msg.LOGIN_MSG.CTS_LOGIN prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -368,8 +368,8 @@ public final class LOGIN_MSG {
         return com.net.msg.LOGIN_MSG.internal_static_CTS_LOGIN_descriptor;
       }
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      @Override
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.net.msg.LOGIN_MSG.internal_static_CTS_LOGIN_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -382,7 +382,7 @@ public final class LOGIN_MSG {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -391,7 +391,7 @@ public final class LOGIN_MSG {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
+      @Override
       public Builder clear() {
         super.clear();
         username_ = "";
@@ -401,18 +401,18 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.net.msg.LOGIN_MSG.internal_static_CTS_LOGIN_descriptor;
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.CTS_LOGIN getDefaultInstanceForType() {
         return com.net.msg.LOGIN_MSG.CTS_LOGIN.getDefaultInstance();
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.CTS_LOGIN build() {
         com.net.msg.LOGIN_MSG.CTS_LOGIN result = buildPartial();
         if (!result.isInitialized()) {
@@ -421,7 +421,7 @@ public final class LOGIN_MSG {
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.CTS_LOGIN buildPartial() {
         com.net.msg.LOGIN_MSG.CTS_LOGIN result = new com.net.msg.LOGIN_MSG.CTS_LOGIN(this);
         result.username_ = username_;
@@ -430,39 +430,39 @@ public final class LOGIN_MSG {
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
+      @Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
+      @Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
+      @Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
+      @Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.net.msg.LOGIN_MSG.CTS_LOGIN) {
           return mergeFrom((com.net.msg.LOGIN_MSG.CTS_LOGIN)other);
@@ -487,12 +487,12 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -511,20 +511,20 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      private java.lang.Object username_ = "";
+      private Object username_ = "";
       /**
        * <code>string username = 1;</code>
        */
-      public java.lang.String getUsername() {
-        java.lang.Object ref = username_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getUsername() {
+        Object ref = username_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           username_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -532,11 +532,11 @@ public final class LOGIN_MSG {
        */
       public com.google.protobuf.ByteString
           getUsernameBytes() {
-        java.lang.Object ref = username_;
+        Object ref = username_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           username_ = b;
           return b;
         } else {
@@ -547,11 +547,11 @@ public final class LOGIN_MSG {
        * <code>string username = 1;</code>
        */
       public Builder setUsername(
-          java.lang.String value) {
+          String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
+
         username_ = value;
         onChanged();
         return this;
@@ -560,7 +560,7 @@ public final class LOGIN_MSG {
        * <code>string username = 1;</code>
        */
       public Builder clearUsername() {
-        
+
         username_ = getDefaultInstance().getUsername();
         onChanged();
         return this;
@@ -574,26 +574,26 @@ public final class LOGIN_MSG {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
+
         username_ = value;
         onChanged();
         return this;
       }
 
-      private java.lang.Object password_ = "";
+      private Object password_ = "";
       /**
        * <code>string password = 2;</code>
        */
-      public java.lang.String getPassword() {
-        java.lang.Object ref = password_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getPassword() {
+        Object ref = password_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           password_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -601,11 +601,11 @@ public final class LOGIN_MSG {
        */
       public com.google.protobuf.ByteString
           getPasswordBytes() {
-        java.lang.Object ref = password_;
+        Object ref = password_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           password_ = b;
           return b;
         } else {
@@ -616,11 +616,11 @@ public final class LOGIN_MSG {
        * <code>string password = 2;</code>
        */
       public Builder setPassword(
-          java.lang.String value) {
+          String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
+
         password_ = value;
         onChanged();
         return this;
@@ -629,7 +629,7 @@ public final class LOGIN_MSG {
        * <code>string password = 2;</code>
        */
       public Builder clearPassword() {
-        
+
         password_ = getDefaultInstance().getPassword();
         onChanged();
         return this;
@@ -643,18 +643,18 @@ public final class LOGIN_MSG {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
+
         password_ = value;
         onChanged();
         return this;
       }
-      @java.lang.Override
+      @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      @java.lang.Override
+      @Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -676,7 +676,7 @@ public final class LOGIN_MSG {
 
     private static final com.google.protobuf.Parser<CTS_LOGIN>
         PARSER = new com.google.protobuf.AbstractParser<CTS_LOGIN>() {
-      @java.lang.Override
+      @Override
       public CTS_LOGIN parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -689,12 +689,12 @@ public final class LOGIN_MSG {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<CTS_LOGIN> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.net.msg.LOGIN_MSG.CTS_LOGIN getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -708,7 +708,7 @@ public final class LOGIN_MSG {
     /**
      * <code>string uid = 1;</code>
      */
-    java.lang.String getUid();
+    String getUid();
     /**
      * <code>string uid = 1;</code>
      */
@@ -737,7 +737,7 @@ public final class LOGIN_MSG {
       suc_ = false;
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -748,7 +748,7 @@ public final class LOGIN_MSG {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new NullPointerException();
       }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -762,7 +762,7 @@ public final class LOGIN_MSG {
               done = true;
               break;
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               uid_ = s;
               break;
@@ -796,8 +796,8 @@ public final class LOGIN_MSG {
       return com.net.msg.LOGIN_MSG.internal_static_STC_LOGIN_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.net.msg.LOGIN_MSG.internal_static_STC_LOGIN_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
@@ -805,18 +805,18 @@ public final class LOGIN_MSG {
     }
 
     public static final int UID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object uid_;
+    private volatile Object uid_;
     /**
      * <code>string uid = 1;</code>
      */
-    public java.lang.String getUid() {
-      java.lang.Object ref = uid_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getUid() {
+      Object ref = uid_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         uid_ = s;
         return s;
       }
@@ -826,11 +826,11 @@ public final class LOGIN_MSG {
      */
     public com.google.protobuf.ByteString
         getUidBytes() {
-      java.lang.Object ref = uid_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+      Object ref = uid_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         uid_ = b;
         return b;
       } else {
@@ -848,7 +848,7 @@ public final class LOGIN_MSG {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -858,7 +858,7 @@ public final class LOGIN_MSG {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getUidBytes().isEmpty()) {
@@ -870,7 +870,7 @@ public final class LOGIN_MSG {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -888,8 +888,8 @@ public final class LOGIN_MSG {
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
@@ -907,7 +907,7 @@ public final class LOGIN_MSG {
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -994,7 +994,7 @@ public final class LOGIN_MSG {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -1002,15 +1002,15 @@ public final class LOGIN_MSG {
     public static Builder newBuilder(com.net.msg.LOGIN_MSG.STC_LOGIN prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -1026,8 +1026,8 @@ public final class LOGIN_MSG {
         return com.net.msg.LOGIN_MSG.internal_static_STC_LOGIN_descriptor;
       }
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      @Override
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.net.msg.LOGIN_MSG.internal_static_STC_LOGIN_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -1040,7 +1040,7 @@ public final class LOGIN_MSG {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -1049,7 +1049,7 @@ public final class LOGIN_MSG {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
+      @Override
       public Builder clear() {
         super.clear();
         uid_ = "";
@@ -1059,18 +1059,18 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.net.msg.LOGIN_MSG.internal_static_STC_LOGIN_descriptor;
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.STC_LOGIN getDefaultInstanceForType() {
         return com.net.msg.LOGIN_MSG.STC_LOGIN.getDefaultInstance();
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.STC_LOGIN build() {
         com.net.msg.LOGIN_MSG.STC_LOGIN result = buildPartial();
         if (!result.isInitialized()) {
@@ -1079,7 +1079,7 @@ public final class LOGIN_MSG {
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.STC_LOGIN buildPartial() {
         com.net.msg.LOGIN_MSG.STC_LOGIN result = new com.net.msg.LOGIN_MSG.STC_LOGIN(this);
         result.uid_ = uid_;
@@ -1088,39 +1088,39 @@ public final class LOGIN_MSG {
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
+      @Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
+      @Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
+      @Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
+      @Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.net.msg.LOGIN_MSG.STC_LOGIN) {
           return mergeFrom((com.net.msg.LOGIN_MSG.STC_LOGIN)other);
@@ -1144,12 +1144,12 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1168,20 +1168,20 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      private java.lang.Object uid_ = "";
+      private Object uid_ = "";
       /**
        * <code>string uid = 1;</code>
        */
-      public java.lang.String getUid() {
-        java.lang.Object ref = uid_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getUid() {
+        Object ref = uid_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           uid_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -1189,11 +1189,11 @@ public final class LOGIN_MSG {
        */
       public com.google.protobuf.ByteString
           getUidBytes() {
-        java.lang.Object ref = uid_;
+        Object ref = uid_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           uid_ = b;
           return b;
         } else {
@@ -1204,11 +1204,11 @@ public final class LOGIN_MSG {
        * <code>string uid = 1;</code>
        */
       public Builder setUid(
-          java.lang.String value) {
+          String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
+
         uid_ = value;
         onChanged();
         return this;
@@ -1217,7 +1217,7 @@ public final class LOGIN_MSG {
        * <code>string uid = 1;</code>
        */
       public Builder clearUid() {
-        
+
         uid_ = getDefaultInstance().getUid();
         onChanged();
         return this;
@@ -1231,7 +1231,7 @@ public final class LOGIN_MSG {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
+
         uid_ = value;
         onChanged();
         return this;
@@ -1248,7 +1248,7 @@ public final class LOGIN_MSG {
        * <code>bool suc = 2;</code>
        */
       public Builder setSuc(boolean value) {
-        
+
         suc_ = value;
         onChanged();
         return this;
@@ -1257,18 +1257,18 @@ public final class LOGIN_MSG {
        * <code>bool suc = 2;</code>
        */
       public Builder clearSuc() {
-        
+
         suc_ = false;
         onChanged();
         return this;
       }
-      @java.lang.Override
+      @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      @java.lang.Override
+      @Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -1290,7 +1290,7 @@ public final class LOGIN_MSG {
 
     private static final com.google.protobuf.Parser<STC_LOGIN>
         PARSER = new com.google.protobuf.AbstractParser<STC_LOGIN>() {
-      @java.lang.Override
+      @Override
       public STC_LOGIN parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1303,12 +1303,12 @@ public final class LOGIN_MSG {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<STC_LOGIN> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.net.msg.LOGIN_MSG.STC_LOGIN getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -1334,7 +1334,7 @@ public final class LOGIN_MSG {
     private CTS_HEART() {
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -1345,7 +1345,7 @@ public final class LOGIN_MSG {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new NullPointerException();
       }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -1381,8 +1381,8 @@ public final class LOGIN_MSG {
       return com.net.msg.LOGIN_MSG.internal_static_CTS_HEART_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.net.msg.LOGIN_MSG.internal_static_CTS_HEART_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
@@ -1390,7 +1390,7 @@ public final class LOGIN_MSG {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -1400,13 +1400,13 @@ public final class LOGIN_MSG {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -1417,8 +1417,8 @@ public final class LOGIN_MSG {
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
@@ -1432,7 +1432,7 @@ public final class LOGIN_MSG {
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -1514,7 +1514,7 @@ public final class LOGIN_MSG {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -1522,15 +1522,15 @@ public final class LOGIN_MSG {
     public static Builder newBuilder(com.net.msg.LOGIN_MSG.CTS_HEART prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -1546,8 +1546,8 @@ public final class LOGIN_MSG {
         return com.net.msg.LOGIN_MSG.internal_static_CTS_HEART_descriptor;
       }
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      @Override
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.net.msg.LOGIN_MSG.internal_static_CTS_HEART_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -1560,7 +1560,7 @@ public final class LOGIN_MSG {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -1569,24 +1569,24 @@ public final class LOGIN_MSG {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
+      @Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.net.msg.LOGIN_MSG.internal_static_CTS_HEART_descriptor;
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.CTS_HEART getDefaultInstanceForType() {
         return com.net.msg.LOGIN_MSG.CTS_HEART.getDefaultInstance();
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.CTS_HEART build() {
         com.net.msg.LOGIN_MSG.CTS_HEART result = buildPartial();
         if (!result.isInitialized()) {
@@ -1595,46 +1595,46 @@ public final class LOGIN_MSG {
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.CTS_HEART buildPartial() {
         com.net.msg.LOGIN_MSG.CTS_HEART result = new com.net.msg.LOGIN_MSG.CTS_HEART(this);
         onBuilt();
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
+      @Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
+      @Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
+      @Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
+      @Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.net.msg.LOGIN_MSG.CTS_HEART) {
           return mergeFrom((com.net.msg.LOGIN_MSG.CTS_HEART)other);
@@ -1651,12 +1651,12 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1674,13 +1674,13 @@ public final class LOGIN_MSG {
         }
         return this;
       }
-      @java.lang.Override
+      @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      @java.lang.Override
+      @Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -1702,7 +1702,7 @@ public final class LOGIN_MSG {
 
     private static final com.google.protobuf.Parser<CTS_HEART>
         PARSER = new com.google.protobuf.AbstractParser<CTS_HEART>() {
-      @java.lang.Override
+      @Override
       public CTS_HEART parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1715,12 +1715,12 @@ public final class LOGIN_MSG {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<CTS_HEART> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.net.msg.LOGIN_MSG.CTS_HEART getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -1746,7 +1746,7 @@ public final class LOGIN_MSG {
     private STC_HEART() {
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -1757,7 +1757,7 @@ public final class LOGIN_MSG {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new NullPointerException();
       }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -1793,8 +1793,8 @@ public final class LOGIN_MSG {
       return com.net.msg.LOGIN_MSG.internal_static_STC_HEART_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.net.msg.LOGIN_MSG.internal_static_STC_HEART_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
@@ -1802,7 +1802,7 @@ public final class LOGIN_MSG {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -1812,13 +1812,13 @@ public final class LOGIN_MSG {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -1829,8 +1829,8 @@ public final class LOGIN_MSG {
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
@@ -1844,7 +1844,7 @@ public final class LOGIN_MSG {
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -1926,7 +1926,7 @@ public final class LOGIN_MSG {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -1934,15 +1934,15 @@ public final class LOGIN_MSG {
     public static Builder newBuilder(com.net.msg.LOGIN_MSG.STC_HEART prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -1958,8 +1958,8 @@ public final class LOGIN_MSG {
         return com.net.msg.LOGIN_MSG.internal_static_STC_HEART_descriptor;
       }
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      @Override
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.net.msg.LOGIN_MSG.internal_static_STC_HEART_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -1972,7 +1972,7 @@ public final class LOGIN_MSG {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -1981,24 +1981,24 @@ public final class LOGIN_MSG {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
+      @Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.net.msg.LOGIN_MSG.internal_static_STC_HEART_descriptor;
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.STC_HEART getDefaultInstanceForType() {
         return com.net.msg.LOGIN_MSG.STC_HEART.getDefaultInstance();
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.STC_HEART build() {
         com.net.msg.LOGIN_MSG.STC_HEART result = buildPartial();
         if (!result.isInitialized()) {
@@ -2007,46 +2007,46 @@ public final class LOGIN_MSG {
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.STC_HEART buildPartial() {
         com.net.msg.LOGIN_MSG.STC_HEART result = new com.net.msg.LOGIN_MSG.STC_HEART(this);
         onBuilt();
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
+      @Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
+      @Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
+      @Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
+      @Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.net.msg.LOGIN_MSG.STC_HEART) {
           return mergeFrom((com.net.msg.LOGIN_MSG.STC_HEART)other);
@@ -2063,12 +2063,12 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2086,13 +2086,13 @@ public final class LOGIN_MSG {
         }
         return this;
       }
-      @java.lang.Override
+      @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      @java.lang.Override
+      @Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -2114,7 +2114,7 @@ public final class LOGIN_MSG {
 
     private static final com.google.protobuf.Parser<STC_HEART>
         PARSER = new com.google.protobuf.AbstractParser<STC_HEART>() {
-      @java.lang.Override
+      @Override
       public STC_HEART parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2127,12 +2127,12 @@ public final class LOGIN_MSG {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<STC_HEART> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.net.msg.LOGIN_MSG.STC_HEART getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -2146,7 +2146,7 @@ public final class LOGIN_MSG {
     /**
      * <code>string word = 1;</code>
      */
-    java.lang.String getWord();
+    String getWord();
     /**
      * <code>string word = 1;</code>
      */
@@ -2169,7 +2169,7 @@ public final class LOGIN_MSG {
       word_ = "";
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -2180,7 +2180,7 @@ public final class LOGIN_MSG {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new NullPointerException();
       }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -2194,7 +2194,7 @@ public final class LOGIN_MSG {
               done = true;
               break;
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               word_ = s;
               break;
@@ -2223,8 +2223,8 @@ public final class LOGIN_MSG {
       return com.net.msg.LOGIN_MSG.internal_static_CTS_TEST_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.net.msg.LOGIN_MSG.internal_static_CTS_TEST_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
@@ -2232,18 +2232,18 @@ public final class LOGIN_MSG {
     }
 
     public static final int WORD_FIELD_NUMBER = 1;
-    private volatile java.lang.Object word_;
+    private volatile Object word_;
     /**
      * <code>string word = 1;</code>
      */
-    public java.lang.String getWord() {
-      java.lang.Object ref = word_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getWord() {
+      Object ref = word_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         word_ = s;
         return s;
       }
@@ -2253,11 +2253,11 @@ public final class LOGIN_MSG {
      */
     public com.google.protobuf.ByteString
         getWordBytes() {
-      java.lang.Object ref = word_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+      Object ref = word_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         word_ = b;
         return b;
       } else {
@@ -2266,7 +2266,7 @@ public final class LOGIN_MSG {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -2276,7 +2276,7 @@ public final class LOGIN_MSG {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getWordBytes().isEmpty()) {
@@ -2285,7 +2285,7 @@ public final class LOGIN_MSG {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -2299,8 +2299,8 @@ public final class LOGIN_MSG {
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
@@ -2316,7 +2316,7 @@ public final class LOGIN_MSG {
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -2400,7 +2400,7 @@ public final class LOGIN_MSG {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -2408,15 +2408,15 @@ public final class LOGIN_MSG {
     public static Builder newBuilder(com.net.msg.LOGIN_MSG.CTS_TEST prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -2432,8 +2432,8 @@ public final class LOGIN_MSG {
         return com.net.msg.LOGIN_MSG.internal_static_CTS_TEST_descriptor;
       }
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      @Override
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.net.msg.LOGIN_MSG.internal_static_CTS_TEST_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -2446,7 +2446,7 @@ public final class LOGIN_MSG {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -2455,7 +2455,7 @@ public final class LOGIN_MSG {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
+      @Override
       public Builder clear() {
         super.clear();
         word_ = "";
@@ -2463,18 +2463,18 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.net.msg.LOGIN_MSG.internal_static_CTS_TEST_descriptor;
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.CTS_TEST getDefaultInstanceForType() {
         return com.net.msg.LOGIN_MSG.CTS_TEST.getDefaultInstance();
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.CTS_TEST build() {
         com.net.msg.LOGIN_MSG.CTS_TEST result = buildPartial();
         if (!result.isInitialized()) {
@@ -2483,7 +2483,7 @@ public final class LOGIN_MSG {
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.CTS_TEST buildPartial() {
         com.net.msg.LOGIN_MSG.CTS_TEST result = new com.net.msg.LOGIN_MSG.CTS_TEST(this);
         result.word_ = word_;
@@ -2491,39 +2491,39 @@ public final class LOGIN_MSG {
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
+      @Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
+      @Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
+      @Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
+      @Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.net.msg.LOGIN_MSG.CTS_TEST) {
           return mergeFrom((com.net.msg.LOGIN_MSG.CTS_TEST)other);
@@ -2544,12 +2544,12 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2568,20 +2568,20 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      private java.lang.Object word_ = "";
+      private Object word_ = "";
       /**
        * <code>string word = 1;</code>
        */
-      public java.lang.String getWord() {
-        java.lang.Object ref = word_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getWord() {
+        Object ref = word_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           word_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -2589,11 +2589,11 @@ public final class LOGIN_MSG {
        */
       public com.google.protobuf.ByteString
           getWordBytes() {
-        java.lang.Object ref = word_;
+        Object ref = word_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           word_ = b;
           return b;
         } else {
@@ -2604,11 +2604,11 @@ public final class LOGIN_MSG {
        * <code>string word = 1;</code>
        */
       public Builder setWord(
-          java.lang.String value) {
+          String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
+
         word_ = value;
         onChanged();
         return this;
@@ -2617,7 +2617,7 @@ public final class LOGIN_MSG {
        * <code>string word = 1;</code>
        */
       public Builder clearWord() {
-        
+
         word_ = getDefaultInstance().getWord();
         onChanged();
         return this;
@@ -2631,18 +2631,18 @@ public final class LOGIN_MSG {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
+
         word_ = value;
         onChanged();
         return this;
       }
-      @java.lang.Override
+      @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      @java.lang.Override
+      @Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -2664,7 +2664,7 @@ public final class LOGIN_MSG {
 
     private static final com.google.protobuf.Parser<CTS_TEST>
         PARSER = new com.google.protobuf.AbstractParser<CTS_TEST>() {
-      @java.lang.Override
+      @Override
       public CTS_TEST parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2677,12 +2677,12 @@ public final class LOGIN_MSG {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<CTS_TEST> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.net.msg.LOGIN_MSG.CTS_TEST getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -2696,7 +2696,7 @@ public final class LOGIN_MSG {
     /**
      * <code>string word = 1;</code>
      */
-    java.lang.String getWord();
+    String getWord();
     /**
      * <code>string word = 1;</code>
      */
@@ -2719,7 +2719,7 @@ public final class LOGIN_MSG {
       word_ = "";
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -2730,7 +2730,7 @@ public final class LOGIN_MSG {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new NullPointerException();
       }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -2744,7 +2744,7 @@ public final class LOGIN_MSG {
               done = true;
               break;
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               word_ = s;
               break;
@@ -2773,8 +2773,8 @@ public final class LOGIN_MSG {
       return com.net.msg.LOGIN_MSG.internal_static_STC_TEST_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.net.msg.LOGIN_MSG.internal_static_STC_TEST_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
@@ -2782,18 +2782,18 @@ public final class LOGIN_MSG {
     }
 
     public static final int WORD_FIELD_NUMBER = 1;
-    private volatile java.lang.Object word_;
+    private volatile Object word_;
     /**
      * <code>string word = 1;</code>
      */
-    public java.lang.String getWord() {
-      java.lang.Object ref = word_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getWord() {
+      Object ref = word_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         word_ = s;
         return s;
       }
@@ -2803,11 +2803,11 @@ public final class LOGIN_MSG {
      */
     public com.google.protobuf.ByteString
         getWordBytes() {
-      java.lang.Object ref = word_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+      Object ref = word_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         word_ = b;
         return b;
       } else {
@@ -2816,7 +2816,7 @@ public final class LOGIN_MSG {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -2826,7 +2826,7 @@ public final class LOGIN_MSG {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getWordBytes().isEmpty()) {
@@ -2835,7 +2835,7 @@ public final class LOGIN_MSG {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -2849,8 +2849,8 @@ public final class LOGIN_MSG {
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
@@ -2866,7 +2866,7 @@ public final class LOGIN_MSG {
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -2950,7 +2950,7 @@ public final class LOGIN_MSG {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -2958,15 +2958,15 @@ public final class LOGIN_MSG {
     public static Builder newBuilder(com.net.msg.LOGIN_MSG.STC_TEST prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -2982,8 +2982,8 @@ public final class LOGIN_MSG {
         return com.net.msg.LOGIN_MSG.internal_static_STC_TEST_descriptor;
       }
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      @Override
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.net.msg.LOGIN_MSG.internal_static_STC_TEST_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -2996,7 +2996,7 @@ public final class LOGIN_MSG {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -3005,7 +3005,7 @@ public final class LOGIN_MSG {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
+      @Override
       public Builder clear() {
         super.clear();
         word_ = "";
@@ -3013,18 +3013,18 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.net.msg.LOGIN_MSG.internal_static_STC_TEST_descriptor;
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.STC_TEST getDefaultInstanceForType() {
         return com.net.msg.LOGIN_MSG.STC_TEST.getDefaultInstance();
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.STC_TEST build() {
         com.net.msg.LOGIN_MSG.STC_TEST result = buildPartial();
         if (!result.isInitialized()) {
@@ -3033,7 +3033,7 @@ public final class LOGIN_MSG {
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.STC_TEST buildPartial() {
         com.net.msg.LOGIN_MSG.STC_TEST result = new com.net.msg.LOGIN_MSG.STC_TEST(this);
         result.word_ = word_;
@@ -3041,39 +3041,39 @@ public final class LOGIN_MSG {
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
+      @Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
+      @Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
+      @Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
+      @Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.net.msg.LOGIN_MSG.STC_TEST) {
           return mergeFrom((com.net.msg.LOGIN_MSG.STC_TEST)other);
@@ -3094,12 +3094,12 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3118,20 +3118,20 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      private java.lang.Object word_ = "";
+      private Object word_ = "";
       /**
        * <code>string word = 1;</code>
        */
-      public java.lang.String getWord() {
-        java.lang.Object ref = word_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getWord() {
+        Object ref = word_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           word_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -3139,11 +3139,11 @@ public final class LOGIN_MSG {
        */
       public com.google.protobuf.ByteString
           getWordBytes() {
-        java.lang.Object ref = word_;
+        Object ref = word_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           word_ = b;
           return b;
         } else {
@@ -3154,11 +3154,11 @@ public final class LOGIN_MSG {
        * <code>string word = 1;</code>
        */
       public Builder setWord(
-          java.lang.String value) {
+          String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
+
         word_ = value;
         onChanged();
         return this;
@@ -3167,7 +3167,7 @@ public final class LOGIN_MSG {
        * <code>string word = 1;</code>
        */
       public Builder clearWord() {
-        
+
         word_ = getDefaultInstance().getWord();
         onChanged();
         return this;
@@ -3181,18 +3181,18 @@ public final class LOGIN_MSG {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
+
         word_ = value;
         onChanged();
         return this;
       }
-      @java.lang.Override
+      @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      @java.lang.Override
+      @Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -3214,7 +3214,7 @@ public final class LOGIN_MSG {
 
     private static final com.google.protobuf.Parser<STC_TEST>
         PARSER = new com.google.protobuf.AbstractParser<STC_TEST>() {
-      @java.lang.Override
+      @Override
       public STC_TEST parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3227,13 +3227,425 @@ public final class LOGIN_MSG {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<STC_TEST> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.net.msg.LOGIN_MSG.STC_TEST getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface LTGAME_RESET_COUNTOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:LTGAME_RESET_COUNT)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code LTGAME_RESET_COUNT}
+   */
+  public  static final class LTGAME_RESET_COUNT extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:LTGAME_RESET_COUNT)
+      LTGAME_RESET_COUNTOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use LTGAME_RESET_COUNT.newBuilder() to construct.
+    private LTGAME_RESET_COUNT(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private LTGAME_RESET_COUNT() {
+    }
+
+    @Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private LTGAME_RESET_COUNT(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.net.msg.LOGIN_MSG.internal_static_LTGAME_RESET_COUNT_descriptor;
+    }
+
+    @Override
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.net.msg.LOGIN_MSG.internal_static_LTGAME_RESET_COUNT_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT.class, com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT)) {
+        return super.equals(obj);
+      }
+      com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT other = (com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT) obj;
+
+      boolean result = true;
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @Override
+    protected Builder newBuilderForType(
+        BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code LTGAME_RESET_COUNT}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:LTGAME_RESET_COUNT)
+        com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNTOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.net.msg.LOGIN_MSG.internal_static_LTGAME_RESET_COUNT_descriptor;
+      }
+
+      @Override
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.net.msg.LOGIN_MSG.internal_static_LTGAME_RESET_COUNT_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT.class, com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT.Builder.class);
+      }
+
+      // Construct using com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.net.msg.LOGIN_MSG.internal_static_LTGAME_RESET_COUNT_descriptor;
+      }
+
+      @Override
+      public com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT getDefaultInstanceForType() {
+        return com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT.getDefaultInstance();
+      }
+
+      @Override
+      public com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT build() {
+        com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @Override
+      public com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT buildPartial() {
+        com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT result = new com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT(this);
+        onBuilt();
+        return result;
+      }
+
+      @Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT) {
+          return mergeFrom((com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT other) {
+        if (other == com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:LTGAME_RESET_COUNT)
+    }
+
+    // @@protoc_insertion_point(class_scope:LTGAME_RESET_COUNT)
+    private static final com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT();
+    }
+
+    public static com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<LTGAME_RESET_COUNT>
+        PARSER = new com.google.protobuf.AbstractParser<LTGAME_RESET_COUNT>() {
+      @Override
+      public LTGAME_RESET_COUNT parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new LTGAME_RESET_COUNT(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<LTGAME_RESET_COUNT> parser() {
+      return PARSER;
+    }
+
+    @Override
+    public com.google.protobuf.Parser<LTGAME_RESET_COUNT> getParserForType() {
+      return PARSER;
+    }
+
+    @Override
+    public com.net.msg.LOGIN_MSG.LTGAME_RESET_COUNT getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3246,7 +3658,7 @@ public final class LOGIN_MSG {
     /**
      * <code>string uid = 1;</code>
      */
-    java.lang.String getUid();
+    String getUid();
     /**
      * <code>string uid = 1;</code>
      */
@@ -3266,7 +3678,7 @@ public final class LOGIN_MSG {
     /**
      * <code>string from = 4;</code>
      */
-    java.lang.String getFrom();
+    String getFrom();
     /**
      * <code>string from = 4;</code>
      */
@@ -3292,7 +3704,7 @@ public final class LOGIN_MSG {
       from_ = "";
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -3303,7 +3715,7 @@ public final class LOGIN_MSG {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new NullPointerException();
       }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -3317,7 +3729,7 @@ public final class LOGIN_MSG {
               done = true;
               break;
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               uid_ = s;
               break;
@@ -3333,7 +3745,7 @@ public final class LOGIN_MSG {
               break;
             }
             case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               from_ = s;
               break;
@@ -3362,8 +3774,8 @@ public final class LOGIN_MSG {
       return com.net.msg.LOGIN_MSG.internal_static_MyMessage_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.net.msg.LOGIN_MSG.internal_static_MyMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
@@ -3371,18 +3783,18 @@ public final class LOGIN_MSG {
     }
 
     public static final int UID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object uid_;
+    private volatile Object uid_;
     /**
      * <code>string uid = 1;</code>
      */
-    public java.lang.String getUid() {
-      java.lang.Object ref = uid_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getUid() {
+      Object ref = uid_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         uid_ = s;
         return s;
       }
@@ -3392,11 +3804,11 @@ public final class LOGIN_MSG {
      */
     public com.google.protobuf.ByteString
         getUidBytes() {
-      java.lang.Object ref = uid_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+      Object ref = uid_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         uid_ = b;
         return b;
       } else {
@@ -3423,18 +3835,18 @@ public final class LOGIN_MSG {
     }
 
     public static final int FROM_FIELD_NUMBER = 4;
-    private volatile java.lang.Object from_;
+    private volatile Object from_;
     /**
      * <code>string from = 4;</code>
      */
-    public java.lang.String getFrom() {
-      java.lang.Object ref = from_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getFrom() {
+      Object ref = from_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         from_ = s;
         return s;
       }
@@ -3444,11 +3856,11 @@ public final class LOGIN_MSG {
      */
     public com.google.protobuf.ByteString
         getFromBytes() {
-      java.lang.Object ref = from_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+      Object ref = from_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         from_ = b;
         return b;
       } else {
@@ -3457,7 +3869,7 @@ public final class LOGIN_MSG {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -3467,7 +3879,7 @@ public final class LOGIN_MSG {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getUidBytes().isEmpty()) {
@@ -3485,7 +3897,7 @@ public final class LOGIN_MSG {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -3510,8 +3922,8 @@ public final class LOGIN_MSG {
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
@@ -3533,7 +3945,7 @@ public final class LOGIN_MSG {
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -3623,7 +4035,7 @@ public final class LOGIN_MSG {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -3631,15 +4043,15 @@ public final class LOGIN_MSG {
     public static Builder newBuilder(com.net.msg.LOGIN_MSG.MyMessage prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -3655,8 +4067,8 @@ public final class LOGIN_MSG {
         return com.net.msg.LOGIN_MSG.internal_static_MyMessage_descriptor;
       }
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      @Override
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.net.msg.LOGIN_MSG.internal_static_MyMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -3669,7 +4081,7 @@ public final class LOGIN_MSG {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -3678,7 +4090,7 @@ public final class LOGIN_MSG {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
+      @Override
       public Builder clear() {
         super.clear();
         uid_ = "";
@@ -3692,18 +4104,18 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.net.msg.LOGIN_MSG.internal_static_MyMessage_descriptor;
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.MyMessage getDefaultInstanceForType() {
         return com.net.msg.LOGIN_MSG.MyMessage.getDefaultInstance();
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.MyMessage build() {
         com.net.msg.LOGIN_MSG.MyMessage result = buildPartial();
         if (!result.isInitialized()) {
@@ -3712,7 +4124,7 @@ public final class LOGIN_MSG {
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public com.net.msg.LOGIN_MSG.MyMessage buildPartial() {
         com.net.msg.LOGIN_MSG.MyMessage result = new com.net.msg.LOGIN_MSG.MyMessage(this);
         result.uid_ = uid_;
@@ -3723,39 +4135,39 @@ public final class LOGIN_MSG {
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
+      @Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
+      @Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
+      @Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
+      @Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.net.msg.LOGIN_MSG.MyMessage) {
           return mergeFrom((com.net.msg.LOGIN_MSG.MyMessage)other);
@@ -3786,12 +4198,12 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3810,20 +4222,20 @@ public final class LOGIN_MSG {
         return this;
       }
 
-      private java.lang.Object uid_ = "";
+      private Object uid_ = "";
       /**
        * <code>string uid = 1;</code>
        */
-      public java.lang.String getUid() {
-        java.lang.Object ref = uid_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getUid() {
+        Object ref = uid_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           uid_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -3831,11 +4243,11 @@ public final class LOGIN_MSG {
        */
       public com.google.protobuf.ByteString
           getUidBytes() {
-        java.lang.Object ref = uid_;
+        Object ref = uid_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           uid_ = b;
           return b;
         } else {
@@ -3846,11 +4258,11 @@ public final class LOGIN_MSG {
        * <code>string uid = 1;</code>
        */
       public Builder setUid(
-          java.lang.String value) {
+          String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
+
         uid_ = value;
         onChanged();
         return this;
@@ -3859,7 +4271,7 @@ public final class LOGIN_MSG {
        * <code>string uid = 1;</code>
        */
       public Builder clearUid() {
-        
+
         uid_ = getDefaultInstance().getUid();
         onChanged();
         return this;
@@ -3873,7 +4285,7 @@ public final class LOGIN_MSG {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
+
         uid_ = value;
         onChanged();
         return this;
@@ -3890,7 +4302,7 @@ public final class LOGIN_MSG {
        * <code>int32 id = 2;</code>
        */
       public Builder setId(int value) {
-        
+
         id_ = value;
         onChanged();
         return this;
@@ -3899,7 +4311,7 @@ public final class LOGIN_MSG {
        * <code>int32 id = 2;</code>
        */
       public Builder clearId() {
-        
+
         id_ = 0;
         onChanged();
         return this;
@@ -3919,7 +4331,7 @@ public final class LOGIN_MSG {
         if (value == null) {
     throw new NullPointerException();
   }
-  
+
         data_ = value;
         onChanged();
         return this;
@@ -3928,26 +4340,26 @@ public final class LOGIN_MSG {
        * <code>bytes data = 3;</code>
        */
       public Builder clearData() {
-        
+
         data_ = getDefaultInstance().getData();
         onChanged();
         return this;
       }
 
-      private java.lang.Object from_ = "";
+      private Object from_ = "";
       /**
        * <code>string from = 4;</code>
        */
-      public java.lang.String getFrom() {
-        java.lang.Object ref = from_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getFrom() {
+        Object ref = from_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           from_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -3955,11 +4367,11 @@ public final class LOGIN_MSG {
        */
       public com.google.protobuf.ByteString
           getFromBytes() {
-        java.lang.Object ref = from_;
+        Object ref = from_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           from_ = b;
           return b;
         } else {
@@ -3970,11 +4382,11 @@ public final class LOGIN_MSG {
        * <code>string from = 4;</code>
        */
       public Builder setFrom(
-          java.lang.String value) {
+          String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
+
         from_ = value;
         onChanged();
         return this;
@@ -3983,7 +4395,7 @@ public final class LOGIN_MSG {
        * <code>string from = 4;</code>
        */
       public Builder clearFrom() {
-        
+
         from_ = getDefaultInstance().getFrom();
         onChanged();
         return this;
@@ -3997,18 +4409,18 @@ public final class LOGIN_MSG {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
+
         from_ = value;
         onChanged();
         return this;
       }
-      @java.lang.Override
+      @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      @java.lang.Override
+      @Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -4030,7 +4442,7 @@ public final class LOGIN_MSG {
 
     private static final com.google.protobuf.Parser<MyMessage>
         PARSER = new com.google.protobuf.AbstractParser<MyMessage>() {
-      @java.lang.Override
+      @Override
       public MyMessage parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4043,12 +4455,12 @@ public final class LOGIN_MSG {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<MyMessage> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.net.msg.LOGIN_MSG.MyMessage getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -4057,37 +4469,42 @@ public final class LOGIN_MSG {
 
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_CTS_LOGIN_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_CTS_LOGIN_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_STC_LOGIN_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_STC_LOGIN_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_CTS_HEART_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_CTS_HEART_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_STC_HEART_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_STC_HEART_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_CTS_TEST_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_CTS_TEST_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_STC_TEST_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_STC_TEST_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_LTGAME_RESET_COUNT_descriptor;
+  private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_LTGAME_RESET_COUNT_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_MyMessage_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_MyMessage_fieldAccessorTable;
 
@@ -4098,16 +4515,17 @@ public final class LOGIN_MSG {
   private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
-    java.lang.String[] descriptorData = {
+    String[] descriptorData = {
       "\n\013login.proto\032\roptions.proto\"6\n\tCTS_LOGI" +
       "N\022\020\n\010username\030\001 \001(\t\022\020\n\010password\030\002 \001(\t:\005\230" +
       "\202\031\221N\",\n\tSTC_LOGIN\022\013\n\003uid\030\001 \001(\t\022\013\n\003suc\030\002 " +
       "\001(\010:\005\230\202\031\222N\"\022\n\tCTS_HEART:\005\230\202\031\223N\"\022\n\tSTC_HE" +
       "ART:\005\230\202\031\224N\"\037\n\010CTS_TEST\022\014\n\004word\030\001 \001(\t:\005\230\202" +
-      "\031\225N\"\037\n\010STC_TEST\022\014\n\004word\030\001 \001(\t:\005\230\202\031\226N\"@\n\t" +
-      "MyMessage\022\013\n\003uid\030\001 \001(\t\022\n\n\002id\030\002 \001(\005\022\014\n\004da" +
-      "ta\030\003 \001(\014\022\014\n\004from\030\004 \001(\tB\030\n\013com.net.msgB\tL" +
-      "OGIN_MSGb\006proto3"
+      "\031\225N\"\037\n\010STC_TEST\022\014\n\004word\030\001 \001(\t:\005\230\202\031\226N\"\033\n\022" +
+      "LTGAME_RESET_COUNT:\005\230\202\031\227N\"@\n\tMyMessage\022\013" +
+      "\n\003uid\030\001 \001(\t\022\n\n\002id\030\002 \001(\005\022\014\n\004data\030\003 \001(\014\022\014\n" +
+      "\004from\030\004 \001(\tB\030\n\013com.net.msgB\tLOGIN_MSGb\006p" +
+      "roto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4127,43 +4545,49 @@ public final class LOGIN_MSG {
     internal_static_CTS_LOGIN_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_CTS_LOGIN_descriptor,
-        new java.lang.String[] { "Username", "Password", });
+        new String[] { "Username", "Password", });
     internal_static_STC_LOGIN_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_STC_LOGIN_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_STC_LOGIN_descriptor,
-        new java.lang.String[] { "Uid", "Suc", });
+        new String[] { "Uid", "Suc", });
     internal_static_CTS_HEART_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_CTS_HEART_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_CTS_HEART_descriptor,
-        new java.lang.String[] { });
+        new String[] { });
     internal_static_STC_HEART_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_STC_HEART_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_STC_HEART_descriptor,
-        new java.lang.String[] { });
+        new String[] { });
     internal_static_CTS_TEST_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_CTS_TEST_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_CTS_TEST_descriptor,
-        new java.lang.String[] { "Word", });
+        new String[] { "Word", });
     internal_static_STC_TEST_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_STC_TEST_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_STC_TEST_descriptor,
-        new java.lang.String[] { "Word", });
-    internal_static_MyMessage_descriptor =
+        new String[] { "Word", });
+    internal_static_LTGAME_RESET_COUNT_descriptor =
       getDescriptor().getMessageTypes().get(6);
+    internal_static_LTGAME_RESET_COUNT_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_LTGAME_RESET_COUNT_descriptor,
+        new String[] { });
+    internal_static_MyMessage_descriptor =
+      getDescriptor().getMessageTypes().get(7);
     internal_static_MyMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MyMessage_descriptor,
-        new java.lang.String[] { "Uid", "Id", "Data", "From", });
+        new String[] { "Uid", "Id", "Data", "From", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.net.msg.Options.messageId);

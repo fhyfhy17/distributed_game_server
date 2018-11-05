@@ -1,8 +1,12 @@
 package com.controller;
 
+import com.manager.ServerManager;
 import com.net.msg.LOGIN_MSG;
+import com.net.msg.Options;
+import com.pojo.Message;
 import com.pojo.User;
 import com.service.LoginService;
+import com.util.ContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -21,18 +25,20 @@ public class LoginController extends BaseController {
         User user = loginService.login(username, password);
 
         if (!Objects.isNull(user)) {
-//            ConnectUser connectUser = new ConnectUser();
-//            connectUser.setUid(user.getUid());
-//            connectUser.setGateId(context.getFrom());
-//            //保存sessionId信息,登录成功之前,messeage里的uid就是sessionId
-//            connectUser.setSessionId(context.getUid());
-//            ConnectUserManger.saveConnectUser(connectUser);
-
             builder.setUid(user.getUid());
             builder.setSuc(true);
         } else {
             builder.setSuc(false);
         }
+
+        LOGIN_MSG.LTGAME_RESET_COUNT.Builder builder1 = LOGIN_MSG.LTGAME_RESET_COUNT.newBuilder();
+        LOGIN_MSG.LTGAME_RESET_COUNT build = builder1.build();
+        Message mLtG = new Message();
+        mLtG.setId(build.getDescriptorForType().getOptions().getExtension(Options.messageId));
+        mLtG.setUid(context.getUid());
+        mLtG.setFrom(ContextUtil.id);
+        mLtG.setData(build.toByteArray());
+        ServerManager.sendMessage("game-1", mLtG);
         return builder.build();
 
     }
