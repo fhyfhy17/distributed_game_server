@@ -21,7 +21,7 @@ public class GenTemplatesUtil {
         URL path = GenTemplatesUtil.class.getResource("/templates/");
         System.out.println(path.getPath());
 
-        List<String> fileList = FileUtil.getFiles(path.getPath().substring(1, path.getPath().length()), ".xml");
+        List<String> fileList = FileUtil.getFiles(path.getPath().substring(1), ".xml");
         convert(fileList);
     }
 

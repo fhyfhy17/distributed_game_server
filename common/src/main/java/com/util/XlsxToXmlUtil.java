@@ -87,7 +87,7 @@ public class XlsxToXmlUtil {
                     Format format = Format.getPrettyFormat();
                     XMLOutputter XMLOut = new XMLOutputter(format);
                     int index = fileName.lastIndexOf("\\");
-                    XMLOut.output(Doc, new FileOutputStream(fileName.substring(0, index) + "\\xml\\" + fileName.substring(index, fileName.length()) + "_" + sheet.getSheetName() + ".xml"));
+                    XMLOut.output(Doc, new FileOutputStream(fileName.substring(0, index) + "\\xml\\" + fileName.substring(index) + "_" + sheet.getSheetName() + ".xml"));
                 }
 
             } catch (Exception e) {
