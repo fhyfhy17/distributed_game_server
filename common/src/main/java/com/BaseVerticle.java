@@ -5,10 +5,10 @@ import com.manager.VertxMessageManager;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
-import io.vertx.spi.cluster.zookeeper.ZookeeperClusterManager;
+import io.vertx.ext.cluster.infinispan.InfinispanClusterManager;
 import lombok.extern.slf4j.Slf4j;
+import org.infinispan.manager.DefaultCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -22,14 +22,13 @@ import java.util.concurrent.ExecutionException;
 public abstract class BaseVerticle {
     private Vertx vertx;
     @Autowired
-    @Qualifier("zookeeper")
-    private ZookeeperClusterManager clusterManager;
+    private DefaultCacheManager cacheManager;
 
     @PostConstruct
     void init() throws ExecutionException, InterruptedException {
 
         VertxOptions options = new VertxOptions()
-                .setClusterManager(clusterManager);
+                .setClusterManager(new InfinispanClusterManager(cacheManager));
 
         CompletableFuture<Vertx> future = new CompletableFuture<>();
         Vertx.clusteredVertx(options, ar -> {
@@ -61,10 +60,6 @@ public abstract class BaseVerticle {
         return vertx;
     }
 
-    @Bean
-    ZookeeperClusterManager clusterManager() {
-        return clusterManager;
-    }
 
     @PreDestroy
     void close() throws ExecutionException, InterruptedException {

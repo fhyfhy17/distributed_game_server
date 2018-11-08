@@ -1,10 +1,10 @@
 package com.manager;
 
 import cn.hutool.core.util.RandomUtil;
-import com.alibaba.fastjson.JSON;
 import com.enums.ServerTypeEnum;
 import com.pojo.ServerInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.infinispan.remoting.transport.Address;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,22 +13,28 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ServerInfoManager {
 
+    private static ConcurrentHashMap<Address, ServerInfo> addressServerInfos = new ConcurrentHashMap<>();
+
     private static ConcurrentHashMap<String, ServerInfo> serverInfos = new ConcurrentHashMap<>();
 
     public static ConcurrentHashMap<String, ServerInfo> getAllServerInfos() {
         return serverInfos;
     }
 
-    public static void addServer(String serverString) {
-        ServerInfo serverInfo = JSON.parseObject(serverString.split("==")[1], ServerInfo.class);
+    public static boolean ifCached(String serverId) {
+        return serverInfos.values().stream().anyMatch(x -> x.getServerId().equals(serverId));
+    }
+
+    public static void addServer(ServerInfo serverInfo, Address address) {
+        addressServerInfos.put(address, serverInfo);
         serverInfos.put(serverInfo.getServerId(), serverInfo);
         log.info("新服务加入={}  ,所有服务={}", serverInfo.getServerId(), serverInfos);
     }
 
-    public static void removeServer(String serverString) {
-        ServerInfo serverInfo = JSON.parseObject(serverString.split("==")[1], ServerInfo.class);
-        serverInfos.remove(serverInfo.getServerId());
-        log.info("服务退出={}  ,所有服务={}", serverInfo.getServerId(), serverInfos);
+    public static void removeServer(Address address) {
+        ServerInfo remove = addressServerInfos.remove(address);
+        serverInfos.remove(remove.getServerId());
+        log.info("服务退出={}  ,所有服务={}", remove, serverInfos);
     }
 
     /**

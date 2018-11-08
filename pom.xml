@@ -46,8 +46,8 @@
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
-            <artifactId>vertx-zookeeper</artifactId>
-            <version>3.4.2</version>
+            <artifactId>vertx-infinispan</artifactId>
+            <version>3.5.4</version>
         </dependency>
 
         <dependency>
