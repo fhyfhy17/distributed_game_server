@@ -2,13 +2,14 @@ package com.net.handler;
 
 import com.enums.ServerTypeEnum;
 import com.hanlder.MessageThreadHandler;
-import com.manager.ConnectUserManger;
 import com.manager.ServerInfoManager;
 import com.manager.VertxMessageManager;
-import com.pojo.ConnectUser;
+import com.net.ConnectManager;
+import com.net.Session;
 import com.pojo.Message;
 import com.util.ContextUtil;
 import com.util.RouteUtil;
+import com.util.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class GateMessageHandler extends MessageThreadHandler {
-
     @Override
     public void pulse() {
         while (!pulseQueues.isEmpty()) {
@@ -46,8 +46,9 @@ public class GateMessageHandler extends MessageThreadHandler {
                 VertxMessageManager.sendMessage(loginServerId, message);
                 break;
             case GAME:
-//                ConnectUser connectUser = ConnectUserManger.getConnectUser(message.getUid());
-                VertxMessageManager.sendMessage("game-1", message);
+                ConnectManager connectManager =  SpringUtils.getBean(ConnectManager.class);
+                Session session = connectManager.getUserIdToConnectMap().get(message.getUid());
+                VertxMessageManager.sendMessage(session.getGameId(), message);
                 break;
             case X:
                 break;

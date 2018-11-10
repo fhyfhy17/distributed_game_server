@@ -1,8 +1,6 @@
 package com.controller;
 
-import com.manager.ConnectUserManger;
 import com.net.msg.LOGIN_MSG;
-import com.pojo.ConnectUser;
 import com.pojo.User;
 import com.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +21,6 @@ public class LoginController extends BaseController {
         User user = loginService.login(username, password);
 
         if (!Objects.isNull(user)) {
-            ConnectUser connectUser = new ConnectUser();
-            connectUser.setUid(user.getUid());
-            connectUser.setGateId(context.getFrom());
-            //保存sessionId信息,登录成功之前,messeage里的uid就是sessionId
-            connectUser.setSessionId(context.getUid());
-            ConnectUserManger.saveConnectUser(connectUser);
-
             builder.setUid(user.getUid());
             builder.setSuc(true);
         } else {
