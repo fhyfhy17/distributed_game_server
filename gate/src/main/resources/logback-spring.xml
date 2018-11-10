@@ -28,7 +28,7 @@
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>log/debug.%d{yyyy-MM-dd}.log</fileNamePattern>　　　　　　　　
+            <fileNamePattern>gate/target/log/debug.%d{yyyy-MM-dd}.log</fileNamePattern>　　　　　　　　
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         　　　　　　
@@ -50,7 +50,7 @@
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>log/info.%d{yyyy-MM-dd}.log</fileNamePattern>　　　　　　　　
+            <fileNamePattern>gate/target/log/info.%d{yyyy-MM-dd}.log</fileNamePattern>　　　　　　　　
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         　　　　　　
@@ -68,7 +68,7 @@
         <append>true</append>　
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>log/warn.%d{yyyy-MM-dd}.log</fileNamePattern>　　　　　　　　
+            <fileNamePattern>gate/target/log/warn.%d{yyyy-MM-dd}.log</fileNamePattern>　　　　　　　　
             <maxHistory>30</maxHistory>
         </rollingPolicy>
 
@@ -89,7 +89,7 @@
         <append>true</append>　
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>log/error.%d{yyyy-MM-dd}.log</fileNamePattern>　　　　　　　　
+            <fileNamePattern>gate/target/log/error.%d{yyyy-MM-dd}.log</fileNamePattern>　　　　　　　　
             <maxHistory>30</maxHistory>
         </rollingPolicy>
 
