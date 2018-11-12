@@ -47,7 +47,7 @@ public abstract class BaseVerticle {
         log.info("启动vertx");
         DeploymentOptions deploymentOptions = new DeploymentOptions();
         deploymentOptions.setWorker(true);
-        deploymentOptions.setInstances(3);
+        deploymentOptions.setInstances(1);
         //部署发送1
         vertx.deployVerticle(VertxMessageManager.class, deploymentOptions);
         //部署接收1
