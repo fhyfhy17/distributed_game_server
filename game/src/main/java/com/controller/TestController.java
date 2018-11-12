@@ -1,19 +1,21 @@
 package com.controller;
 
-import com.dao.PlayerRepository;
 import com.entry.PlayerEntry;
 import com.google.protobuf.MessageLite;
 import com.net.msg.LOGIN_MSG;
+import com.service.TestService;
 import com.util.CountUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 @Controller
 @Slf4j
 public class TestController extends BaseController {
     @Autowired
-    private PlayerRepository playerRepository;
+    private TestService testService;
     public LOGIN_MSG.STC_TEST test(UidContext uidContext, LOGIN_MSG.CTS_TEST req) {
 //        log.info("test收到word = {}", req.getWord());
         LOGIN_MSG.STC_TEST.Builder builder = LOGIN_MSG.STC_TEST.newBuilder();
@@ -29,10 +31,14 @@ public class TestController extends BaseController {
         CountUtil.count();
 
         PlayerEntry playerEntry = new PlayerEntry();
-        playerEntry.setName("张老三");
-        playerRepository.save(playerEntry);
-        playerEntry.setName("王在");
-        playerRepository.save(playerEntry);
+        playerEntry.setName("张老在");
+        testService.getPlayerRepository().save(playerEntry);
+
+        List<PlayerEntry> entrys = testService.getPlayerRepository().findPlayerEntryByName("张老在");
+        for (PlayerEntry entry : entrys) {
+            System.out.println(entry.getName()+""+entry.getId());
+        }
+
         return null;
     }
 
