@@ -31,7 +31,8 @@ public class TestController extends BaseController {
         PlayerEntry playerEntry = new PlayerEntry();
         playerEntry.setName("张老三");
         playerRepository.save(playerEntry);
-
+        playerEntry.setName("王在");
+        playerRepository.save(playerEntry);
         return null;
     }
 
