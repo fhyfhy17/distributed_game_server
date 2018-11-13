@@ -4,6 +4,7 @@ import com.annotation.IncKey;
 import com.annotation.SeqClassName;
 import com.entry.BaseEntry;
 import com.entry.SeqEntry;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -25,30 +26,21 @@ public class SaveEventListener extends AbstractMongoEventListener<BaseEntry> {
     @Override
     public void onBeforeConvert(BeforeConvertEvent<BaseEntry> event) {
         BaseEntry source = event.getSource();
-        String collectionName = event.getCollectionName();
+
         if (source != null) {
-            if (exist(collectionName, source)) {
+            if (!StringUtils.isEmpty(source.getId())) {
                 return;
             }
             ReflectionUtils.doWithFields(source.getClass(), field -> {
                 ReflectionUtils.makeAccessible(field);
                 if (field.isAnnotationPresent(IncKey.class)) {
-                    field.set(source, getNextId(source.getClass().getAnnotation(SeqClassName.class).name(), source));
+                    field.set(source, getNextId(source.getClass().getAnnotation(SeqClassName.class).name()));
                 }
             });
         }
     }
 
-
-    private boolean exist(String collectionName, BaseEntry baseEntry) {
-        Query exist = new Query(Criteria.where("_id").is(baseEntry.getId()));
-        if (mongo.exists(exist, collectionName)) {
-            return true;
-        }
-        return false;
-    }
-
-    private Long getNextId(String collName, BaseEntry baseEntry) {
+    private Long getNextId(String collName) {
 
         Query query = new Query(Criteria.where("collName").is(collName));
         Update update = new Update();
