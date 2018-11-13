@@ -29,8 +29,8 @@ public class TestService extends BaseService<PlayerEntry, String> {
         log.info("test = {}", testEvent.getTestWord());
     }
 
-    public List<PlayerEntry> findPlayerEntryByName(String name) {
-        return playerRepository.findPlayerEntryByName(name);
+    public List<PlayerEntry> findByName(String name) {
+        return playerRepository.findByName(name);
     }
 
 }

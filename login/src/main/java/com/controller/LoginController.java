@@ -1,13 +1,12 @@
 package com.controller;
 
+import com.entry.UserEntry;
 import com.manager.VertxMessageManager;
 import com.net.msg.LOGIN_MSG;
 import com.net.msg.Options;
 import com.pojo.Message;
-import com.pojo.User;
 import com.service.LoginService;
 import com.util.ContextUtil;
-import com.util.SerializeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -23,7 +22,7 @@ public class LoginController extends BaseController {
         String password = req.getPassword();
 
         LOGIN_MSG.STC_LOGIN.Builder builder = LOGIN_MSG.STC_LOGIN.newBuilder();
-        User user = loginService.login(username, password);
+        UserEntry user = loginService.login(username, password);
 
         if (!Objects.isNull(user)) {
             builder.setUid(user.getUid());

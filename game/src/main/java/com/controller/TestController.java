@@ -35,9 +35,9 @@ public class TestController extends BaseController {
 
         PlayerEntry playerEntry = new PlayerEntry();
         playerEntry.setName("张老在");
-        PlayerEntry playerEntry2 = testService.save(playerEntry);
+        testService.save(playerEntry);
 
-        List<PlayerEntry> entrys = testService.findPlayerEntryByName("张老在");
+        List<PlayerEntry> entrys = testService.findByName("张老在");
         for (PlayerEntry entry : entrys) {
             System.out.println(entry.getName() + "" + entry.getId());
         }
@@ -46,7 +46,7 @@ public class TestController extends BaseController {
             System.out.println(entry1.getName() + "" + entry1.getId());
         }
 
-        Optional<PlayerEntry> byId = testService.findById(playerEntry2.getId());
+        Optional<PlayerEntry> byId = testService.findById(playerEntry.getId());
         System.out.println("==================================================");
         System.out.println(byId.map(playerEntry1 -> playerEntry1.getId() + "--" + playerEntry1.getName()).orElse("123"));
 

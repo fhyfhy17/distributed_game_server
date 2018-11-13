@@ -1,26 +1,35 @@
 package com.service;
 
-import com.pojo.User;
+import com.dao.UserRepository;
+import com.entry.UserEntry;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
-public class LoginService extends BaseService {
+public class LoginService extends BaseService<UserEntry, String> {
 
+    @Autowired
+    private UserRepository userRepository;
 
-    public User login(String username, String password) {
+    @Override
+    MongoRepository<UserEntry, String> getRepository() {
+        return userRepository;
+    }
 
+    public UserEntry login(String username, String password) {
+        //TODO 多点登录判断
+        Optional<UserEntry> user = userRepository.findByUserNameAndPassWord(username, password);
 
-        if ("aaa".equals(username)) {
-            User user = new User();
-            user.setUsername(username);
-            user.setPassword(password);
-            user.setUid("2");
-
-            //TODO 这里做多点登录判断
-
-            return user;
-        }
-
-        return null;
+        return user.orElseGet(() -> {
+            UserEntry userEntry = new UserEntry();
+            userEntry.setUserName(username);
+            userEntry.setPassWord(password);
+            userEntry.setUid("2");
+            userRepository.save(userEntry);
+            return userEntry;
+        });
     }
 }
