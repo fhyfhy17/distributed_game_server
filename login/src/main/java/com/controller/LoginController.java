@@ -25,7 +25,7 @@ public class LoginController extends BaseController {
         UserEntry user = loginService.login(username, password);
 
         if (!Objects.isNull(user)) {
-            builder.setUid(user.getUid() + "");
+            builder.setUid(String.valueOf(user.getUid()));
             builder.setSuc(true);
         } else {
             builder.setSuc(false);

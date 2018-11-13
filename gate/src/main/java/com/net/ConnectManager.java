@@ -104,8 +104,6 @@ public class ConnectManager {
     /**
      * 包检测
      */
-    long start;
-    int count;
     public void checkMessage(Session session, NettyMessage message) {
 
         if (!Objects.isNull(nettyMessageFilter)) {
