@@ -7,4 +7,6 @@ public class Constant {
 
     public static final String SERVER_INFO = "serverInfo";
     public static final String INFINISPAN_CLUSTER_CACHE_NAME = "__vertx.distributed.cache";
+
+    public static final long ID_BEGIN_INDEX = 100;
 }

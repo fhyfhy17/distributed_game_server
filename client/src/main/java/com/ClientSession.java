@@ -32,8 +32,8 @@ public class ClientSession {
                     }
                     if ("1".equals(line)) {
                         LOGIN_MSG.CTS_LOGIN.Builder builder = LOGIN_MSG.CTS_LOGIN.newBuilder();
-                        builder.setUsername("aaa");
-                        builder.setPassword("1");
+                        builder.setUsername("bbbbb");
+                        builder.setPassword("1a");
 
                         NettyMessage m = new NettyMessage();
                         m.setId(10001);

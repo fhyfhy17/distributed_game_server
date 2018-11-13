@@ -22,12 +22,11 @@ public class LoginService extends BaseService<UserEntry, String> {
     public UserEntry login(String username, String password) {
         //TODO 多点登录判断
         Optional<UserEntry> user = userRepository.findByUserNameAndPassWord(username, password);
-
+//        user.ifPresent(userEntry -> userRepository.save(userEntry));
         return user.orElseGet(() -> {
             UserEntry userEntry = new UserEntry();
             userEntry.setUserName(username);
             userEntry.setPassWord(password);
-            userEntry.setUid("2");
             userRepository.save(userEntry);
             return userEntry;
         });
