@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @Slf4j
@@ -34,7 +35,7 @@ public class TestController extends BaseController {
 
         PlayerEntry playerEntry = new PlayerEntry();
         playerEntry.setName("张老在");
-        testService.save(playerEntry);
+        PlayerEntry playerEntry2 = testService.save(playerEntry);
 
         List<PlayerEntry> entrys = testService.findPlayerEntryByName("张老在");
         for (PlayerEntry entry : entrys) {
@@ -44,6 +45,12 @@ public class TestController extends BaseController {
         for (PlayerEntry entry1 : all) {
             System.out.println(entry1.getName() + "" + entry1.getId());
         }
+
+        Optional<PlayerEntry> byId = testService.findById(playerEntry2.getId());
+        System.out.println("==================================================");
+        System.out.println(byId.map(playerEntry1 -> playerEntry1.getId() + "--" + playerEntry1.getName()).orElse("123"));
+
+
         return null;
     }
 

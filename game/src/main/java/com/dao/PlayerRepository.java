@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public interface PlayerRepository extends MongoRepository<PlayerEntry, Long> {
+public interface PlayerRepository extends MongoRepository<PlayerEntry, String> {
 
     List<PlayerEntry> findPlayerEntryByName(String name);
 }

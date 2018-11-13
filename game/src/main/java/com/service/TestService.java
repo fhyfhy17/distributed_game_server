@@ -15,12 +15,12 @@ import java.util.List;
 @Service
 @EventListener
 @Slf4j
-public class TestService extends BaseService<PlayerEntry, Long> {
+public class TestService extends BaseService<PlayerEntry, String> {
     @Autowired
     PlayerRepository playerRepository;
 
     @Override
-    MongoRepository<PlayerEntry, Long> getRepository() {
+    MongoRepository<PlayerEntry, String> getRepository() {
         return playerRepository;
     }
 
