@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 @Data
-public class PlayerEntry {
+public class PlayerEntry extends BaseEntry {
     @Id
     private String id;
     @Indexed

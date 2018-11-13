@@ -1,13 +1,13 @@
 package com.dao;
 
 import com.entry.PlayerEntry;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public interface PlayerRepository extends CrudRepository<PlayerEntry, Long> {
+public interface PlayerRepository extends MongoRepository<PlayerEntry, Long> {
 
     List<PlayerEntry> findPlayerEntryByName(String name);
 }

@@ -16,6 +16,8 @@ import java.util.List;
 public class TestController extends BaseController {
     @Autowired
     private TestService testService;
+
+
     public LOGIN_MSG.STC_TEST test(UidContext uidContext, LOGIN_MSG.CTS_TEST req) {
 //        log.info("test收到word = {}", req.getWord());
         LOGIN_MSG.STC_TEST.Builder builder = LOGIN_MSG.STC_TEST.newBuilder();
@@ -32,13 +34,16 @@ public class TestController extends BaseController {
 
         PlayerEntry playerEntry = new PlayerEntry();
         playerEntry.setName("张老在");
-        testService.getPlayerRepository().save(playerEntry);
+        testService.save(playerEntry);
 
-        List<PlayerEntry> entrys = testService.getPlayerRepository().findPlayerEntryByName("张老在");
+        List<PlayerEntry> entrys = testService.findPlayerEntryByName("张老在");
         for (PlayerEntry entry : entrys) {
-            System.out.println(entry.getName()+""+entry.getId());
+            System.out.println(entry.getName() + "" + entry.getId());
         }
-
+        List<PlayerEntry> all = testService.findAll();
+        for (PlayerEntry entry1 : all) {
+            System.out.println(entry1.getName() + "" + entry1.getId());
+        }
         return null;
     }
 
