@@ -4,13 +4,15 @@ import com.annotation.EventListener;
 import com.google.common.eventbus.EventBus;
 import com.util.SpringUtils;
 import org.apache.commons.collections4.MapUtils;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
 
-@Service
-public class EventDispatcher {
+
+@Configuration
+public class EventDispatcherBase {
     //TODO 异步事件还需要想
 
     private static EventBus eventBus;
@@ -24,20 +26,13 @@ public class EventDispatcher {
         if (MapUtils.isEmpty(eventListeners)) {
             return;
         }
-        eventListeners.values().forEach(x -> register(x));
-    }
-
-    public static <T extends PlayerEventData> void dispatch(T eventData) {
-        eventBus.post(eventData);
+        eventListeners.values().forEach(x -> eventBus.register(x));
     }
 
 
-    public static void register(Object listener) {
-        eventBus.register(listener);
-    }
-
-    public static void unregister(Object listener) {
-        eventBus.unregister(listener);
+    @Bean(name = "eventBus")
+    public EventBus getEventBus() {
+        return eventBus;
     }
 
 

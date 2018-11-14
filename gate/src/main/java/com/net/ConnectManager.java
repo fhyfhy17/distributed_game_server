@@ -2,8 +2,8 @@ package com.net;
 
 import com.enums.GroupEnum;
 import com.enums.ServerTypeEnum;
-import com.hanlder.MessageGroup;
-import com.hanlder.MessageThreadHandler;
+import com.handler.MessageGroup;
+import com.handler.MessageThreadHandler;
 import com.manager.ServerInfoManager;
 import com.net.handler.GateMessageHandler;
 import com.pojo.Message;

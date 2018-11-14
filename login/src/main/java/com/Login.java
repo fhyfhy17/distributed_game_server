@@ -1,6 +1,7 @@
 package com;
 
 
+import com.controller.ControllerFactory;
 import com.util.ContextUtil;
 import com.util.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class Login implements CommandLineRunner {
 
     @EventListener
     void afterSrpingBoot(ApplicationReadyEvent event) throws Exception {
+        ControllerFactory.init();
+
     }
 }
 

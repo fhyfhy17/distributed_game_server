@@ -1,7 +1,7 @@
 package com.net.handler;
 
 import com.enums.ServerTypeEnum;
-import com.hanlder.MessageThreadHandler;
+import com.handler.MessageThreadHandler;
 import com.manager.ServerInfoManager;
 import com.manager.VertxMessageManager;
 import com.net.ConnectManager;

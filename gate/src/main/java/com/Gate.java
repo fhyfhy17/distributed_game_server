@@ -1,5 +1,6 @@
 package com;
 
+import com.controller.ControllerFactory;
 import com.net.NettyServer;
 import com.util.ContextUtil;
 import com.util.SpringUtils;
@@ -30,7 +31,9 @@ public class Gate implements CommandLineRunner {
 
     @EventListener
     void afterSrpingBoot(ApplicationReadyEvent event) throws Exception {
+        ControllerFactory.init();
         //启动 netty
         nettyServer.init();
+
     }
 }

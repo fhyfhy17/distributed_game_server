@@ -1,4 +1,4 @@
-package com.hanlder;
+package com.handler;
 
 import com.pojo.Message;
 import lombok.extern.slf4j.Slf4j;

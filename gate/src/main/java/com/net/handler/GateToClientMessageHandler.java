@@ -1,7 +1,7 @@
 package com.net.handler;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.hanlder.MessageThreadHandler;
+import com.handler.MessageThreadHandler;
 import com.net.ConnectManager;
 import com.net.msg.LOGIN_MSG;
 import com.net.msg.Options;

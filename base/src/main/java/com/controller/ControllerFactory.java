@@ -5,21 +5,19 @@ import com.google.protobuf.Message;
 import com.net.msg.Options;
 import com.util.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-@Component
+
 @Slf4j
 public class ControllerFactory {
 
-    private Map<Integer, ControllerHandler> controllerMap = Maps.newHashMap();
+    private static Map<Integer, ControllerHandler> controllerMap = Maps.newHashMap();
 
-    @PostConstruct
-    private void init() {
+
+    public static void init() {
         Map<String, BaseController> allControllers = SpringUtils.getBeansOfType(BaseController.class);
         allControllers.values().forEach(controller -> {
             Method[] declaredMethods = controller.getClass().getDeclaredMethods();
@@ -50,7 +48,7 @@ public class ControllerFactory {
 
     }
 
-    public Map<Integer, ControllerHandler> getControllerMap() {
+    public static Map<Integer, ControllerHandler> getControllerMap() {
         return controllerMap;
     }
 

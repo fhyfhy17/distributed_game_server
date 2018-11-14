@@ -1,9 +1,9 @@
-package com.hanlder;
+package com.handler;
 
+import com.controller.ControllerFactory;
 import com.controller.ControllerHandler;
 import com.controller.interceptor.HandlerExecutionChain;
 import com.pojo.Message;
-import com.util.ContextUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -50,7 +50,7 @@ public class MessageThreadHandler implements Runnable {
                 Message message = pulseQueues.poll();
                 final int cmdId = message.getId();
 
-                ControllerHandler handler = ContextUtil.controllerFactory.getControllerMap().get(cmdId);
+                ControllerHandler handler = ControllerFactory.getControllerMap().get(cmdId);
                 if (handler == null) {
                     throw new IllegalStateException("收到不存在的消息，消息ID=" + cmdId);
                 }
