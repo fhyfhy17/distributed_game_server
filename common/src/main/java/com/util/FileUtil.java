@@ -10,10 +10,7 @@ public class FileUtil {
         File root = new File(filePath);
         File[] files = root.listFiles(pathname -> {
             String name = pathname.getName();
-            if (name.endsWith(filter))
-                return true;
-            else
-                return false;
+            return name.endsWith(filter);
         });
         List<String> filelist = new ArrayList<>();
         for (File file : files) {

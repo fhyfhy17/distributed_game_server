@@ -15,7 +15,7 @@ public class IpUtil {
 		String netip = null;// 外网IP
 		try{
 			Enumeration<NetworkInterface> netInterfaces = NetworkInterface.getNetworkInterfaces();
-			InetAddress ip = null;
+			InetAddress ip;
 			boolean finded = false;// 是否找到外网IP
 			while (netInterfaces.hasMoreElements() && !finded) {
 				NetworkInterface ni = netInterfaces.nextElement();
@@ -48,7 +48,7 @@ public class IpUtil {
 		String localip = null;
 		try{
 			Enumeration<NetworkInterface> netInterfaces = NetworkInterface.getNetworkInterfaces();
-			InetAddress ip = null;
+			InetAddress ip;
 			while (netInterfaces.hasMoreElements()) {
 				NetworkInterface ni = netInterfaces.nextElement();
 				Enumeration<InetAddress> address = ni.getInetAddresses();

@@ -15,23 +15,21 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
 public class TemplateLoader {
 
-    public <T extends AbstractTemplate> List<T> loadTemplate(File file, Class<T> clazz) {
+    <T extends AbstractTemplate> List<T> loadTemplate(File file, Class<T> clazz) {
 
         List<T> ts = new ArrayList<>();
 
         try {
             Document doc = new SAXBuilder().build(file);
             Element root = doc.getRootElement();
-            Iterator<Element> it = root.getChildren().<Element>iterator();
+            Iterator<Element> it = root.getChildren().iterator();
             int count = 0;
             while (it.hasNext()) {
                 Element next = it.next();
@@ -64,7 +62,7 @@ public class TemplateLoader {
     }
 
     private static <T> void setProperties(T object, String fieldName, String fieldValue) {
-        PropertyDescriptor prop = null;
+        PropertyDescriptor prop;
         try {
             prop = new PropertyDescriptor(fieldName, object.getClass());
         } catch (Exception ex) {
@@ -78,95 +76,87 @@ public class TemplateLoader {
             Method m = prop.getWriteMethod();
             boolean emptyVal = "".equals(fieldValue);
             Object val = null;
-            if (field.equals("List")) {
-                Field f = null;
-                try {
-                    f = object.getClass().getDeclaredField(fieldName.trim());
-                } catch (Exception e) {
-                    log.error("", e);
-                }
-
-                Type genericReturnType = f.getGenericType();
-
-                Class<?> typeClass = null;
-                if (genericReturnType instanceof ParameterizedType) {
-                    Type[] actualTypeArguments = ((ParameterizedType) genericReturnType).getActualTypeArguments();
-                    typeClass = (Class<?>) actualTypeArguments[0];
-                }
-
-                if (typeClass == String.class) {
-                    String[] vs = fieldValue.split(",");
-                    List<String> list = new ArrayList<>();
-                    for (String string : vs) {
-                        list.add(string);
+            switch (field) {
+                case "List":
+                    Field f = null;
+                    try {
+                        f = object.getClass().getDeclaredField(fieldName.trim());
+                    } catch (Exception e) {
+                        log.error("", e);
                     }
-                    val = list;
-                } else if (typeClass == Integer.class) {
-                    String[] vs = fieldValue.split(",");
 
-                    if (vs.length > 0) {
-                        List<Integer> list = new ArrayList<>();
-                        for (int i = 0; i < vs.length; i++) {
-                            if (null == vs[i] || "".equals(vs[i].trim())) {
-                                continue;
-                            }
-                            list.add(Integer.parseInt(vs[i]));
-                        }
+                    Type genericReturnType = f.getGenericType();
+
+                    Class<?> typeClass = null;
+                    if (genericReturnType instanceof ParameterizedType) {
+                        Type[] actualTypeArguments = ((ParameterizedType) genericReturnType).getActualTypeArguments();
+                        typeClass = (Class<?>) actualTypeArguments[0];
+                    }
+
+                    if (typeClass == String.class) {
+                        String[] vs = fieldValue.split(",");
+                        List<String> list = new ArrayList<>();
+                        Collections.addAll(list, vs);
                         val = list;
-                    }
-                } else if (typeClass == Double.class) {
-                    String[] vs = fieldValue.split(",");
+                    } else if (typeClass == Integer.class) {
+                        String[] vs = fieldValue.split(",");
 
-                    if (vs.length > 0) {
-                        List<Double> list = new ArrayList<>();
-                        for (int i = 0; i < vs.length; i++) {
-                            if (null == vs[i] || "".equals(vs[i].trim())) {
-                                continue;
-                            }
-                            list.add(formatDouble(vs[i]));
+                        if (vs.length > 0) {
+                            val = Arrays.stream(vs).filter(v -> !(null == v) && !"".equals(v.trim())).map(Integer::parseInt).collect(Collectors.toList());
                         }
-                        val = list;
-                    }
-                } else if (typeClass == Float.class) {
-                    String[] vs = fieldValue.split(",");
+                    } else if (typeClass == Double.class) {
+                        String[] vs = fieldValue.split(",");
 
-                    if (vs.length > 0) {
-                        List<Float> list = new ArrayList<>();
-                        for (int i = 0; i < vs.length; i++) {
-                            if (null == vs[i] || "".equals(vs[i].trim())) {
-                                continue;
-                            }
-                            list.add(formatFloat(vs[i]));
+                        if (vs.length > 0) {
+                            val = Arrays.stream(vs).filter(v -> !(null == v) && !"".equals(v.trim())).map(TemplateLoader::formatDouble).collect(Collectors.toList());
                         }
-                        val = list;
+                    } else if (typeClass == Float.class) {
+                        String[] vs = fieldValue.split(",");
+
+                        if (vs.length > 0) {
+                            val = Arrays.stream(vs).filter(v -> !(null == v) && !"".equals(v.trim())).map(TemplateLoader::formatFloat).collect(Collectors.toList());
+                        }
                     }
-                }
-            } else if (field.equals("String")) {
-                val = fieldValue;
-            } else if (field.equals("int")) {
-                val = emptyVal ? 0 : Integer.parseInt(fieldValue);
-            } else if (field.equals("long")) {
-                val = emptyVal ? 0 : Long.parseLong(fieldValue);
-            } else if (field.equals("float")) {
-                val = emptyVal ? 0 : Float.parseFloat(fieldValue);
-            } else if (field.equals("double")) {
-                val = emptyVal ? 0 : Double.parseDouble(fieldValue);
-            } else if (field.equals("byte")) {
-                val = emptyVal ? 0 : Byte.parseByte(fieldValue);
-            } else if (field.equals("short")) {
-                val = emptyVal ? 0 : Short.parseShort(fieldValue);
-            } else if (field.equals("Date")) {
-                val = emptyVal ? new Date() : new Date(fieldValue);
-            } else if (field.equals("boolean")) {
-                if (fieldValue.equals("1")) {
-                    val = true;
-                } else if (fieldValue.equals("0")) {
-                    val = false;
-                } else {
-                    val = !emptyVal && Boolean.parseBoolean(fieldValue);
-                }
-            } else {
-                return;
+                    break;
+                case "String":
+                    val = fieldValue;
+                    break;
+                case "int":
+                    val = emptyVal ? 0 : Integer.parseInt(fieldValue);
+                    break;
+                case "long":
+                    val = emptyVal ? 0 : Long.parseLong(fieldValue);
+                    break;
+                case "float":
+                    val = emptyVal ? 0 : Float.parseFloat(fieldValue);
+                    break;
+                case "double":
+                    val = emptyVal ? 0 : Double.parseDouble(fieldValue);
+                    break;
+                case "byte":
+                    val = emptyVal ? 0 : Byte.parseByte(fieldValue);
+                    break;
+                case "short":
+                    val = emptyVal ? 0 : Short.parseShort(fieldValue);
+                    break;
+                case "Date":
+                    val = emptyVal ? new Date() : new Date(fieldValue);
+                    break;
+                case "boolean":
+                    switch (fieldValue) {
+                        case "1":
+                            val = true;
+                            break;
+                        case "0":
+                            val = false;
+                            break;
+                        default:
+                            val = !emptyVal && Boolean.parseBoolean(fieldValue);
+                            break;
+                    }
+                    break;
+                default:
+                    return;
             }
 
             m.invoke(object, val);
