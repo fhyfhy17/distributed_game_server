@@ -8,11 +8,13 @@ message CTS_LOGIN{
 	option(messageId) = 10001;
 	string username = 1;
 	string password =2;
+	string sessionId = 3;
 }
 message STC_LOGIN{
 	option(messageId) = 10002;
-	string uid = 1;
+	int64 uid = 1;
 	bool suc = 2;
+	string sessionId = 3;
 }
 
 message CTS_HEART{
@@ -40,7 +42,7 @@ message LTGAME_RESET_COUNT{
 	option(messageId) = 10007;
 }
 message MyMessage{
-	string uid =1;
+	int64 uid =1;
 	int32 id=2;
 	bytes data =3;
 	string from=4;

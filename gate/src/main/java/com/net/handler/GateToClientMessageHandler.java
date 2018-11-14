@@ -35,12 +35,12 @@ public class GateToClientMessageHandler extends MessageThreadHandler {
             LOGIN_MSG.STC_LOGIN m = LOGIN_MSG.STC_LOGIN.parseFrom(message.getData());
             if (m.getSuc()) {
 
-                connectManager.register(message.getUid(), m.getUid());
+                connectManager.register(m.getSessionId(), m.getUid());
                 connectManager.writeToClient(m.getUid(), message);
                 return;
             }
         }
-        String uid = message.getUid();
+        long uid = message.getUid();
         connectManager.writeToClient(uid, message);
     }
 

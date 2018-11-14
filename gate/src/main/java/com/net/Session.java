@@ -7,7 +7,7 @@ import lombok.Data;
 public class Session {
 
     private String id; // 连接ID
-    private String uid; // 用户唯一ID
+    private long uid; // 用户唯一ID
     private Channel channel; // 连接通道
     private String gameId;// game服务器
     private int autoIncrease;//自增序列

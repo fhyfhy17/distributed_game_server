@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Message implements Serializable {
 
     private static final long serialVersionUID = 1123834342L;
-    private String uid; // uid
+    private long uid; // uid
     private int id; // 协议号
     private byte[] data; // 协议内容
     private String from;

@@ -189,7 +189,7 @@ public class SerializeUtil {
         Message m = new Message();
         m.setId(1);
         m.setFrom("a");
-        m.setUid(sb.toString());
+        m.setUid(1);
         byte[] bbb = new byte[800];
         m.setData(bbb);
         int count = 100000;
@@ -301,29 +301,26 @@ class ColferMessage implements Serializable {
     public static int colferSizeMax = 16 * 1024 * 1024;
 
 
+
+
     public int id;
 
-    public String uid;
+    public long uid;
 
     public byte[] data;
 
     public String from;
 
 
-    /**
-     * Default constructor
-     */
+    /** Default constructor */
     public ColferMessage() {
         init();
     }
 
     private static final byte[] _zeroBytes = new byte[0];
 
-    /**
-     * Colfer zero values.
-     */
+    /** Colfer zero values. */
     private void init() {
-        uid = "";
         data = _zeroBytes;
         from = "";
     }
@@ -333,29 +330,21 @@ class ColferMessage implements Serializable {
      */
     public static class Unmarshaller {
 
-        /**
-         * The data source.
-         */
+        /** The data source. */
         protected InputStream in;
 
-        /**
-         * The read buffer.
-         */
+        /** The read buffer. */
         public byte[] buf;
 
-        /**
-         * The {@link #buf buffer}'s data start index, inclusive.
-         */
+        /** The {@link #buf buffer}'s data start index, inclusive. */
         protected int offset;
 
-        /**
-         * The {@link #buf buffer}'s data end index, exclusive.
-         */
+        /** The {@link #buf buffer}'s data end index, exclusive. */
         protected int i;
 
 
         /**
-         * @param in  the data source or {@code null}.
+         * @param in the data source or {@code null}.
          * @param buf the initial buffer or {@code null}.
          */
         public Unmarshaller(InputStream in, byte[] buf) {
@@ -368,7 +357,6 @@ class ColferMessage implements Serializable {
 
         /**
          * Reuses the marshaller.
-         *
          * @param in the data source or {@code null}.
          * @throws IllegalStateException on pending data.
          */
@@ -381,10 +369,9 @@ class ColferMessage implements Serializable {
 
         /**
          * Deserializes the following object.
-         *
          * @return the result or {@code null} when EOF.
-         * @throws IOException            from the input stream.
-         * @throws SecurityException      on an upper limit breach defined by {@link #colferSizeMax}.
+         * @throws IOException from the input stream.
+         * @throws SecurityException on an upper limit breach defined by {@link #colferSizeMax}.
          * @throws InputMismatchException when the data does not match this object's schema.
          */
         public ColferMessage next() throws IOException {
@@ -430,12 +417,11 @@ class ColferMessage implements Serializable {
 
     /**
      * Serializes the object.
-     *
      * @param out the data destination.
      * @param buf the initial buffer or {@code null}.
      * @return the final buffer. When the serial fits into {@code buf} then the return is {@code buf}.
-     * Otherwise the return is a new buffer, large enough to hold the whole serial.
-     * @throws IOException           from {@code out}.
+     *  Otherwise the return is a new buffer, large enough to hold the whole serial.
+     * @throws IOException from {@code out}.
      * @throws IllegalStateException on an upper limit breach defined by {@link #colferSizeMax}.
      */
     public byte[] marshal(OutputStream out, byte[] buf) throws IOException {
@@ -459,12 +445,11 @@ class ColferMessage implements Serializable {
 
     /**
      * Serializes the object.
-     *
-     * @param buf    the data destination.
+     * @param buf the data destination.
      * @param offset the initial index for {@code buf}, inclusive.
      * @return the final index for {@code buf}, exclusive.
      * @throws BufferOverflowException when {@code buf} is too small.
-     * @throws IllegalStateException   on an upper limit breach defined by {@link #colferSizeMax}.
+     * @throws IllegalStateException on an upper limit breach defined by {@link #colferSizeMax}.
      */
     public int marshal(byte[] buf, int offset) {
         int i = offset;
@@ -484,50 +469,18 @@ class ColferMessage implements Serializable {
                 buf[i++] = (byte) x;
             }
 
-            if (!this.uid.isEmpty()) {
-                buf[i++] = (byte) 1;
-                int start = ++i;
-
-                String s = this.uid;
-                for (int sIndex = 0, sLength = s.length(); sIndex < sLength; sIndex++) {
-                    char c = s.charAt(sIndex);
-                    if (c < '\u0080') {
-                        buf[i++] = (byte) c;
-                    } else if (c < '\u0800') {
-                        buf[i++] = (byte) (192 | c >>> 6);
-                        buf[i++] = (byte) (128 | c & 63);
-                    } else if (c < '\ud800' || c > '\udfff') {
-                        buf[i++] = (byte) (224 | c >>> 12);
-                        buf[i++] = (byte) (128 | c >>> 6 & 63);
-                        buf[i++] = (byte) (128 | c & 63);
-                    } else {
-                        int cp = 0;
-                        if (++sIndex < sLength) cp = Character.toCodePoint(c, s.charAt(sIndex));
-                        if ((cp >= 1 << 16) && (cp < 1 << 21)) {
-                            buf[i++] = (byte) (240 | cp >>> 18);
-                            buf[i++] = (byte) (128 | cp >>> 12 & 63);
-                            buf[i++] = (byte) (128 | cp >>> 6 & 63);
-                            buf[i++] = (byte) (128 | cp & 63);
-                        } else
-                            buf[i++] = (byte) '?';
-                    }
+            if (this.uid != 0) {
+                long x = this.uid;
+                if (x < 0) {
+                    x = -x;
+                    buf[i++] = (byte) (1 | 0x80);
+                } else
+                    buf[i++] = (byte) 1;
+                for (int n = 0; n < 8 && (x & ~0x7fL) != 0; n++) {
+                    buf[i++] = (byte) (x | 0x80);
+                    x >>>= 7;
                 }
-                int size = i - start;
-                if (size > ColferMessage.colferSizeMax)
-                    throw new IllegalStateException(format("colfer: demo.colferMessage.uid size %d exceeds %d UTF-8 bytes", size, ColferMessage.colferSizeMax));
-
-                int ii = start - 1;
-                if (size > 0x7f) {
-                    i++;
-                    for (int x = size; x >= 1 << 14; x >>>= 7) i++;
-                    System.arraycopy(buf, start, buf, i - size, size);
-
-                    do {
-                        buf[ii++] = (byte) (size | 0x80);
-                        size >>>= 7;
-                    } while (size > 0x7f);
-                }
-                buf[ii] = (byte) size;
+                buf[i++] = (byte) x;
             }
 
             if (this.data.length != 0) {
@@ -607,13 +560,12 @@ class ColferMessage implements Serializable {
 
     /**
      * Deserializes the object.
-     *
-     * @param buf    the data source.
+     * @param buf the data source.
      * @param offset the initial index for {@code buf}, inclusive.
      * @return the final index for {@code buf}, exclusive.
      * @throws BufferUnderflowException when {@code buf} is incomplete. (EOF)
-     * @throws SecurityException        on an upper limit breach defined by {@link #colferSizeMax}.
-     * @throws InputMismatchException   when the data does not match this object's schema.
+     * @throws SecurityException on an upper limit breach defined by {@link #colferSizeMax}.
+     * @throws InputMismatchException when the data does not match this object's schema.
      */
     public int unmarshal(byte[] buf, int offset) {
         return unmarshal(buf, offset, buf.length);
@@ -621,14 +573,13 @@ class ColferMessage implements Serializable {
 
     /**
      * Deserializes the object.
-     *
-     * @param buf    the data source.
+     * @param buf the data source.
      * @param offset the initial index for {@code buf}, inclusive.
-     * @param end    the index limit for {@code buf}, exclusive.
+     * @param end the index limit for {@code buf}, exclusive.
      * @return the final index for {@code buf}, exclusive.
      * @throws BufferUnderflowException when {@code buf} is incomplete. (EOF)
-     * @throws SecurityException        on an upper limit breach defined by {@link #colferSizeMax}.
-     * @throws InputMismatchException   when the data does not match this object's schema.
+     * @throws SecurityException on an upper limit breach defined by {@link #colferSizeMax}.
+     * @throws InputMismatchException when the data does not match this object's schema.
      */
     public int unmarshal(byte[] buf, int offset, int end) {
         if (end > buf.length) end = buf.length;
@@ -658,18 +609,28 @@ class ColferMessage implements Serializable {
             }
 
             if (header == (byte) 1) {
-                int size = 0;
+                long x = 0;
                 for (int shift = 0; true; shift += 7) {
                     byte b = buf[i++];
-                    size |= (b & 0x7f) << shift;
-                    if (shift == 28 || b >= 0) break;
+                    if (shift == 56 || b >= 0) {
+                        x |= (b & 0xffL) << shift;
+                        break;
+                    }
+                    x |= (b & 0x7fL) << shift;
                 }
-                if (size < 0 || size > ColferMessage.colferSizeMax)
-                    throw new SecurityException(format("colfer: demo.colferMessage.uid size %d exceeds %d UTF-8 bytes", size, ColferMessage.colferSizeMax));
-
-                int start = i;
-                i += size;
-                this.uid = new String(buf, start, size, StandardCharsets.UTF_8);
+                this.uid = x;
+                header = buf[i++];
+            } else if (header == (byte) (1 | 0x80)) {
+                long x = 0;
+                for (int shift = 0; true; shift += 7) {
+                    byte b = buf[i++];
+                    if (shift == 56 || b >= 0) {
+                        x |= (b & 0xffL) << shift;
+                        break;
+                    }
+                    x |= (b & 0x7fL) << shift;
+                }
+                this.uid = -x;
                 header = buf[i++];
             }
 
@@ -755,7 +716,6 @@ class ColferMessage implements Serializable {
 
     /**
      * Gets demo.colferMessage.id.
-     *
      * @return the value.
      */
     public int getId() {
@@ -764,7 +724,6 @@ class ColferMessage implements Serializable {
 
     /**
      * Sets demo.colferMessage.id.
-     *
      * @param value the replacement.
      */
     public void setId(int value) {
@@ -773,7 +732,6 @@ class ColferMessage implements Serializable {
 
     /**
      * Sets demo.colferMessage.id.
-     *
      * @param value the replacement.
      * @return {link this}.
      */
@@ -784,36 +742,32 @@ class ColferMessage implements Serializable {
 
     /**
      * Gets demo.colferMessage.uid.
-     *
      * @return the value.
      */
-    public String getUid() {
+    public long getUid() {
         return this.uid;
     }
 
     /**
      * Sets demo.colferMessage.uid.
-     *
      * @param value the replacement.
      */
-    public void setUid(String value) {
+    public void setUid(long value) {
         this.uid = value;
     }
 
     /**
      * Sets demo.colferMessage.uid.
-     *
      * @param value the replacement.
      * @return {link this}.
      */
-    public ColferMessage withUid(String value) {
+    public ColferMessage withUid(long value) {
         this.uid = value;
         return this;
     }
 
     /**
      * Gets demo.colferMessage.data.
-     *
      * @return the value.
      */
     public byte[] getData() {
@@ -822,7 +776,6 @@ class ColferMessage implements Serializable {
 
     /**
      * Sets demo.colferMessage.data.
-     *
      * @param value the replacement.
      */
     public void setData(byte[] value) {
@@ -831,7 +784,6 @@ class ColferMessage implements Serializable {
 
     /**
      * Sets demo.colferMessage.data.
-     *
      * @param value the replacement.
      * @return {link this}.
      */
@@ -842,7 +794,6 @@ class ColferMessage implements Serializable {
 
     /**
      * Gets demo.colferMessage.from.
-     *
      * @return the value.
      */
     public String getFrom() {
@@ -851,7 +802,6 @@ class ColferMessage implements Serializable {
 
     /**
      * Sets demo.colferMessage.from.
-     *
      * @param value the replacement.
      */
     public void setFrom(String value) {
@@ -860,7 +810,6 @@ class ColferMessage implements Serializable {
 
     /**
      * Sets demo.colferMessage.from.
-     *
      * @param value the replacement.
      * @return {link this}.
      */
@@ -873,7 +822,7 @@ class ColferMessage implements Serializable {
     public final int hashCode() {
         int h = 1;
         h = 31 * h + this.id;
-        if (this.uid != null) h = 31 * h + this.uid.hashCode();
+        h = 31 * h + (int) (this.uid ^ this.uid >>> 32);
         for (byte b : this.data) h = 31 * h + b;
         if (this.from != null) h = 31 * h + this.from.hashCode();
         return h;
@@ -889,7 +838,7 @@ class ColferMessage implements Serializable {
         if (o == this) return true;
         return o.getClass() == ColferMessage.class
                 && this.id == o.id
-                && (this.uid == null ? o.uid == null : this.uid.equals(o.uid))
+                && this.uid == o.uid
                 && java.util.Arrays.equals(this.data, o.data)
                 && (this.from == null ? o.from == null : this.from.equals(o.from));
     }

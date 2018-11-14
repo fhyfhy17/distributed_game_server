@@ -27,7 +27,7 @@ public class ConnectManager {
 
     private final ConcurrentHashMap<String, Session> idToSessionMap = new ConcurrentHashMap<>();
 
-    private final ConcurrentHashMap<String, Session> userIdToConnectMap = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Long, Session> userIdToConnectMap = new ConcurrentHashMap<>();
 
     private MessageGroup m;
     @Autowired
@@ -61,7 +61,7 @@ public class ConnectManager {
 
 
     //返回登录成功了再注册,多点登录放在login服吧
-    public Session register(String sessionId, String uid) {
+    public Session register(String sessionId, long uid) {
         //登录注册，保存uid和session到userIdToConnectMap
         Session session = idToSessionMap.get(sessionId);
         session.setUid(uid);
@@ -84,7 +84,7 @@ public class ConnectManager {
             return;
         }
         this.idToSessionMap.remove(session.getId());
-        if (session.getUid() == null) {
+        if (session.getUid() == 0) {
             return;
         }
         Session sessionNow = this.userIdToConnectMap.get(session.getUid());
@@ -94,7 +94,7 @@ public class ConnectManager {
 
     }
 
-    public void writeToClient(String uid, Message message) {
+    public void writeToClient(long uid, Message message) {
         Session session = userIdToConnectMap.get(uid);
         if (session != null) {
             session.writeMsg(message);
@@ -104,25 +104,26 @@ public class ConnectManager {
     /**
      * 包检测
      */
-    public void checkMessage(Session session, NettyMessage message) {
+    public boolean checkMessage(Session session, NettyMessage message) {
 
         if (!Objects.isNull(nettyMessageFilter)) {
             // 重复包检测
             if (!nettyMessageFilter.checkAutoIncrease(session, message)) {
-                return;
+                return false;
             }
 
             // 篡改包检测
             if (!nettyMessageFilter.checkCode(session, message)) {
-                return;
+                return false;
             }
         }
+        return true;
 
         // 解密  //TODO 加解密甚是爽朗
 //        if (session.getPacketEncrypt().isEncrypt()) {
 //            session.getPacketEncrypt().decode(packet.getByteArray(), packet.getIncode());
 //        }
-        addMessage(message);
+
     }
 
     public void addMessage(NettyMessage message) {
@@ -152,7 +153,7 @@ public class ConnectManager {
         return idToSessionMap;
     }
 
-    public ConcurrentHashMap<String, Session> getUserIdToConnectMap() {
+    public ConcurrentHashMap<Long, Session> getUserIdToConnectMap() {
         return userIdToConnectMap;
     }
 }

@@ -37,6 +37,17 @@ public final class LOGIN_MSG {
      */
     com.google.protobuf.ByteString
         getPasswordBytes();
+
+      /**
+       * <code>string sessionId = 3;</code>
+       */
+      java.lang.String getSessionId();
+
+      /**
+       * <code>string sessionId = 3;</code>
+       */
+      com.google.protobuf.ByteString
+      getSessionIdBytes();
   }
   /**
    * Protobuf type {@code CTS_LOGIN}
@@ -52,7 +63,8 @@ public final class LOGIN_MSG {
     }
     private CTS_LOGIN() {
       username_ = "";
-      password_ = "";
+        password_ = "";
+        sessionId_ = "";
     }
 
     @java.lang.Override
@@ -91,6 +103,12 @@ public final class LOGIN_MSG {
               password_ = s;
               break;
             }
+              case 26: {
+                  java.lang.String s = input.readStringRequireUtf8();
+
+                  sessionId_ = s;
+                  break;
+              }
             default: {
               if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -191,6 +209,42 @@ public final class LOGIN_MSG {
       }
     }
 
+      public static final int SESSIONID_FIELD_NUMBER = 3;
+      private volatile java.lang.Object sessionId_;
+
+      /**
+       * <code>string sessionId = 3;</code>
+       */
+      public java.lang.String getSessionId() {
+          java.lang.Object ref = sessionId_;
+          if (ref instanceof java.lang.String) {
+              return (java.lang.String) ref;
+          } else {
+              com.google.protobuf.ByteString bs =
+                      (com.google.protobuf.ByteString) ref;
+              java.lang.String s = bs.toStringUtf8();
+              sessionId_ = s;
+              return s;
+          }
+      }
+
+      /**
+       * <code>string sessionId = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+      getSessionIdBytes() {
+          java.lang.Object ref = sessionId_;
+          if (ref instanceof java.lang.String) {
+              com.google.protobuf.ByteString b =
+                      com.google.protobuf.ByteString.copyFromUtf8(
+                              (java.lang.String) ref);
+              sessionId_ = b;
+              return b;
+          } else {
+              return (com.google.protobuf.ByteString) ref;
+          }
+      }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -211,6 +265,9 @@ public final class LOGIN_MSG {
       if (!getPasswordBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, password_);
       }
+        if (!getSessionIdBytes().isEmpty()) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 3, sessionId_);
+        }
       unknownFields.writeTo(output);
     }
 
@@ -226,6 +283,9 @@ public final class LOGIN_MSG {
       if (!getPasswordBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, password_);
       }
+        if (!getSessionIdBytes().isEmpty()) {
+            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, sessionId_);
+        }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -245,7 +305,9 @@ public final class LOGIN_MSG {
       result = result && getUsername()
           .equals(other.getUsername());
       result = result && getPassword()
-          .equals(other.getPassword());
+              .equals(other.getPassword());
+        result = result && getSessionId()
+                .equals(other.getSessionId());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -261,6 +323,8 @@ public final class LOGIN_MSG {
       hash = (53 * hash) + getUsername().hashCode();
       hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
       hash = (53 * hash) + getPassword().hashCode();
+        hash = (37 * hash) + SESSIONID_FIELD_NUMBER;
+        hash = (53 * hash) + getSessionId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -396,7 +460,9 @@ public final class LOGIN_MSG {
         super.clear();
         username_ = "";
 
-        password_ = "";
+          password_ = "";
+
+        sessionId_ = "";
 
         return this;
       }
@@ -425,7 +491,8 @@ public final class LOGIN_MSG {
       public com.net.msg.LOGIN_MSG.CTS_LOGIN buildPartial() {
         com.net.msg.LOGIN_MSG.CTS_LOGIN result = new com.net.msg.LOGIN_MSG.CTS_LOGIN(this);
         result.username_ = username_;
-        result.password_ = password_;
+          result.password_ = password_;
+          result.sessionId_ = sessionId_;
         onBuilt();
         return result;
       }
@@ -478,10 +545,14 @@ public final class LOGIN_MSG {
           username_ = other.username_;
           onChanged();
         }
-        if (!other.getPassword().isEmpty()) {
-          password_ = other.password_;
-          onChanged();
-        }
+          if (!other.getPassword().isEmpty()) {
+              password_ = other.password_;
+              onChanged();
+          }
+          if (!other.getSessionId().isEmpty()) {
+              sessionId_ = other.sessionId_;
+              onChanged();
+          }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -646,8 +717,82 @@ public final class LOGIN_MSG {
         
         password_ = value;
         onChanged();
-        return this;
+          return this;
       }
+
+        private java.lang.Object sessionId_ = "";
+
+        /**
+         * <code>string sessionId = 3;</code>
+         */
+        public java.lang.String getSessionId() {
+            java.lang.Object ref = sessionId_;
+            if (!(ref instanceof java.lang.String)) {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                sessionId_ = s;
+                return s;
+            } else {
+                return (java.lang.String) ref;
+            }
+        }
+
+        /**
+         * <code>string sessionId = 3;</code>
+         */
+        public com.google.protobuf.ByteString
+        getSessionIdBytes() {
+            java.lang.Object ref = sessionId_;
+            if (ref instanceof String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                sessionId_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        /**
+         * <code>string sessionId = 3;</code>
+         */
+        public Builder setSessionId(
+                java.lang.String value) {
+            if (value == null) {
+                throw new NullPointerException();
+            }
+
+            sessionId_ = value;
+            onChanged();
+            return this;
+        }
+
+        /**
+         * <code>string sessionId = 3;</code>
+         */
+        public Builder clearSessionId() {
+
+            sessionId_ = getDefaultInstance().getSessionId();
+            onChanged();
+            return this;
+        }
+
+        /**
+         * <code>string sessionId = 3;</code>
+         */
+        public Builder setSessionIdBytes(
+                com.google.protobuf.ByteString value) {
+            if (value == null) {
+                throw new NullPointerException();
+            }
+            checkByteStringIsUtf8(value);
+
+            sessionId_ = value;
+            onChanged();
+            return this;
+        }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -703,22 +848,28 @@ public final class LOGIN_MSG {
 
   public interface STC_LOGINOrBuilder extends
       // @@protoc_insertion_point(interface_extends:STC_LOGIN)
-      com.google.protobuf.MessageOrBuilder {
+          com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string uid = 1;</code>
+     * <code>int64 uid = 1;</code>
      */
-    java.lang.String getUid();
-    /**
-     * <code>string uid = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getUidBytes();
+    long getUid();
 
-    /**
-     * <code>bool suc = 2;</code>
-     */
-    boolean getSuc();
+      /**
+       * <code>bool suc = 2;</code>
+       */
+      boolean getSuc();
+
+      /**
+       * <code>string sessionId = 3;</code>
+       */
+      java.lang.String getSessionId();
+
+      /**
+       * <code>string sessionId = 3;</code>
+       */
+      com.google.protobuf.ByteString
+      getSessionIdBytes();
   }
   /**
    * Protobuf type {@code STC_LOGIN}
@@ -730,11 +881,12 @@ public final class LOGIN_MSG {
   private static final long serialVersionUID = 0L;
     // Use STC_LOGIN.newBuilder() to construct.
     private STC_LOGIN(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
+        super(builder);
     }
     private STC_LOGIN() {
-      uid_ = "";
+      uid_ = 0L;
       suc_ = false;
+      sessionId_ = "";
     }
 
     @java.lang.Override
@@ -757,21 +909,26 @@ public final class LOGIN_MSG {
         boolean done = false;
         while (!done) {
           int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
+            switch (tag) {
+                case 0:
+                    done = true;
               break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 8: {
 
-              uid_ = s;
+              uid_ = input.readInt64();
               break;
             }
-            case 16: {
+                case 16: {
 
-              suc_ = input.readBool();
-              break;
-            }
+                    suc_ = input.readBool();
+                    break;
+                }
+                case 26: {
+                    java.lang.String s = input.readStringRequireUtf8();
+
+                    sessionId_ = s;
+                    break;
+                }
             default: {
               if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -804,47 +961,60 @@ public final class LOGIN_MSG {
               com.net.msg.LOGIN_MSG.STC_LOGIN.class, com.net.msg.LOGIN_MSG.STC_LOGIN.Builder.class);
     }
 
-    public static final int UID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object uid_;
-    /**
-     * <code>string uid = 1;</code>
+      public static final int UID_FIELD_NUMBER = 1;
+      private long uid_;
+
+      /**
+       * <code>int64 uid = 1;</code>
+       */
+      public long getUid() {
+          return uid_;
+      }
+
+      public static final int SUC_FIELD_NUMBER = 2;
+      private boolean suc_;
+
+      /**
+       * <code>bool suc = 2;</code>
+       */
+      public boolean getSuc() {
+          return suc_;
+      }
+
+      public static final int SESSIONID_FIELD_NUMBER = 3;
+      private volatile java.lang.Object sessionId_;
+
+      /**
+       * <code>string sessionId = 3;</code>
      */
-    public java.lang.String getUid() {
-      java.lang.Object ref = uid_;
+    public java.lang.String getSessionId() {
+      java.lang.Object ref = sessionId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        uid_ = s;
-        return s;
+          java.lang.String s = bs.toStringUtf8();
+        sessionId_ = s;
+          return s;
       }
     }
-    /**
-     * <code>string uid = 1;</code>
+
+      /**
+       * <code>string sessionId = 3;</code>
      */
     public com.google.protobuf.ByteString
-        getUidBytes() {
-      java.lang.Object ref = uid_;
+        getSessionIdBytes() {
+      java.lang.Object ref = sessionId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        uid_ = b;
+        sessionId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
-    }
-
-    public static final int SUC_FIELD_NUMBER = 2;
-    private boolean suc_;
-    /**
-     * <code>bool suc = 2;</code>
-     */
-    public boolean getSuc() {
-      return suc_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -861,28 +1031,35 @@ public final class LOGIN_MSG {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getUidBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, uid_);
+      if (uid_ != 0L) {
+          output.writeInt64(1, uid_);
       }
-      if (suc_ != false) {
-        output.writeBool(2, suc_);
-      }
+        if (suc_ != false) {
+            output.writeBool(2, suc_);
+        }
+        if (!getSessionIdBytes().isEmpty()) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 3, sessionId_);
+        }
       unknownFields.writeTo(output);
     }
 
     @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
+        int size = memoizedSize;
+        if (size != -1) return size;
 
-      size = 0;
-      if (!getUidBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, uid_);
-      }
-      if (suc_ != false) {
+        size = 0;
+      if (uid_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(2, suc_);
+          .computeInt64Size(1, uid_);
       }
+        if (suc_ != false) {
+            size += com.google.protobuf.CodedOutputStream
+                    .computeBoolSize(2, suc_);
+        }
+        if (!getSessionIdBytes().isEmpty()) {
+            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, sessionId_);
+        }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -896,13 +1073,15 @@ public final class LOGIN_MSG {
       if (!(obj instanceof com.net.msg.LOGIN_MSG.STC_LOGIN)) {
         return super.equals(obj);
       }
-      com.net.msg.LOGIN_MSG.STC_LOGIN other = (com.net.msg.LOGIN_MSG.STC_LOGIN) obj;
+        com.net.msg.LOGIN_MSG.STC_LOGIN other = (com.net.msg.LOGIN_MSG.STC_LOGIN) obj;
 
       boolean result = true;
-      result = result && getUid()
-          .equals(other.getUid());
-      result = result && (getSuc()
+        result = result && (getUid()
+                == other.getUid());
+        result = result && (getSuc()
           == other.getSuc());
+      result = result && getSessionId()
+          .equals(other.getSessionId());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -912,13 +1091,16 @@ public final class LOGIN_MSG {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + UID_FIELD_NUMBER;
-      hash = (53 * hash) + getUid().hashCode();
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + UID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getUid());
       hash = (37 * hash) + SUC_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getSuc());
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+                getSuc());
+      hash = (37 * hash) + SESSIONID_FIELD_NUMBER;
+      hash = (53 * hash) + getSessionId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1049,12 +1231,15 @@ public final class LOGIN_MSG {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
+
+        @java.lang.Override
       public Builder clear() {
         super.clear();
-        uid_ = "";
+        uid_ = 0L;
 
         suc_ = false;
+
+        sessionId_ = "";
 
         return this;
       }
@@ -1084,6 +1269,7 @@ public final class LOGIN_MSG {
         com.net.msg.LOGIN_MSG.STC_LOGIN result = new com.net.msg.LOGIN_MSG.STC_LOGIN(this);
         result.uid_ = uid_;
         result.suc_ = suc_;
+        result.sessionId_ = sessionId_;
         onBuilt();
         return result;
       }
@@ -1131,13 +1317,16 @@ public final class LOGIN_MSG {
       }
 
       public Builder mergeFrom(com.net.msg.LOGIN_MSG.STC_LOGIN other) {
-        if (other == com.net.msg.LOGIN_MSG.STC_LOGIN.getDefaultInstance()) return this;
-        if (!other.getUid().isEmpty()) {
-          uid_ = other.uid_;
-          onChanged();
+          if (other == com.net.msg.LOGIN_MSG.STC_LOGIN.getDefaultInstance()) return this;
+        if (other.getUid() != 0L) {
+            setUid(other.getUid());
         }
-        if (other.getSuc() != false) {
-          setSuc(other.getSuc());
+          if (other.getSuc() != false) {
+              setSuc(other.getSuc());
+          }
+        if (!other.getSessionId().isEmpty()) {
+          sessionId_ = other.sessionId_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1161,104 +1350,136 @@ public final class LOGIN_MSG {
           parsedMessage = (com.net.msg.LOGIN_MSG.STC_LOGIN) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+            if (parsedMessage != null) {
+                mergeFrom(parsedMessage);
+            }
         }
-        return this;
+          return this;
       }
 
-      private java.lang.Object uid_ = "";
+        private long uid_;
+
+        /**
+         * <code>int64 uid = 1;</code>
+         */
+        public long getUid() {
+            return uid_;
+        }
+
+        /**
+         * <code>int64 uid = 1;</code>
+         */
+        public Builder setUid(long value) {
+
+            uid_ = value;
+            onChanged();
+            return this;
+        }
+
+        /**
+         * <code>int64 uid = 1;</code>
+         */
+        public Builder clearUid() {
+
+            uid_ = 0L;
+            onChanged();
+            return this;
+        }
+
+        private boolean suc_;
+
+        /**
+         * <code>bool suc = 2;</code>
+         */
+        public boolean getSuc() {
+            return suc_;
+        }
+
+        /**
+         * <code>bool suc = 2;</code>
+         */
+        public Builder setSuc(boolean value) {
+
+            suc_ = value;
+            onChanged();
+            return this;
+        }
+
+        /**
+         * <code>bool suc = 2;</code>
+         */
+        public Builder clearSuc() {
+
+            suc_ = false;
+            onChanged();
+            return this;
+        }
+
+        private java.lang.Object sessionId_ = "";
       /**
-       * <code>string uid = 1;</code>
+       * <code>string sessionId = 3;</code>
        */
-      public java.lang.String getUid() {
-        java.lang.Object ref = uid_;
-        if (!(ref instanceof java.lang.String)) {
+      public java.lang.String getSessionId() {
+        java.lang.Object ref = sessionId_;
+          if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          uid_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+              java.lang.String s = bs.toStringUtf8();
+          sessionId_ = s;
+              return s;
+          } else {
+              return (java.lang.String) ref;
+          }
       }
       /**
-       * <code>string uid = 1;</code>
+       * <code>string sessionId = 3;</code>
        */
       public com.google.protobuf.ByteString
-          getUidBytes() {
-        java.lang.Object ref = uid_;
-        if (ref instanceof String) {
+          getSessionIdBytes() {
+        java.lang.Object ref = sessionId_;
+          if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          uid_ = b;
-          return b;
+                      (java.lang.String) ref);
+              sessionId_ = b;
+              return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string uid = 1;</code>
+       * <code>string sessionId = 3;</code>
        */
-      public Builder setUid(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        uid_ = value;
+      public Builder setSessionId(
+              java.lang.String value) {
+          if (value == null) {
+              throw new NullPointerException();
+          }
+
+          sessionId_ = value;
+          onChanged();
+          return this;
+      }
+      /**
+       * <code>string sessionId = 3;</code>
+       */
+      public Builder clearSessionId() {
+
+          sessionId_ = getDefaultInstance().getSessionId();
         onChanged();
         return this;
       }
       /**
-       * <code>string uid = 1;</code>
+       * <code>string sessionId = 3;</code>
        */
-      public Builder clearUid() {
-        
-        uid_ = getDefaultInstance().getUid();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string uid = 1;</code>
-       */
-      public Builder setUidBytes(
+      public Builder setSessionIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        uid_ = value;
-        onChanged();
-        return this;
-      }
-
-      private boolean suc_ ;
-      /**
-       * <code>bool suc = 2;</code>
-       */
-      public boolean getSuc() {
-        return suc_;
-      }
-      /**
-       * <code>bool suc = 2;</code>
-       */
-      public Builder setSuc(boolean value) {
-        
-        suc_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bool suc = 2;</code>
-       */
-      public Builder clearSuc() {
-        
-        suc_ = false;
+        sessionId_ = value;
         onChanged();
         return this;
       }
@@ -3651,19 +3872,14 @@ public final class LOGIN_MSG {
 
   }
 
-  public interface MyMessageOrBuilder extends
+    public interface MyMessageOrBuilder extends
       // @@protoc_insertion_point(interface_extends:MyMessage)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string uid = 1;</code>
+     * <code>int64 uid = 1;</code>
      */
-    java.lang.String getUid();
-    /**
-     * <code>string uid = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getUidBytes();
+    long getUid();
 
     /**
      * <code>int32 id = 2;</code>
@@ -3693,12 +3909,13 @@ public final class LOGIN_MSG {
       // @@protoc_insertion_point(message_implements:MyMessage)
       MyMessageOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use MyMessage.newBuilder() to construct.
+
+      // Use MyMessage.newBuilder() to construct.
     private MyMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
     private MyMessage() {
-      uid_ = "";
+      uid_ = 0L;
       id_ = 0;
       data_ = com.google.protobuf.ByteString.EMPTY;
       from_ = "";
@@ -3720,18 +3937,17 @@ public final class LOGIN_MSG {
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
+        try {
+            boolean done = false;
+            while (!done) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
               done = true;
               break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 8: {
 
-              uid_ = s;
+              uid_ = input.readInt64();
               break;
             }
             case 16: {
@@ -3778,42 +3994,17 @@ public final class LOGIN_MSG {
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.net.msg.LOGIN_MSG.internal_static_MyMessage_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.net.msg.LOGIN_MSG.MyMessage.class, com.net.msg.LOGIN_MSG.MyMessage.Builder.class);
+              .ensureFieldAccessorsInitialized(
+                      com.net.msg.LOGIN_MSG.MyMessage.class, com.net.msg.LOGIN_MSG.MyMessage.Builder.class);
     }
 
     public static final int UID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object uid_;
+    private long uid_;
     /**
-     * <code>string uid = 1;</code>
+     * <code>int64 uid = 1;</code>
      */
-    public java.lang.String getUid() {
-      java.lang.Object ref = uid_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        uid_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string uid = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getUidBytes() {
-      java.lang.Object ref = uid_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        uid_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public long getUid() {
+      return uid_;
     }
 
     public static final int ID_FIELD_NUMBER = 2;
@@ -3876,14 +4067,14 @@ public final class LOGIN_MSG {
       if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
-      return true;
+        return true;
     }
 
-    @java.lang.Override
+      @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getUidBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, uid_);
+      if (uid_ != 0L) {
+        output.writeInt64(1, uid_);
       }
       if (id_ != 0) {
         output.writeInt32(2, id_);
@@ -3894,17 +4085,18 @@ public final class LOGIN_MSG {
       if (!getFromBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, from_);
       }
-      unknownFields.writeTo(output);
-    }
+          unknownFields.writeTo(output);
+      }
 
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
+      @java.lang.Override
+      public int getSerializedSize() {
+          int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (!getUidBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, uid_);
+      if (uid_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, uid_);
       }
       if (id_ != 0) {
         size += com.google.protobuf.CodedOutputStream
@@ -3928,13 +4120,13 @@ public final class LOGIN_MSG {
        return true;
       }
       if (!(obj instanceof com.net.msg.LOGIN_MSG.MyMessage)) {
-        return super.equals(obj);
+          return super.equals(obj);
       }
       com.net.msg.LOGIN_MSG.MyMessage other = (com.net.msg.LOGIN_MSG.MyMessage) obj;
 
       boolean result = true;
-      result = result && getUid()
-          .equals(other.getUid());
+      result = result && (getUid()
+          == other.getUid());
       result = result && (getId()
           == other.getId());
       result = result && getData()
@@ -3947,13 +4139,14 @@ public final class LOGIN_MSG {
 
     @java.lang.Override
     public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
+        if (memoizedHashCode != 0) {
+            return memoizedHashCode;
+        }
+        int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + UID_FIELD_NUMBER;
-      hash = (53 * hash) + getUid().hashCode();
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getUid());
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + getId();
       hash = (37 * hash) + DATA_FIELD_NUMBER;
@@ -4086,14 +4279,14 @@ public final class LOGIN_MSG {
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
+          if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
         }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        uid_ = "";
+        uid_ = 0L;
 
         id_ = 0;
 
@@ -4173,15 +4366,14 @@ public final class LOGIN_MSG {
           return mergeFrom((com.net.msg.LOGIN_MSG.MyMessage)other);
         } else {
           super.mergeFrom(other);
-          return this;
+            return this;
         }
       }
 
-      public Builder mergeFrom(com.net.msg.LOGIN_MSG.MyMessage other) {
+        public Builder mergeFrom(com.net.msg.LOGIN_MSG.MyMessage other) {
         if (other == com.net.msg.LOGIN_MSG.MyMessage.getDefaultInstance()) return this;
-        if (!other.getUid().isEmpty()) {
-          uid_ = other.uid_;
-          onChanged();
+        if (other.getUid() != 0L) {
+          setUid(other.getUid());
         }
         if (other.getId() != 0) {
           setId(other.getId());
@@ -4213,80 +4405,39 @@ public final class LOGIN_MSG {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.net.msg.LOGIN_MSG.MyMessage) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
+            throw e.unwrapIOException();
         } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+            if (parsedMessage != null) {
+                mergeFrom(parsedMessage);
+            }
         }
-        return this;
+          return this;
       }
 
-      private java.lang.Object uid_ = "";
-      /**
-       * <code>string uid = 1;</code>
+        private long uid_;
+
+        /**
+         * <code>int64 uid = 1;</code>
        */
-      public java.lang.String getUid() {
-        java.lang.Object ref = uid_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          uid_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public long getUid() {
+        return uid_;
       }
-      /**
-       * <code>string uid = 1;</code>
+
+        /**
+         * <code>int64 uid = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getUidBytes() {
-        java.lang.Object ref = uid_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          uid_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string uid = 1;</code>
-       */
-      public Builder setUid(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        uid_ = value;
+      public Builder setUid(long value) {
+
+          uid_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string uid = 1;</code>
+       * <code>int64 uid = 1;</code>
        */
       public Builder clearUid() {
         
-        uid_ = getDefaultInstance().getUid();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string uid = 1;</code>
-       */
-      public Builder setUidBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        uid_ = value;
+        uid_ = 0L;
         onChanged();
         return this;
       }
@@ -4509,23 +4660,26 @@ public final class LOGIN_MSG {
       internal_static_MyMessage_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
-      getDescriptor() {
-    return descriptor;
+  getDescriptor() {
+      return descriptor;
   }
-  private static  com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
-  static {
-    java.lang.String[] descriptorData = {
-      "\n\013login.proto\032\roptions.proto\"6\n\tCTS_LOGI" +
-      "N\022\020\n\010username\030\001 \001(\t\022\020\n\010password\030\002 \001(\t:\005\230" +
-      "\202\031\221N\",\n\tSTC_LOGIN\022\013\n\003uid\030\001 \001(\t\022\013\n\003suc\030\002 " +
-      "\001(\010:\005\230\202\031\222N\"\022\n\tCTS_HEART:\005\230\202\031\223N\"\022\n\tSTC_HE" +
-      "ART:\005\230\202\031\224N\"\037\n\010CTS_TEST\022\014\n\004word\030\001 \001(\t:\005\230\202" +
-      "\031\225N\"\037\n\010STC_TEST\022\014\n\004word\030\001 \001(\t:\005\230\202\031\226N\"\033\n\022" +
-      "LTGAME_RESET_COUNT:\005\230\202\031\227N\"@\n\tMyMessage\022\013" +
-      "\n\003uid\030\001 \001(\t\022\n\n\002id\030\002 \001(\005\022\014\n\004data\030\003 \001(\014\022\014\n" +
-      "\004from\030\004 \001(\tB\030\n\013com.net.msgB\tLOGIN_MSGb\006p" +
-      "roto3"
+
+    private static com.google.protobuf.Descriptors.FileDescriptor
+            descriptor;
+
+    static {
+        java.lang.String[] descriptorData = {
+                "\n\013login.proto\032\roptions.proto\"I\n\tCTS_LOGI" +
+                        "N\022\020\n\010username\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\022\021\n" +
+                        "\tsessionId\030\003 \001(\t:\005\230\202\031\221N\"?\n\tSTC_LOGIN\022\013\n\003" +
+                        "uid\030\001 \001(\003\022\013\n\003suc\030\002 \001(\010\022\021\n\tsessionId\030\003 \001(" +
+                        "\t:\005\230\202\031\222N\"\022\n\tCTS_HEART:\005\230\202\031\223N\"\022\n\tSTC_HEAR" +
+                        "T:\005\230\202\031\224N\"\037\n\010CTS_TEST\022\014\n\004word\030\001 \001(\t:\005\230\202\031\225" +
+                        "N\"\037\n\010STC_TEST\022\014\n\004word\030\001 \001(\t:\005\230\202\031\226N\"\033\n\022LT" +
+                        "GAME_RESET_COUNT:\005\230\202\031\227N\"@\n\tMyMessage\022\013\n\003" +
+                        "uid\030\001 \001(\003\022\n\n\002id\030\002 \001(\005\022\014\n\004data\030\003 \001(\014\022\014\n\004f" +
+      "rom\030\004 \001(\tB\030\n\013com.net.msgB\tLOGIN_MSGb\006pro" +
+      "to3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4542,16 +4696,16 @@ public final class LOGIN_MSG {
         }, assigner);
     internal_static_CTS_LOGIN_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_CTS_LOGIN_fieldAccessorTable = new
+        internal_static_CTS_LOGIN_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_CTS_LOGIN_descriptor,
-        new java.lang.String[] { "Username", "Password", });
+        new java.lang.String[] { "Username", "Password", "SessionId", });
     internal_static_STC_LOGIN_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_STC_LOGIN_fieldAccessorTable = new
+        internal_static_STC_LOGIN_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_STC_LOGIN_descriptor,
-        new java.lang.String[] { "Uid", "Suc", });
+        new java.lang.String[] { "Uid", "Suc", "SessionId", });
     internal_static_CTS_HEART_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_CTS_HEART_fieldAccessorTable = new

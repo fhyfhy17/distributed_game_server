@@ -20,12 +20,13 @@ public class LoginController extends BaseController {
     public LOGIN_MSG.STC_LOGIN login(UidContext context, LOGIN_MSG.CTS_LOGIN req) {
         String username = req.getUsername();
         String password = req.getPassword();
+        String sessionId = req.getSessionId();
 
         LOGIN_MSG.STC_LOGIN.Builder builder = LOGIN_MSG.STC_LOGIN.newBuilder();
         UserEntry user = loginService.login(username, password);
-
+        builder.setSessionId(sessionId);
         if (!Objects.isNull(user)) {
-            builder.setUid(String.valueOf(user.getUid()));
+            builder.setUid(user.getUid());
             builder.setSuc(true);
         } else {
             builder.setSuc(false);

@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UidContext {
-    private String uid;
+    private long uid;
     private String from;
 }

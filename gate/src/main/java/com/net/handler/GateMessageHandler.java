@@ -22,7 +22,7 @@ public class GateMessageHandler extends MessageThreadHandler {
         while (!pulseQueues.isEmpty()) {
             try {
                 Message message = pulseQueues.poll();
-                final String uid = message.getUid();
+                final long uid = message.getUid();
                 final int cmdId = message.getId();
                 dispatch(message);
 

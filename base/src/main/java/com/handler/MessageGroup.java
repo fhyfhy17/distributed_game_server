@@ -1,10 +1,13 @@
 package com.handler;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.net.msg.LOGIN_MSG;
 import com.pojo.Message;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Slf4j
 public abstract class MessageGroup {
 
@@ -46,8 +49,19 @@ public abstract class MessageGroup {
     public abstract MessageThreadHandler getMessageThreadHandler();
 
     public void messageReceived(Message msg) {
+        int index = 0;
+
         // 分配执行器执行
-        int index = Math.abs(msg.getUid().hashCode()) % handlerCount;
+        if (msg.getId() == 10001) {
+            try {
+                index = Math.abs(LOGIN_MSG.CTS_LOGIN.parseFrom(msg.getData()).getSessionId().hashCode()) % handlerCount;
+            } catch (InvalidProtocolBufferException e) {
+                log.error("", e);
+            }
+        } else {
+            index = (int) (Math.abs(msg.getUid()) % handlerCount);
+        }
+
         MessageThreadHandler handler = hanlderList.get(index);
         handler.messageReceived(msg);
     }
