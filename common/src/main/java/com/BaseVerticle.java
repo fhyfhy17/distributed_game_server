@@ -27,6 +27,7 @@ public abstract class BaseVerticle {
     @PostConstruct
     void init() throws ExecutionException, InterruptedException {
 
+
         VertxOptions options = new VertxOptions()
                 .setClusterManager(new InfinispanClusterManager(cacheManager));
 
