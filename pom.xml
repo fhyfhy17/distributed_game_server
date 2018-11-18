@@ -47,8 +47,18 @@
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
-            <artifactId>vertx-infinispan</artifactId>
+            <artifactId>vertx-ignite</artifactId>
             <version>3.5.4</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.ignite</groupId>
+                    <artifactId>ignite-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.ignite</groupId>
+                    <artifactId>ignite-spring</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

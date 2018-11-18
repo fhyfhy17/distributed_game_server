@@ -4,18 +4,27 @@ package com.config;
 import com.Constant;
 import com.manager.ServerInfoManager;
 import com.pojo.ServerInfo;
+import com.util.ContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ignite.Ignite;
+import org.apache.ignite.Ignition;
+import org.apache.ignite.cluster.ClusterNode;
+import org.apache.ignite.configuration.BinaryConfiguration;
+import org.apache.ignite.configuration.DeploymentMode;
 import org.apache.ignite.configuration.IgniteConfiguration;
+import org.apache.ignite.events.DiscoveryEvent;
 import org.apache.ignite.events.EventType;
+import org.apache.ignite.lang.IgnitePredicate;
+import org.apache.ignite.logger.slf4j.Slf4jLogger;
+import org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi;
 import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi;
 import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
-import org.apache.ignite.spi.eventstorage.NoopEventStorageSpi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @Slf4j
@@ -27,40 +36,42 @@ public class IgniteConfig {
     @Bean("myIg")
     public Ignite igConfig() {
         IgniteConfiguration cfg = new IgniteConfiguration();
-        TcpDiscoverySpi spi = new TcpDiscoverySpi();
-        TcpDiscoveryVmIpFinder ipFinder = new TcpDiscoveryVmIpFinder();
-// Set initial IP addresses.
-// Note that you can optionally specify a port or a port range.
-        ipFinder.setAddresses(Arrays.asList("192.168.1.28", "10.0.107.233"));
-        spi.setIpFinder(ipFinder);
 
-// Override default discovery SPI.
-        cfg.setDiscoverySpi(spi);
-// Start Ignite node.
-        NoopEventStorageSpi eventStorageSpi = new NoopEventStorageSpi();
+        cfg.setUserAttributes(Collections.singletonMap(Constant.SERVER_INFO, serverInfo));
+        cfg.setIgniteInstanceName(ContextUtil.id);
+        cfg.setDeploymentMode(DeploymentMode.PRIVATE)
+//                .setPeerClassLoadingEnabled(true)
+                .setBinaryConfiguration(new BinaryConfiguration()
+                        .setCompactFooter(true))
+                .setCommunicationSpi(new TcpCommunicationSpi()
+                        .setLocalAddress("localhost"))
+                .setDiscoverySpi(new TcpDiscoverySpi()
+                        .setIpFinder(new TcpDiscoveryVmIpFinder()
+                                .setAddresses(Arrays.asList("127.0.0.1:47500..47509")
+                                )
+                        )
+                )
 
-        eventStorageSpi.localEvents(event -> {
-            ServerInfo serverInfo = event.node().attribute(Constant.SERVER_INFO);
-            if (event.type() == EventType.EVT_NODE_FAILED || event.type() == EventType.EVT_NODE_LEFT) {
-                ServerInfoManager.printServerStatus(serverInfo, false);
+                .setMetricsLogFrequency(0);
+        Ignite start = Ignition.start(cfg);
+        for (ClusterNode node : start.cluster().forRemotes().nodes()) {
+            ServerInfoManager.addServer(node.attribute(Constant.SERVER_INFO));
+        }
+        start.events().localListen( event -> {
+            DiscoveryEvent e = (DiscoveryEvent)event;
+            if (e.type() == EventType.EVT_NODE_JOINED) {
+                ServerInfoManager.addServer(e.eventNode().attribute(Constant.SERVER_INFO));
                 return true;
             }
-            if (event.type() == EventType.EVT_NODE_JOINED) {
-                ServerInfoManager.printServerStatus(serverInfo, true);
+
+            if (e.type() == EventType.EVT_NODE_LEFT || e.type() == EventType.EVT_NODE_FAILED) {
+                ServerInfoManager.removeServer(e.eventNode().attribute(Constant.SERVER_INFO));
                 return true;
             }
-            return true;
-        }, EventType.EVTS_DISCOVERY_ALL);
-    }
-})
 
-        cfg.setEventStorageSpi(eventStorageSpi);
-        cfg.setUserAttributes(Collections.singletonMap(Constant.SERVER_INFO,serverInfo));
-        Ignite start=Ignition.start(cfg);
-
-        // 监听打印信息
-        start.events(start.cluster().forLocal()).remoteListen(null,(IgnitePredicate<DiscoveryEvent>)event->{
+            return false;
+        }, EventType.EVT_NODE_FAILED, EventType.EVT_NODE_LEFT, EventType.EVT_NODE_JOINED);
 
         return start;
-        }
-        }
+    }
+}
