@@ -13,7 +13,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
-@EnableCaching
+@EnableCaching(proxyTargetClass = true)
 public class Game implements CommandLineRunner {
     @Autowired
     SpringUtils springUtils;

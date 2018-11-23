@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.entry.PlayerEntry;
 import com.event.EventDispatcher;
 import com.event.TestEvent;
 import com.google.protobuf.MessageLite;
@@ -8,8 +9,11 @@ import com.pojo.Player;
 import com.service.TestService;
 import com.util.CountUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -31,6 +35,14 @@ public class TestController extends BaseController {
         player.setGold(10);
         EventDispatcher.dispatch(new TestEvent(player, "测试"));
         CountUtil.count();
+        List<PlayerEntry> 王二 = testService.findByName("王二");
+
+        testService.findUserById(uidContext.getUid());
+        if (CollectionUtils.isEmpty(王二)) {
+            PlayerEntry playerEntry = new PlayerEntry();
+            playerEntry.setName("王二");
+            testService.save(playerEntry);
+        }
 
         return null;
     }

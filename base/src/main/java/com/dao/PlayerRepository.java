@@ -9,5 +9,5 @@ import java.util.List;
 @Component
 public interface PlayerRepository extends MongoRepository<PlayerEntry, String> {
 
-    List<PlayerEntry> findByName(String name);
+    List<PlayerEntry> findPlayerEntityByName(String name);
 }

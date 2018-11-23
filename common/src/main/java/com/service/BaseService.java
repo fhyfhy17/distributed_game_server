@@ -2,7 +2,6 @@ package com.service;
 
 import com.entry.BaseEntry;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -68,7 +67,6 @@ public abstract class BaseService<T extends BaseEntry, ID extends Serializable> 
     }
 
     @Override
-    @Cacheable (value = new T(),key = "''.concat(#id.toString)")
     public Optional<T> findById(ID id) {
         return getRepository().findById(id);
     }
