@@ -14,7 +14,6 @@
         <module>common</module>
         <module>login</module>
         <module>client</module>
-        <module>base</module>
     </modules>
 
 

@@ -11,10 +11,7 @@ import java.lang.reflect.Constructor;
 public class ProtobufMethodArgumentResolver implements ActionMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        if (com.google.protobuf.Message.class.isAssignableFrom(parameter.getClassType())) {
-            return true;
-        }
-        return false;
+        return com.google.protobuf.Message.class.isAssignableFrom(parameter.getClassType());
     }
 
     @Override

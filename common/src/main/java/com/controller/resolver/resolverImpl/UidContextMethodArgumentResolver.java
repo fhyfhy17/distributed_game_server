@@ -10,10 +10,7 @@ import org.springframework.stereotype.Component;
 public class UidContextMethodArgumentResolver implements ActionMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        if (UidContext.class.isAssignableFrom(parameter.getClassType())) {
-            return true;
-        }
-        return false;
+        return UidContext.class.isAssignableFrom(parameter.getClassType());
     }
 
     @Override
