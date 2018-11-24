@@ -5,7 +5,7 @@ import com.dao.PlayerRepository;
 import com.dao.UserRepository;
 import com.entry.PlayerEntry;
 import com.entry.UserEntry;
-import com.event.TestEvent;
+import com.event.playerEvent.TestEvent;
 import com.google.common.eventbus.Subscribe;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

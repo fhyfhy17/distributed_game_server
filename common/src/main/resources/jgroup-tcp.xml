@@ -35,9 +35,9 @@
         <!--<expiration interval="-1"/>-->
         <!--</replicated-cache>-->
 
-        <distributed-cache name="__vertx.distributed.cache">
+        <replicated-cache name="__vertx.distributed.cache">
             <expiration interval="-1"/>
-        </distributed-cache>
+        </replicated-cache>
 
     </cache-container>
 

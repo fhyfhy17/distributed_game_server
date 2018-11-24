@@ -1,5 +1,6 @@
-package com.event;
+package com.event.playerEvent;
 
+import com.event.PlayerEventData;
 import com.pojo.Player;
 import lombok.Data;
 

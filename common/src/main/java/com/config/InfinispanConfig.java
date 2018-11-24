@@ -4,6 +4,7 @@ package com.config;
 import com.Constant;
 import com.manager.ServerInfoManager;
 import com.pojo.ServerInfo;
+import com.util.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.infinispan.Cache;
 import org.infinispan.manager.DefaultCacheManager;
@@ -16,6 +17,8 @@ import org.infinispan.remoting.transport.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,12 +32,13 @@ public class InfinispanConfig {
     private ServerInfo serverInfo;
 
     @Bean
+    @Primary
     public DefaultCacheManager config() throws IOException {
-
         DefaultCacheManager defaultCacheManager = new DefaultCacheManager("jgroup-tcp.xml", false);
 
         defaultCacheManager.addListener(new ServerRemoveListener());
         defaultCacheManager.start();
+
         Cache<Address, ServerInfo> cache = defaultCacheManager.getCache(Constant.INFINISPAN_CLUSTER_CACHE_NAME);
         for (Map.Entry<Address, ServerInfo> entry : cache.entrySet()) {
             ServerInfoManager.addServer(entry.getValue(), entry.getKey());
@@ -61,15 +65,23 @@ class ServerAddListener {
 
 }
 
-@Listener(clustered = true)
-class ServerRemoveListener {
 
+@Listener(clustered = true)
+@Component
+class ServerRemoveListener {
     @ViewChanged
     public void viewChanged(ViewChangedEvent event) {
         List<Address> newMembers = event.getNewMembers();
         List<Address> oldMembers = event.getOldMembers();
         oldMembers.stream()
                 .filter(address -> !newMembers.contains(address))
-                .forEach(ServerInfoManager::removeServer);
+                .forEach(
+                        address -> {
+                            ServerInfoManager.removeServer(address);
+                            Cache<Address, ServerInfo> cache = SpringUtils.getBean(DefaultCacheManager.class).getCache(Constant.INFINISPAN_CLUSTER_CACHE_NAME);
+                            cache.evict(address);
+                        }
+
+                );
     }
 }

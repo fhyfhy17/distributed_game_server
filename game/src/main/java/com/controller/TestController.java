@@ -2,7 +2,7 @@ package com.controller;
 
 import com.entry.PlayerEntry;
 import com.event.EventDispatcher;
-import com.event.TestEvent;
+import com.event.playerEvent.TestEvent;
 import com.google.protobuf.MessageLite;
 import com.net.msg.LOGIN_MSG;
 import com.pojo.Player;
@@ -33,7 +33,7 @@ public class TestController extends BaseController {
         player.setLevel(2);
         player.setName("王二");
         player.setGold(10);
-        EventDispatcher.dispatch(new TestEvent(player, "测试"));
+        EventDispatcher.playerEventDispatch(new TestEvent(player, "测试"));
         CountUtil.count();
         List<PlayerEntry> 王二 = testService.findByName("王二");
 
