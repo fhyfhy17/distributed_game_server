@@ -2,7 +2,7 @@ package com.service;
 
 import com.annotation.EventListener;
 import com.dao.PlayerRepository;
-import com.dao.UserRepository;
+import com.dao.cache.UserEntryCacheRepository;
 import com.entry.PlayerEntry;
 import com.entry.UserEntry;
 import com.event.playerEvent.TestEvent;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.caffeine.CaffeineCache;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.Map;
 @Service
 @EventListener
 @Slf4j
-public class TestService extends BaseService<PlayerEntry, String> {
+public class TestService {
     @Autowired
     PlayerRepository playerRepository;
 
@@ -29,12 +28,8 @@ public class TestService extends BaseService<PlayerEntry, String> {
     CacheManager cachemanager;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserEntryCacheRepository userRepository;
 
-    @Override
-    MongoRepository<PlayerEntry, String> getRepository() {
-        return playerRepository;
-    }
 
     @Subscribe
     public void test(TestEvent testEvent) {
@@ -59,7 +54,7 @@ public class TestService extends BaseService<PlayerEntry, String> {
 
     @Cacheable(value = "UserEntryCache", sync = true, key = "'userEntryCache.'.concat(#userId)")
     public UserEntry findUserById(Long userId) {
-        return userRepository.findByUid(userId).orElse(null);
+        return userRepository.findByUid(userId);
     }
 
     public void insertPlayer(PlayerEntry playerEntry) {
