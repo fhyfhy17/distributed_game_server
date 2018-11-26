@@ -35,10 +35,6 @@ public class DisruptorCreater {
 
         List<WorkerHandler> workerHandlers = new ArrayList<>();
 
-        WorkerHandler w1 = null;
-        WorkerHandler w2 = null;
-        WorkerHandler w3 = null;
-        WorkerHandler w4 = null;
         for (int i = 0; i < defaultWorkerHandlersCount; i++) {
             Constructor<? extends WorkerHandler> constructor = null;
             WorkerHandler workerHandler = null;
@@ -48,18 +44,7 @@ public class DisruptorCreater {
             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 e.printStackTrace();
             }
-            if (i == 0) {
-                w1 = workerHandler;
-            }
-            if (i == 1) {
-                w2 = workerHandler;
-            }
-            if (i == 2) {
-                w3 = workerHandler;
-            }
-            if (i == 3) {
-                w4 = workerHandler;
-            }
+
             workerHandlers.add(workerHandler);
         }
 
