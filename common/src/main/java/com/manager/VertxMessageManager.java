@@ -14,7 +14,8 @@ public class VertxMessageManager extends AbstractVerticle {
     private static Vertx vertx;
 
     public static void sendMessage(String queue, Message message) {
-        sendMessageToServer(queue, SerializeUtil.mts(message));
+        int count = (int) (message.getUid() % 3);
+        sendMessageToServer(queue + "-" + count, SerializeUtil.mts(message));
     }
 
 

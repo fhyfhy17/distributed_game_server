@@ -1,5 +1,6 @@
 package com;
 
+import com.disruptor.DisruptorEnum;
 import com.enums.GroupEnum;
 import com.handler.GameMessageHandler;
 import com.handler.MessageGroup;
@@ -9,9 +10,12 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
+
 @Component
 public class GameReceiver extends BaseReceiver {
     private MessageGroup m;
+
+    private DisruptorEnum type = DisruptorEnum.GAME_MESSAGE;
 
     @PostConstruct
     public void startup() {
@@ -22,10 +26,15 @@ public class GameReceiver extends BaseReceiver {
             }
         };
         m.startup();
+
+//        DisruptorCreater disruptorCreater = new DisruptorCreater(type.name(), MessageWorkerHandler.class);
+//        disruptorCreater.create();
+//        DisruptorManager.addDisruptor(type, disruptorCreater);
     }
 
     @Override
     public void onReceive(Message message) {
+//        MessageEventProducer.publishMessage(type, message);
         m.messageReceived(message);
     }
 

@@ -25,8 +25,13 @@ public class MessageReceiveManager extends AbstractVerticle {
     @Override
     public void start(Future<Void> startFuture) throws Exception {
         super.start(startFuture);
-        vertx.eventBus().consumer(ContextUtil.id,
-                msg -> receiver.onReceive(SerializeUtil.stm((byte[]) msg.body())));
+        String name = EventBusNameCreater.getName(ContextUtil.id);
+        System.out.println("启动的接收器:" + name);
+        vertx.eventBus().consumer(name,
+                msg -> {
+//            log.info(name+":接收到消息");
+                    receiver.onReceive(SerializeUtil.stm((byte[]) msg.body()));
+                });
     }
 
     @Override
