@@ -1,19 +1,21 @@
 package com.util;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class CountUtil {
-    private static int count;
+    private static AtomicInteger count = new AtomicInteger(0);
     private static long start;
 
     public static void start() {
-        count = 0;
+        count.set(0);
     }
 
     public static void count() {
-        count++;
-        if (count == 1) {
+        int num = count.addAndGet(1);
+        if (num == 1) {
             start = System.currentTimeMillis();
         }
-        if (count == 1000000) {
+        if (num == 1000000) {
             System.out.println("共用时：" + (System.currentTimeMillis() - start));
         }
     }

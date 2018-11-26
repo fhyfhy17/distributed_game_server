@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class MessageGroup {
 
     private volatile boolean running = false;
-    private int handlerCount = 16; // 执行器数量
+    private int handlerCount = 8; // 执行器数量
     private String name;
     public List<MessageThreadHandler> hanlderList = new ArrayList<>();
 
