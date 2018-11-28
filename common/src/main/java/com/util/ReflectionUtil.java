@@ -1,5 +1,7 @@
 package com.util;
 
+import com.annotation.SeqClassName;
+import com.google.common.collect.Lists;
 import org.reflections.Reflections;
 
 import java.lang.annotation.Annotation;
@@ -35,9 +37,20 @@ public class ReflectionUtil {
 
     }
 
+    public static List<String> getSeqClassNames() {
+        List<String> list = Lists.newArrayList();
+        Reflections reflections = new Reflections("com.entry");
+        Set<Class<?>> set = reflections.getTypesAnnotatedWith(SeqClassName.class);
+        for (Class<?> aClass : set) {
+            SeqClassName annotation = aClass.getAnnotation(SeqClassName.class);
+            list.add(annotation.name());
+        }
+        return list;
+    }
+
 
     public static void main(String[] args) {
-
+        getSeqClassNames();
     }
 
 }
