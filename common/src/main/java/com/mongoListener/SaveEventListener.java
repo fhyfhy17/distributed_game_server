@@ -1,9 +1,11 @@
 package com.mongoListener;
 
+import com.annotation.EventListener;
 import com.annotation.IncKey;
 import com.annotation.SeqClassName;
 import com.entry.BaseEntry;
 import com.entry.SeqEntry;
+import com.util.Pair;
 import com.util.ReflectionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +22,25 @@ import org.springframework.util.ReflectionUtils;
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 
 
 @Component
+@EventListener
 public class SaveEventListener extends AbstractMongoEventListener<BaseEntry> {
 
     @Autowired
     private MongoTemplate mongo;
 
-    private ConcurrentHashMap<String, ArrayBlockingQueue<Long>> map = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, Pair<Long, Long>> map = new ConcurrentHashMap<>();
 
-    private final static int EVERY_GET_ID_NUM = 5;
+    private final static int EVERY_GET_ID_NUM = 50;
 
     @PostConstruct
     public void init() {
         List<String> seqClassNames = ReflectionUtil.getSeqClassNames();
         for (String seqClassName : seqClassNames) {
-            map.put(seqClassName, new ArrayBlockingQueue<>(EVERY_GET_ID_NUM));
+            map.put(seqClassName, new Pair<>(-1L, -1L));
         }
     }
 
@@ -74,53 +76,27 @@ public class SaveEventListener extends AbstractMongoEventListener<BaseEntry> {
         return seq.getSeqId();
     }
 
-    HashSet<Long> set = new HashSet<>();
 
     private Long getNextId(String name) {
 
-//        ConcurrentLinkedQueue<Long> longs = map.computeIfPresent(name, (s, ids) -> {
-//                    if (ids.isEmpty()) {
-//                        Long nextMaxId = getNextIdFromMongo(name);
-//
-//                            System.out.println(nextMaxId);
-//
-//                        for (long i = (nextMaxId - EVERY_GET_ID_NUM + 1); i < nextMaxId + 1; i++) {
-//                            ids.offer(i);
-////                            System.out.println(i);
-//                            set.add(i);
-//                        }
-//                    }
-//                    return ids;
-//                }
-//        );
-//        Long poll = longs.poll();
-//        if(poll==null){
-//            System.out.println();
-//        }
-//        return poll;
+        Pair<Long, Long> longLongPair = map.computeIfPresent(name, (s, idPair) -> {
 
-        synchronized (SaveEventListener.class) {
-            ArrayBlockingQueue<Long> ids = map.get(name);
-            if (ids.isEmpty()) {
-
+            if (idPair.getKey() == -1) {
                 Long nextMaxId = getNextIdFromMongo(name);
-                for (long i = (nextMaxId - EVERY_GET_ID_NUM + 1); i < nextMaxId + 1; i++) {
-                    ids.offer(i);
-                    System.out.println(i);
-                    set.add(i);
-                }
+                return new Pair<>(nextMaxId - EVERY_GET_ID_NUM + 1, nextMaxId);
             }
-            try {
-                return ids.take();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (idPair.getKey().equals(idPair.getValue())) {
+                Long nextMaxId = getNextIdFromMongo(name);
+                return new Pair<>(nextMaxId - EVERY_GET_ID_NUM + 1, nextMaxId);
+            } else {
+                idPair.setKey(idPair.getKey() + 1);
+                return idPair;
             }
+        });
+        System.out.println(longLongPair.getKey());
+        return longLongPair.getKey();
 
-        }
     }
 
-    public int getCount() {
-        return set.size();
-    }
 }
 

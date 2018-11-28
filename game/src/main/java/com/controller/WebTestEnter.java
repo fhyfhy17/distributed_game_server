@@ -19,9 +19,9 @@ public class WebTestEnter {
 
     @RequestMapping("/test/a")
     public void test() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             new Thread(() -> {
-                for (int j = 0; j < 1000; j++) {
+                for (int j = 0; j < 100; j++) {
                     PlayerEntry playerEntry = new PlayerEntry();
                     playerEntry.setName("aaa");
                     playerRepository.save(playerEntry);
@@ -33,12 +33,7 @@ public class WebTestEnter {
                 }
             }).start();
         }
-        try {
-            Thread.sleep(10000l);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
-        System.out.println("总条数为：" + saveEventListener.getCount());
+
     }
 }
