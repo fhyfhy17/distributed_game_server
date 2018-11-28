@@ -16,6 +16,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
+//TODO 之后可以用Caffeine做个缓存，每次生成一批ID号，本地用没了再来取一批
 @Component
 public class SaveEventListener extends AbstractMongoEventListener<BaseEntry> {
 
