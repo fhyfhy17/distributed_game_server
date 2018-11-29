@@ -20,7 +20,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
 import javax.annotation.PostConstruct;
-import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -34,7 +33,7 @@ public class SaveEventListener extends AbstractMongoEventListener<BaseEntry> {
 
     private ConcurrentHashMap<String, Pair<Long, Long>> map = new ConcurrentHashMap<>();
 
-    private final static int EVERY_GET_ID_NUM = 50;
+    private final static int EVERY_GET_ID_NUM = 5000;
 
     @PostConstruct
     public void init() {
@@ -76,25 +75,35 @@ public class SaveEventListener extends AbstractMongoEventListener<BaseEntry> {
         return seq.getSeqId();
     }
 
-
     private Long getNextId(String name) {
 
-        Pair<Long, Long> longLongPair = map.computeIfPresent(name, (s, idPair) -> {
-
-            if (idPair.getKey() == -1) {
+        Pair<Long, Long> idpair = map.get(name);
+        synchronized (idpair) {
+            if (idpair.getKey() == -1 || idpair.getKey().equals(idpair.getValue())) {
                 Long nextMaxId = getNextIdFromMongo(name);
-                return new Pair<>(nextMaxId - EVERY_GET_ID_NUM + 1, nextMaxId);
-            }
-            if (idPair.getKey().equals(idPair.getValue())) {
-                Long nextMaxId = getNextIdFromMongo(name);
-                return new Pair<>(nextMaxId - EVERY_GET_ID_NUM + 1, nextMaxId);
+                idpair.setKey(nextMaxId - EVERY_GET_ID_NUM + 1);
+                idpair.setValue(nextMaxId);
             } else {
-                idPair.setKey(idPair.getKey() + 1);
-                return idPair;
+                idpair.setKey(idpair.getKey() + 1);
             }
-        });
-        System.out.println(longLongPair.getKey());
-        return longLongPair.getKey();
+        }
+
+//        Pair<Long, Long> longLongPair = map.computeIfPresent(name, (s, idPair) -> {
+//
+//            if (idPair.getKey() == -1) {
+//
+//                Long nextMaxId = getNextIdFromMongo(name);
+//                return new Pair<>(nextMaxId - EVERY_GET_ID_NUM + 1, nextMaxId);
+//            }
+//            if (idPair.getKey().equals(idPair.getValue())) {
+//                Long nextMaxId = getNextIdFromMongo(name);
+//                return new Pair<>(nextMaxId - EVERY_GET_ID_NUM + 1, nextMaxId);
+//            } else {
+//                idPair.setKey(idPair.getKey() + 1);
+//                return idPair;
+//            }
+//        });
+        return idpair.getKey();
 
     }
 
