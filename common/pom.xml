@@ -105,6 +105,12 @@
             <artifactId>disruptor</artifactId>
             <version>3.4.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.ehcache/ehcache -->
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>3.6.2</version>
+        </dependency>
 
     </dependencies>
 
