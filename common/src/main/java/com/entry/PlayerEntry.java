@@ -24,4 +24,6 @@ public class PlayerEntry extends BaseEntry {
 
     @Indexed
     private String name;
+
+    private int level = 1;
 }

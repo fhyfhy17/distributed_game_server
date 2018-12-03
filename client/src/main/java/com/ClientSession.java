@@ -38,8 +38,8 @@ public class ClientSession {
                         NettyMessage m = new NettyMessage();
                         m.setId(10001);
                         m.setData(builder.build().toByteArray());
-                        m.setAutoIncrease(getAutoIncrease()+1);
-                        setAutoIncrease(getAutoIncrease()+1);
+                        m.setAutoIncrease(getAutoIncrease() + 1);
+                        setAutoIncrease(getAutoIncrease() + 1);
                         m.setCheckCode(buildCheckCode(m));
                         channel.writeAndFlush(m);
                     }
@@ -51,11 +51,25 @@ public class ClientSession {
                             NettyMessage m = new NettyMessage();
                             m.setId(10005);
                             m.setData(builder.build().toByteArray());
-                            m.setAutoIncrease(getAutoIncrease()+1);
-                            setAutoIncrease(getAutoIncrease()+1);
+                            m.setAutoIncrease(getAutoIncrease() + 1);
+                            setAutoIncrease(getAutoIncrease() + 1);
                             m.setCheckCode(buildCheckCode(m));
                             channel.writeAndFlush(m);
                         }
+                    }
+
+                    if ("3".equals(line)) {
+
+                        LOGIN_MSG.CTS_PlayerInfo.Builder builder = LOGIN_MSG.CTS_PlayerInfo.newBuilder();
+
+                        NettyMessage m = new NettyMessage();
+                        m.setId(10010);
+                        m.setData(builder.build().toByteArray());
+                        m.setAutoIncrease(getAutoIncrease() + 1);
+                        setAutoIncrease(getAutoIncrease() + 1);
+                        m.setCheckCode(buildCheckCode(m));
+                        channel.writeAndFlush(m);
+
                     }
                 }
             }
@@ -66,6 +80,7 @@ public class ClientSession {
     private String uid;
     private Channel channel;
     private static int autoIncrease;
+
     public String getUid() {
         return uid;
     }
@@ -90,7 +105,7 @@ public class ClientSession {
         ClientSession.autoIncrease = autoIncrease;
     }
 
-    private static  long buildCheckCode(NettyMessage message){
+    private static long buildCheckCode(NettyMessage message) {
         CRC32 crc32 = new CRC32();
         crc32.update(message.getData());
         return crc32.getValue();

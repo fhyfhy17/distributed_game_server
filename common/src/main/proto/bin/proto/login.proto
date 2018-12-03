@@ -55,6 +55,8 @@ message CTS_GAME_LOGIN{
 	int64 playerId   =2;
 }
 
+
+
 message STC_GAME_LOGIN{
 	option(messageId) = 10009;
 	int64 uid			=1;
@@ -62,4 +64,16 @@ message STC_GAME_LOGIN{
 	int32 level			=3;
 	string name			=4;
 	int32 coin			=5;
+}
+
+message CTS_PlayerInfo{
+	option(messageId) = 10010;
+}
+
+message STC_PlayerInfo{
+	option(messageId) = 10011;
+	int64 uid			=1;
+	int64 playerId		=2;
+	int32 level			=3;
+	string name			=4;
 }
