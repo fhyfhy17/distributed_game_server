@@ -5,13 +5,13 @@
 ## 分布式Java游戏服务器
 
 ### 所用框架
-- <font color=gray size=5>Vert.x </font>      构建服务间消息发送系统（这个目前可以用ZeroMQ方便的替换，为了再看看它的能力，留着吧）
-- <font color=gray size=5>Zookeeper</font>    分布式发现与注册（现在用Infinispan实现了，略有小问题，但还是不想换回zookeeper）
-- <font color=gray size=5>Springboot</font>       采用非web方式启动，注解编程，方便嫁接Spring系列和其它第三方框架
-- <font color=gray size=5>Kryo，fastjson</font>       此两个做为序列化工具，最终还是采用protobuf做为序列化工具了（又测了几个，发现还是proto吧）
-- <font color=gray size=5>protobuf3</font>       协议
-- <font color=gray size=5>hutool</font>       方便的工具包，顺便学学怎么写各类工具代码
-- <font color=gray size=5>netty</font>       tcp连接，毕竟Vert.x不熟，暂时先使用netty做为tcp服务器包，后期会继续变更
+- `Vert.x`      构建服务间消息发送系统（这个目前可以用ZeroMQ方便的替换，为了再看看它的能力，留着吧）
+- `Zookeeper`    分布式发现与注册（现在用Infinispan实现了，略有小问题，但还是不想换回zookeeper）
+- `Springboot`       采用非web方式启动，注解编程，方便嫁接Spring系列和其它第三方框架
+- `Kryo,fastjson`   此两个做为序列化工具，最终还是采用protobuf做为序列化工具了（又测了几个，发现还是proto吧）
+- `protobuf3`       协议
+- `hutool`       方便的工具包，顺便学学怎么写各类工具代码
+- `netty`       tcp连接，毕竟Vert.x不熟，暂时先使用netty做为tcp服务器包，后期会继续变更
 
 #### 打算围绕Vert.x打造一款开发便利的分布式游戏服务系统
 
