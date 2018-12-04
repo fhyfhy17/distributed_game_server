@@ -6,22 +6,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DisruptorManager {
-    private static Map<DisruptorEnum, DisruptorCreater> disMap = new HashMap<>();
+    private static Map<DisruptorEnum, DisruptorCreator> disMap = new HashMap<>();
 
-    public static DisruptorCreater getDisruptorCreater(DisruptorEnum type) {
+    public static DisruptorCreator getDisruptorCreator(DisruptorEnum type) {
         return disMap.get(type);
     }
 
     public static RingBuffer getRingBuffer(DisruptorEnum type) {
-        DisruptorCreater disruptorCreater = disMap.get(type);
-        if (disruptorCreater == null) {
+        DisruptorCreator disruptorCreator = disMap.get(type);
+        if (disruptorCreator == null) {
             return null;
         }
-        return disruptorCreater.getRingBuffer();
+        return disruptorCreator.getRingBuffer();
     }
 
-    public static void addDisruptor(DisruptorEnum type, DisruptorCreater disruptorCreater) {
-        disMap.put(type, disruptorCreater);
+    public static void addDisruptor(DisruptorEnum type, DisruptorCreator disruptorCreator) {
+        disMap.put(type, disruptorCreator);
     }
 
 }

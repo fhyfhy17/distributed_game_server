@@ -1,6 +1,5 @@
 package com.event;
 
-import com.pojo.Player;
 import lombok.Data;
 
 import java.util.Date;
@@ -8,11 +7,11 @@ import java.util.Date;
 @Data
 public class PlayerEventData {
 
-    public PlayerEventData(Player player) {
-        this.player = player;
+    public PlayerEventData(long playerId) {
+        this.playerId = playerId;
     }
 
-    private Player player;
+    private long playerId;
 
     private Date time = new Date();
 }

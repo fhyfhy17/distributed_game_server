@@ -1,6 +1,5 @@
 package com.controller;
 
-import cn.hutool.core.lang.Snowflake;
 import com.config.CacheManager;
 import com.dao.PlayerRepository;
 import com.dao.UserRepository;
@@ -8,6 +7,7 @@ import com.entry.BaseEntry;
 import com.entry.PlayerEntry;
 import com.enums.CacheEnum;
 import com.mongoListener.SaveEventListener;
+import com.util.ContextUtil;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.cache.CachePeekMode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +26,12 @@ public class WebTestEnter {
     @Autowired
     SaveEventListener saveEventListener;
 
-    @Autowired
-    Snowflake snowflake;
-
     @RequestMapping("/test/a")
     public void test() {
         for (int i = 0; i < 100; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 100; j++) {
-                    PlayerEntry playerEntry = new PlayerEntry(snowflake.nextId());
+                    PlayerEntry playerEntry = new PlayerEntry(ContextUtil.nextId());
                     playerEntry.setName("aaa");
                     playerRepository.save(playerEntry);
 

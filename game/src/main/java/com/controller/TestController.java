@@ -1,6 +1,5 @@
 package com.controller;
 
-import cn.hutool.core.lang.Snowflake;
 import com.config.CacheManager;
 import com.entry.BaseEntry;
 import com.entry.PlayerEntry;
@@ -11,6 +10,7 @@ import com.google.protobuf.MessageLite;
 import com.net.msg.LOGIN_MSG;
 import com.pojo.Player;
 import com.service.TestService;
+import com.util.ContextUtil;
 import com.util.CountUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ignite.IgniteCache;
@@ -22,8 +22,7 @@ import org.springframework.stereotype.Controller;
 public class TestController extends BaseController {
     @Autowired
     private TestService testService;
-    @Autowired
-    private Snowflake snowflake;
+
 
     public LOGIN_MSG.STC_TEST test(UidContext uidContext, LOGIN_MSG.CTS_TEST req) {
 //        log.info("test收到word = {}", req.getWord());
@@ -41,15 +40,14 @@ public class TestController extends BaseController {
 //        List<PlayerEntry> 王二 = testService.findByName("王二");
 //        testService.findUserById(uidContext.getUid());
 //        if (CollectionUtils.isEmpty(王二)) {
-        String id;
-        PlayerEntry playerEntry = new PlayerEntry(snowflake.nextId());
+        PlayerEntry playerEntry = new PlayerEntry(ContextUtil.nextId());
         playerEntry.setName("王=四");
 
         IgniteCache<Long, BaseEntry> cache = CacheManager.getCache(CacheEnum.PlayerEntryCache);
         cache.put(playerEntry.getId(), playerEntry);
 
 //        }
-        EventDispatcher.playerEventDispatch(new TestEvent(player, "mykey"));
+        EventDispatcher.playerEventDispatch(new TestEvent(player.getPlayerId(), "mykey"));
         return null;
     }
 

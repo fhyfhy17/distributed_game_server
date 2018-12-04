@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DisruptorCreater {
+public class DisruptorCreator {
     private String name;
     private ProducerType defaultProducerType = ProducerType.SINGLE;
     private int defaultRingBufferSize = 128 * 128;
@@ -19,12 +19,12 @@ public class DisruptorCreater {
     private Class<? extends WorkerHandler> workerHandler;
     private RingBuffer<DisruptorEvent> ringBuffer;
 
-    public DisruptorCreater(String name, Class<? extends WorkerHandler> workerHandler) {
+    public DisruptorCreator(String name, Class<? extends WorkerHandler> workerHandler) {
         this.name = name;
         this.workerHandler = workerHandler;
     }
 
-    public DisruptorCreater(String name, int ringBufferSize, int workerHanlersCount, Class<? extends WorkerHandler> workerHandler) {
+    public DisruptorCreator(String name, int ringBufferSize, int workerHanlersCount, Class<? extends WorkerHandler> workerHandler) {
         this.name = name;
         this.defaultRingBufferSize = ringBufferSize;
         this.defaultWorkerHandlersCount = workerHanlersCount;
