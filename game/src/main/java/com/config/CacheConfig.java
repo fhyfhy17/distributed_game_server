@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 @Configuration
 @EnableCaching
+@Deprecated
 public class CacheConfig {
     public enum Caches {
         PlayerEntryCache(() -> {

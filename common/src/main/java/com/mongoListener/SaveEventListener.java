@@ -7,7 +7,6 @@ import com.entry.BaseEntry;
 import com.entry.SeqEntry;
 import com.util.Pair;
 import com.util.ReflectionUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -48,7 +47,7 @@ public class SaveEventListener extends AbstractMongoEventListener<BaseEntry> {
         BaseEntry source = event.getSource();
 
         if (source != null) {
-            if (!StringUtils.isEmpty(source.getId())) {
+            if (0 == source.getId()) {
                 return;
             }
 

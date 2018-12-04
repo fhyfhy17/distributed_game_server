@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public interface UserRepository extends PagingAndSortingRepository<UserEntry, String> {
+public interface UserRepository extends PagingAndSortingRepository<UserEntry, Long> {
 
     List<UserEntry> findUserEntriesByUserName(String userName);
 
     Optional<UserEntry> findByUserNameAndPassWord(String userName, String passWord);
 
-    Optional<UserEntry> findByUid(long uid);
+    Optional<UserEntry> findById(long id);
 }

@@ -1,8 +1,6 @@
 package com.entry;
 
-import com.annotation.IncKey;
 import com.annotation.SeqClassName;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -14,12 +12,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @SeqClassName(name = "seq.UserEntry")
 public class UserEntry extends BaseEntry {
 
-    @Indexed
-    @IncKey
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    private long uid;
-
+    //    @Indexed
+//    @IncKey
+//    @Setter(AccessLevel.NONE)
+//    private long uid;
+    public UserEntry(long id) {
+        this.id = id;
+    }
     @Indexed
     private String userName;
 

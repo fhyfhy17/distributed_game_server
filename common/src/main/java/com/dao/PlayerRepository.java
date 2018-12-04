@@ -1,13 +1,13 @@
 package com.dao;
 
 import com.entry.PlayerEntry;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public interface PlayerRepository extends PagingAndSortingRepository<PlayerEntry, String> {
+public interface PlayerRepository extends MongoRepository<PlayerEntry, Long> {
 
     List<PlayerEntry> findPlayerEntityByName(String name);
 }
