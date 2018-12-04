@@ -32,10 +32,4 @@ public class PlayerDBStore extends CacheStoreAdapter<Long, PlayerEntry> {
         PlayerRepository playerRepository = SpringUtils.getBean(PlayerRepository.class);
         playerRepository.deleteById((Long) key);
     }
-
-    public List<PlayerEntry> findPlayerEntityByName(String name) {
-        PlayerRepository playerRepository = SpringUtils.getBean(PlayerRepository.class);
-        return playerRepository.findPlayerEntityByName(name);
-    }
-
 }
