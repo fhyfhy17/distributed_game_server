@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,8 @@ public class InfinispanConfig {
     @Bean
     @Primary
     public DefaultCacheManager config() throws IOException {
-        DefaultCacheManager defaultCacheManager = new DefaultCacheManager("jgroup-tcp.xml", false);
+        InputStream xmlInput = this.getClass().getClassLoader().getResourceAsStream("jgroup-tcp.xml");
+        DefaultCacheManager defaultCacheManager = new DefaultCacheManager(xmlInput, false);
 
         defaultCacheManager.addListener(new ServerRemoveListener());
         defaultCacheManager.start();
