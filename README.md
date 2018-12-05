@@ -6,7 +6,7 @@
 
 ### 所用框架
 - `Vert.x`      构建服务间消息发送系统（这个目前可以用ZeroMQ方便的替换，为了再看看它的能力，留着吧）
-- `Zookeeper`    分布式发现与注册（现在用Infinispan实现了，略有小问题，但还是不想换回zookeeper）
+- `Zookeeper`    分布式发现与注册
 - `Springboot`       采用非web方式启动，注解编程，方便嫁接Spring系列和其它第三方框架
 - `Kryo,fastjson`   此两个做为序列化工具，最终还是采用protobuf做为序列化工具了（又测了几个，发现还是proto吧）
 - `protobuf3`       协议
