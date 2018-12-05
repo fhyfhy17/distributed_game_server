@@ -18,9 +18,10 @@
 ##### 另外比较头疼的是缓存层怎么搭建的问题，目前有的经验是redis+mysql，方式是读取mysql中的列表保存到redis，每次从redis反序化这大列表再拿来操作，感觉嘛，效率比较低，有大神提供其它思路的，特别欢迎指点一二，如果是分布式开房间游戏，卡牌棋牌等，这些都没问题，但如果是分布式mmo，对战这些，本地缓存就是必不可少了，还不清楚这块怎么弄
 
 
-### 数据库初步打算使用ignite ------ ignite败了，太复杂，分布式map目前还是比较难用的，集群化，ignite和hazelcast分别都失败了，连接几小时后会断连造成cpu负载高，查这种问题的能力还是比较欠缺，看来和分布式网格没有缘分了。经历换了zookeepr，vertx,zeromq等方式后，集群连接目前采用的是 vertx+zookeeper方案。(已更换为Infinispan + vertx，上线肯定要用Zookeeper，Zookeeper还是稳，并且嵌入式的连接，节点增多为N时，每个节点都会维护N-1个心跳)
+### 数据库初步打算使用ignite ------ 经历换了zookeepr，vertx,zeromq等方式后，集群连接目前采用的是 vertx+zookeeper方案。(已更换为Infinispan + vertx，上线肯定要用Zookeeper，Zookeeper还是稳，并且嵌入式的连接，节点增多为N时，每个节点都会维护N-1个心跳)（由于底层不打算用mysql，所以就只使用ignite做连接和缓存层，数据用MongoDB，由于用Spring data ，也可以任意替换的。）
 
-##### 数据库备选 redis mysql postgresql mongodb 这几个目前是比较看好的，看看怎么组合一下(目前已初步上了MongoDB，正在学习中)
+
+##### 数据库备选 redis mysql postgresql mongodb (目前已初步上了MongoDB，正在学习中)
 ##### 缓存备选 ehcache redis（缓存的事没这么简单，再想想再想想）
 
 
@@ -28,5 +29,4 @@
 ### 缓存的备选：   encache，这个也有write-behind和其它灵活的配置方式，但不知道为什么对它巨长无比的类名、builder模式和非常复杂的配置不太感冒，以后可以再继续研究； caffeine 这个缓存也不错，待研究，本阶段还没有需要驱逐策略的缓存实现，以后也许有用。
 
 
-#！！！！日了狗，，，，，狗屎的 ignite 和 hazelcast，我就是摆脱不了它们的  空转  CPU 100%问题，搜也搜不到，源码也看得不那么懂，别人也都不知道 what fuck。
 
