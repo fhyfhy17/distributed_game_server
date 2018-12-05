@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -45,7 +47,6 @@ public class TemplateManager {
                     loader.loadTemplate(path, xmlInput, subclass)
                             .stream()
                             .collect(Collectors.toMap(AbstractTemplate::getId, Function.identity())));
-
         }
     }
 
@@ -63,5 +64,13 @@ public class TemplateManager {
 
     public <T extends AbstractTemplate> T getTemplateSingle(Class<? extends T> clazz) {
         return (T) this.templates.get(clazz).entrySet().iterator().next().getValue();
+    }
+
+    public <T extends AbstractTemplate> List<T> getTemplateList(Class<? extends T> clazz) {
+        List<T> list = new ArrayList<>();
+        for (AbstractTemplate value : this.templates.get(clazz).values()) {
+            list.add((T) value);
+        }
+        return list;
     }
 }
