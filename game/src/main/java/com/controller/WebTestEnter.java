@@ -31,7 +31,7 @@ public class WebTestEnter {
         for (int i = 0; i < 100; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 100; j++) {
-                    PlayerEntry playerEntry = new PlayerEntry(ContextUtil.nextId());
+                    PlayerEntry playerEntry = new PlayerEntry(ContextUtil.nextId(PlayerEntry.class));
                     playerEntry.setName("aaa");
                     playerRepository.save(playerEntry);
 

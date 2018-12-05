@@ -70,7 +70,7 @@ public class PlayerService {
         List<Long> playerIds = userEntry.getPlayerIds();
         if (CollectionUtils.isEmpty(playerIds)) {
             // 创建一个角色并存储
-            long index = ContextUtil.nextId();
+            long index = ContextUtil.nextId(PlayerEntry.class);
             PlayerEntry playerEntry = new PlayerEntry(index);
             playerEntry.setName("游客" + index);
             playerEntry.setUid(uid);

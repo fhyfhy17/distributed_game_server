@@ -1,6 +1,7 @@
 package com.util;
 
-import cn.hutool.core.lang.Snowflake;
+
+import com.entry.BaseEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -38,7 +39,7 @@ public class ContextUtil {
         ContextUtil.snowflake = snowflake;
     }
 
-    public static long nextId() {
-        return ContextUtil.snowflake.nextId();
+    public static long nextId(Class<? extends BaseEntry> clazz) {
+        return ContextUtil.snowflake.nextId(clazz);
     }
 }

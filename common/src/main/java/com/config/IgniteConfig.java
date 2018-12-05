@@ -31,6 +31,8 @@ public class IgniteConfig {
 
     @Bean("myIg")
     public Ignite igConfig() {
+
+
         IgniteConfiguration cfg = new IgniteConfiguration();
         cfg.setUserAttributes(Collections.singletonMap(Constant.SERVER_INFO, serverInfo));
         cfg.setIgniteInstanceName(ContextUtil.id);

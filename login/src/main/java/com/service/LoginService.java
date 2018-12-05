@@ -20,7 +20,7 @@ public class LoginService {
         Optional<UserEntry> user = userRepository.findByUserNameAndPassWord(username, password);
 
         return user.orElseGet(() -> {
-            UserEntry userEntry = new UserEntry(ContextUtil.nextId());
+            UserEntry userEntry = new UserEntry(ContextUtil.nextId(UserEntry.class));
             userEntry.setUserName(username);
             userEntry.setPassWord(password);
             userRepository.save(userEntry);

@@ -1,7 +1,8 @@
 package com.config;
 
-import cn.hutool.core.lang.Snowflake;
+
 import com.util.ContextUtil;
+import com.util.Snowflake;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

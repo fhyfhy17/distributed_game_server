@@ -40,7 +40,7 @@ public class TestController extends BaseController {
 //        List<PlayerEntry> 王二 = testService.findByName("王二");
 //        testService.findUserById(uidContext.getUid());
 //        if (CollectionUtils.isEmpty(王二)) {
-        PlayerEntry playerEntry = new PlayerEntry(ContextUtil.nextId());
+        PlayerEntry playerEntry = new PlayerEntry(ContextUtil.nextId(PlayerEntry.class));
         playerEntry.setName("王=四");
 
         IgniteCache<Long, BaseEntry> cache = CacheManager.getCache(CacheEnum.PlayerEntryCache);
