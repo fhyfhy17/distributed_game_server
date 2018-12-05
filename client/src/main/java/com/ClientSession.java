@@ -1,6 +1,7 @@
 package com;
 
 import com.net.msg.LOGIN_MSG;
+import com.pojo.Message;
 import io.netty.channel.Channel;
 
 import java.util.Scanner;
@@ -27,9 +28,9 @@ public class ClientSession {
                 while (input.hasNext()) {
                     System.out.println("输入1登录 输入2登出");
                     String line = input.next();
-                    if (!("1".equals(line) || "2".equals(line))) {
-                        System.out.println("输入错误，请重新输入1登录 输入2登出   ");
-                    }
+//                    if (!("1".equals(line) || "2".equals(line))) {
+//                        System.out.println("输入错误，请重新输入1登录 输入2登出   ");
+//                    }
                     if ("1".equals(line)) {
                         LOGIN_MSG.CTS_LOGIN.Builder builder = LOGIN_MSG.CTS_LOGIN.newBuilder();
                         builder.setUsername("bbbbb");
@@ -117,7 +118,7 @@ public class ClientSession {
         ClientSession.autoIncrease = autoIncrease;
     }
 
-    private static long buildCheckCode(NettyMessage message) {
+    private static long buildCheckCode(Message message) {
         CRC32 crc32 = new CRC32();
         crc32.update(message.getData());
         return crc32.getValue();

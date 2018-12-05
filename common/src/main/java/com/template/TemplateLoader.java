@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Component
 public class TemplateLoader {
 
-    <T extends AbstractTemplate> List<T> loadTemplate(InputStream xmlInput, Class<T> clazz) {
+    <T extends AbstractTemplate> List<T> loadTemplate(String fileName, InputStream xmlInput, Class<T> clazz) {
 
         List<T> ts = new ArrayList<>();
 
@@ -44,18 +44,18 @@ public class TemplateLoader {
                     setProperties(t, attr.getName(), value);
                 }
                 if (ts.stream().anyMatch(x -> x.getId() == t.getId())) {
-                    log.error("文件= {} 发现重复ID= {} ", clazz, t.getId());
+                    log.error("文件= {} 发现重复ID= {} ", fileName, t.getId());
                     continue;
                 }
                 ts.add(t);
             }
 
         } catch (Exception e) {
-            log.error("加载 XML 资源文件 {} ", clazz, e);
+            log.error("加载 XML 资源文件 {} ", fileName, e);
         }
 
         if (ts.isEmpty()) {
-            log.error("警告：XML 资源文件加载为空：{}", clazz);
+            log.error("警告：XML 资源文件加载为空：{}", fileName);
         }
 
         return ts;

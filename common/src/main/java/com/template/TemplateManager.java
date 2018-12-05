@@ -42,7 +42,7 @@ public class TemplateManager {
             InputStream xmlInput = this.getClass().getClassLoader().getResourceAsStream(path);
             Class<? extends AbstractTemplate> subclass = o.getClass().asSubclass(AbstractTemplate.class);
             this.templates.put(subclass,
-                    loader.loadTemplate(xmlInput, subclass)
+                    loader.loadTemplate(path, xmlInput, subclass)
                             .stream()
                             .collect(Collectors.toMap(AbstractTemplate::getId, Function.identity())));
 

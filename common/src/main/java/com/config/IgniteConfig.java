@@ -54,7 +54,7 @@ public class IgniteConfig {
         Ignite start = Ignition.start(cfg);
         for (ClusterNode node : start.cluster().forRemotes().nodes()) {
             Object attribute = node.attribute(Constant.SERVER_INFO);
-            if (checkServerInfo(attribute)) {
+            if (notServerInfo(attribute)) {
                 continue;
             }
             ServerInfoManager.addServer(node.attribute(Constant.SERVER_INFO));
@@ -63,7 +63,7 @@ public class IgniteConfig {
             DiscoveryEvent e = (DiscoveryEvent) event;
             if (e.type() == EventType.EVT_NODE_JOINED) {
                 Object attribute = e.eventNode().attribute(Constant.SERVER_INFO);
-                if (checkServerInfo(attribute)) {
+                if (notServerInfo(attribute)) {
                     return true;
                 }
                 ServerInfoManager.addServer((ServerInfo) attribute);
@@ -72,7 +72,7 @@ public class IgniteConfig {
 
             if (e.type() == EventType.EVT_NODE_LEFT || e.type() == EventType.EVT_NODE_FAILED) {
                 Object attribute = e.eventNode().attribute(Constant.SERVER_INFO);
-                if (checkServerInfo(attribute)) {
+                if (notServerInfo(attribute)) {
                     return true;
                 }
 
@@ -86,7 +86,7 @@ public class IgniteConfig {
         return start;
     }
 
-    private boolean checkServerInfo(Object o) {
-        return !(o == null || !o.getClass().isAssignableFrom(ServerInfo.class));
+    private boolean notServerInfo(Object o) {
+        return o == null || !o.getClass().isAssignableFrom(ServerInfo.class);
     }
 }
