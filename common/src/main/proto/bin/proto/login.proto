@@ -49,16 +49,15 @@ message MyMessage{
 }
 
 
-message CTS_GAME_LOGIN{
+message CTS_PLAYER_LIST{
 	option(messageId) = 10008;
-	int64 uid        =1;
-	int64 playerId   =2;
+}
+message STC_PLAYER_LIST{
+	option(messageId) = 10009;
+	repeated PLAYER_INFO players =1;
 }
 
-
-
-message STC_GAME_LOGIN{
-	option(messageId) = 10009;
+message PLAYER_INFO{
 	int64 uid			=1;
 	int64 playerId		=2;
 	int32 level			=3;
@@ -66,14 +65,25 @@ message STC_GAME_LOGIN{
 	int32 coin			=5;
 }
 
-message CTS_PlayerInfo{
+message CTS_GAME_LOGIN_PLAYER{
 	option(messageId) = 10010;
+	int64 playerId =1;
+}
+
+message STC_GAME_LOGIN_PLAYER{
+	option(messageId) = 10011;
+	PLAYER_INFO playerInfo =1;
+	//其它模块信息
+}
+
+
+
+message CTS_PlayerInfo{
+	option(messageId) = 10012;
 }
 
 message STC_PlayerInfo{
-	option(messageId) = 10011;
-	int64 uid			=1;
-	int64 playerId		=2;
-	int32 level			=3;
-	string name			=4;
+	option(messageId) = 10013;
+	PLAYER_INFO playerInfo =1;
 }
+

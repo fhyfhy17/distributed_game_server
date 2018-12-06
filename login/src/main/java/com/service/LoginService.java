@@ -15,11 +15,10 @@ public class LoginService {
     private UserRepository userRepository;
 
 
-
     public UserEntry login(String username, String password) {
         //TODO 多点登录判断
         Optional<UserEntry> user = userRepository.findByUserNameAndPassWord(username, password);
-//        user.ifPresent(userEntry -> userRepository.save(userEntry));
+
         return user.orElseGet(() -> {
             UserEntry userEntry = new UserEntry(ContextUtil.nextId());
             userEntry.setUserName(username);
@@ -27,5 +26,6 @@ public class LoginService {
             userRepository.save(userEntry);
             return userEntry;
         });
+
     }
 }

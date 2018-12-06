@@ -5,9 +5,9 @@ import com.manager.VertxMessageManager;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
-import io.vertx.ext.cluster.infinispan.InfinispanClusterManager;
+import io.vertx.spi.cluster.ignite.IgniteClusterManager;
 import lombok.extern.slf4j.Slf4j;
-import org.infinispan.manager.DefaultCacheManager;
+import org.apache.ignite.Ignite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -21,14 +21,15 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 public abstract class BaseVerticle {
     private Vertx vertx;
+
     @Autowired
-    private DefaultCacheManager cacheManager;
+    private Ignite ignite;
 
     @PostConstruct
     void init() throws ExecutionException, InterruptedException {
 
         VertxOptions options = new VertxOptions()
-                .setClusterManager(new InfinispanClusterManager(cacheManager));
+                .setClusterManager(new IgniteClusterManager(ignite));
 
         CompletableFuture<Vertx> future = new CompletableFuture<>();
         Vertx.clusteredVertx(options, ar -> {

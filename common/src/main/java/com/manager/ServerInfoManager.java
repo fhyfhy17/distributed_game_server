@@ -4,7 +4,6 @@ import cn.hutool.core.util.RandomUtil;
 import com.enums.ServerTypeEnum;
 import com.pojo.ServerInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.infinispan.remoting.transport.Address;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,7 +12,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ServerInfoManager {
 
-    private static ConcurrentHashMap<Address, ServerInfo> addressServerInfos = new ConcurrentHashMap<>();
 
     private static ConcurrentHashMap<String, ServerInfo> serverInfos = new ConcurrentHashMap<>();
 
@@ -25,16 +23,14 @@ public class ServerInfoManager {
         return serverInfos.values().stream().anyMatch(x -> x.getServerId().equals(serverId));
     }
 
-    public static void addServer(ServerInfo serverInfo, Address address) {
-        addressServerInfos.put(address, serverInfo);
+    public static void addServer(ServerInfo serverInfo) {
         serverInfos.put(serverInfo.getServerId(), serverInfo);
         log.info("新服务加入={}  ,所有服务={}", serverInfo.getServerId(), serverInfos);
     }
 
-    public static void removeServer(Address address) {
-        ServerInfo remove = addressServerInfos.remove(address);
-        serverInfos.remove(remove.getServerId());
-        log.info("服务退出={}  ,所有服务={}", remove, serverInfos);
+    public static void removeServer(ServerInfo serverInfo) {
+        serverInfos.remove(serverInfo.getServerId());
+        log.info("服务退出={}  ,所有服务={}", serverInfo, serverInfos);
     }
 
     /**

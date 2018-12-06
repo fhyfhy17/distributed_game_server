@@ -8,7 +8,7 @@ import java.util.zip.CRC32;
 
 public class ClientSession {
     private static final ClientSession session = new ClientSession();
-
+    private long playerId;
     public static ClientSession getInstance() {
         return session;
     }
@@ -57,13 +57,25 @@ public class ClientSession {
                             channel.writeAndFlush(m);
                         }
                     }
-
                     if ("3".equals(line)) {
+
+                        LOGIN_MSG.CTS_PLAYER_LIST.Builder builder = LOGIN_MSG.CTS_PLAYER_LIST.newBuilder();
+
+                        NettyMessage m = new NettyMessage();
+                        m.setId(10008);
+                        m.setData(builder.build().toByteArray());
+                        m.setAutoIncrease(getAutoIncrease() + 1);
+                        setAutoIncrease(getAutoIncrease() + 1);
+                        m.setCheckCode(buildCheckCode(m));
+                        channel.writeAndFlush(m);
+
+                    }
+                    if ("4".equals(line)) {
 
                         LOGIN_MSG.CTS_PlayerInfo.Builder builder = LOGIN_MSG.CTS_PlayerInfo.newBuilder();
 
                         NettyMessage m = new NettyMessage();
-                        m.setId(10010);
+                        m.setId(10012);
                         m.setData(builder.build().toByteArray());
                         m.setAutoIncrease(getAutoIncrease() + 1);
                         setAutoIncrease(getAutoIncrease() + 1);
@@ -109,5 +121,13 @@ public class ClientSession {
         CRC32 crc32 = new CRC32();
         crc32.update(message.getData());
         return crc32.getValue();
+    }
+
+    public long getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(long playerId) {
+        this.playerId = playerId;
     }
 }

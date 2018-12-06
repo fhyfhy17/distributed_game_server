@@ -30,8 +30,17 @@ public class NettyClientMsgHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
         try {
-//            System.out.println(LOGIN_MSG.STC_LOGIN.parseFrom(((Message)msg).getData()).getUid());
-//            System.out.println(LOGIN_MSG.STC_LOGIN.parseFrom(((Message)msg).getData()).getSuc());
+            Message message = (Message) msg;
+            if (message.getId() == 10009) {
+                LOGIN_MSG.STC_PLAYER_LIST stc_player_list = LOGIN_MSG.STC_PLAYER_LIST.parseFrom(message.getData());
+                LOGIN_MSG.PLAYER_INFO player = stc_player_list.getPlayers(0);
+                long playerId = player.getPlayerId();
+                LOGIN_MSG.CTS_GAME_LOGIN_PLAYER.Builder loginBuilder = LOGIN_MSG.CTS_GAME_LOGIN_PLAYER.newBuilder();
+                loginBuilder.setPlayerId(playerId);
+                ctx.channel().writeAndFlush(loginBuilder.build());
+
+            }
+
            log.info(LOGIN_MSG.STC_TEST.parseFrom(((Message) msg).getData()).getWord());
 
         } catch (Exception ex) {

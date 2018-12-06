@@ -22,8 +22,12 @@ public class PlayerEntry extends BaseEntry {
         this.id = id;
     }
 
+    private long uid;
+
     @Indexed
     private String name;
 
     private int level = 1;
+    private int coin;
+
 }
