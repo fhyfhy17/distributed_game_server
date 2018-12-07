@@ -2,7 +2,7 @@ package com.service;
 
 import com.dao.UserRepository;
 import com.entry.UserEntry;
-import com.util.ContextUtil;
+import com.util.IdCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class LoginService {
         Optional<UserEntry> user = userRepository.findByUserNameAndPassWord(username, password);
 
         return user.orElseGet(() -> {
-            UserEntry userEntry = new UserEntry(ContextUtil.nextId(UserEntry.class));
+            UserEntry userEntry = new UserEntry(IdCreator.nextId(UserEntry.class));
             userEntry.setUserName(username);
             userEntry.setPassWord(password);
             userRepository.save(userEntry);

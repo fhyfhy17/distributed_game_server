@@ -7,7 +7,7 @@ import com.entry.BaseEntry;
 import com.entry.PlayerEntry;
 import com.enums.CacheEnum;
 import com.mongoListener.SaveEventListener;
-import com.util.ContextUtil;
+import com.util.IdCreator;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.cache.CachePeekMode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class WebTestEnter {
         for (int i = 0; i < 100; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 100; j++) {
-                    PlayerEntry playerEntry = new PlayerEntry(ContextUtil.nextId(PlayerEntry.class));
+                    PlayerEntry playerEntry = new PlayerEntry(IdCreator.nextId(PlayerEntry.class));
                     playerEntry.setName("aaa");
                     playerRepository.save(playerEntry);
 

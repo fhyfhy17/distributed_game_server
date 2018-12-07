@@ -3,6 +3,7 @@ package com.config;
 import com.enums.ServerTypeEnum;
 import com.pojo.ServerInfo;
 import com.util.ContextUtil;
+import com.util.Snowflake;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,4 +18,11 @@ public class ServerInfoConfig {
         serverInfo.setType(ContextUtil.type);
         return serverInfo;
     }
+
+    @Bean
+    public Snowflake snowflake() {
+        return new Snowflake(ContextUtil.getIntId(), ContextUtil.type);
+    }
+
+
 }

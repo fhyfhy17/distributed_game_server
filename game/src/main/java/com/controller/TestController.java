@@ -10,8 +10,8 @@ import com.google.protobuf.MessageLite;
 import com.net.msg.LOGIN_MSG;
 import com.pojo.Player;
 import com.service.TestService;
-import com.util.ContextUtil;
 import com.util.CountUtil;
+import com.util.IdCreator;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ignite.IgniteCache;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class TestController extends BaseController {
 //        List<PlayerEntry> 王二 = testService.findByName("王二");
 //        testService.findUserById(uidContext.getUid());
 //        if (CollectionUtils.isEmpty(王二)) {
-        PlayerEntry playerEntry = new PlayerEntry(ContextUtil.nextId(PlayerEntry.class));
+        PlayerEntry playerEntry = new PlayerEntry(IdCreator.nextId(PlayerEntry.class));
         playerEntry.setName("王=四");
 
         IgniteCache<Long, BaseEntry> cache = CacheManager.getCache(CacheEnum.PlayerEntryCache);

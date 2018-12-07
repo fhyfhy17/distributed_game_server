@@ -11,7 +11,7 @@ import com.event.playerEvent.PlayerLoginEvent;
 import com.google.common.eventbus.Subscribe;
 import com.net.msg.LOGIN_MSG;
 import com.pojo.Player;
-import com.util.ContextUtil;
+import com.util.IdCreator;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +70,7 @@ public class PlayerService {
         List<Long> playerIds = userEntry.getPlayerIds();
         if (CollectionUtils.isEmpty(playerIds)) {
             // 创建一个角色并存储
-            long index = ContextUtil.nextId(PlayerEntry.class);
+            long index = IdCreator.nextId(PlayerEntry.class);
             PlayerEntry playerEntry = new PlayerEntry(index);
             playerEntry.setName("游客" + index);
             playerEntry.setUid(uid);
