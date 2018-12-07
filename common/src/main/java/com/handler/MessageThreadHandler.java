@@ -5,6 +5,7 @@ import com.controller.ControllerHandler;
 import com.controller.interceptor.HandlerExecutionChain;
 import com.pojo.Message;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.time.StopWatch;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -15,26 +16,29 @@ public class MessageThreadHandler implements Runnable {
     // 心跳频率10毫秒
     private int interval = 10;
 
+    private StopWatch stopWatch = new StopWatch();
 
     protected final ConcurrentLinkedQueue<Message> pulseQueues = new ConcurrentLinkedQueue<>();
 
     @Override
     public void run() {
         for (; ; ) {
-            long startTime = System.currentTimeMillis();
+            stopWatch.start();
 
             // 执行心跳
             pulse();
 
-            long finishTime = System.currentTimeMillis();
-            long timeRunning = finishTime - startTime;
+            stopWatch.stop();
+
             try {
-                if (timeRunning < interval) {
-                    Thread.sleep(interval - timeRunning);
+                if (stopWatch.getTime() < interval) {
+                    Thread.sleep(interval - stopWatch.getTime());
                 } else {
                     Thread.sleep(1);
                 }
             } catch (InterruptedException e) {
+            } finally {
+                stopWatch.reset();
             }
         }
     }
