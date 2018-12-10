@@ -1,7 +1,6 @@
 package com.util;
 
 import com.annotation.SeqClassName;
-import com.controller.BaseController;
 import com.entry.BaseEntry;
 import com.google.common.collect.Lists;
 import org.reflections.Reflections;
@@ -56,14 +55,6 @@ public class ReflectionUtil {
         return reflections.getSubTypesOf(BaseEntry.class);
     }
 
-    //    public static Set<Class> getClasses(Class clazz, String... path) {
-//        Reflections reflections = new Reflections(path);
-//        return reflections.getSubTypesOf(clazz);
-//    }
-    public static Set<Class<? extends BaseController>> getEntryClasses2() {
-        Reflections reflections = new Reflections("com.controller");
-        return reflections.getSubTypesOf(BaseController.class);
-    }
 
     public static void main(String[] args) {
 //        getSeqClassNames();
