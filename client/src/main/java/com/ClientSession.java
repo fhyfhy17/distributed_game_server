@@ -118,7 +118,7 @@ public class ClientSession {
         ClientSession.autoIncrease = autoIncrease;
     }
 
-    private static long buildCheckCode(Message message) {
+    public static long buildCheckCode(Message message) {
         CRC32 crc32 = new CRC32();
         crc32.update(message.getData());
         return crc32.getValue();

@@ -24,7 +24,9 @@ public class ControllerFactory {
         allControllers.values().forEach(controller -> {
             Method[] declaredMethods = controller.getClass().getDeclaredMethods();
             for (Method method : declaredMethods) {
-
+                if (method.getName().startsWith("CGLIB")) {
+                    continue;
+                }
                 for (Class<?> parameterClass : method.getParameterTypes()) {
                     if (Message.class.isAssignableFrom(parameterClass)) {
                         try {

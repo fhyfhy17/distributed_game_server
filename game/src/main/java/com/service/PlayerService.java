@@ -1,6 +1,9 @@
 package com.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.annotation.EventListener;
+import com.annotation.ServiceLog;
+import com.aop.ServiceLogAspect;
 import com.config.CacheManager;
 import com.dao.PlayerRepository;
 import com.dao.UserRepository;
@@ -35,6 +38,7 @@ public class PlayerService {
     private OnlineService onlineService;
 
     @Subscribe
+    @ServiceLog
     public void login(PlayerLoginEvent playerLoginEvent) {
         long playerId = playerLoginEvent.getPlayerId();
         long uid = playerLoginEvent.getUid();
@@ -46,6 +50,9 @@ public class PlayerService {
             onlineService.putPlayer(uid, player);
             onlineService.putPlayer(player);
         }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("player", player);
+        ServiceLogAspect.THREAD_LOCAL.set(jsonObject);
         builder.setPlayerInfo(buildPlayerInfo(player.getPlayerEntry()));
     }
 
@@ -59,6 +66,7 @@ public class PlayerService {
         Player player = new Player();
         player.setPlayerEntry(playerEntry);
         player.setPlayerId(playerEntry.getId());
+        player.setUid(playerEntry.getUid());
 
         return player;
 

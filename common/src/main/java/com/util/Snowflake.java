@@ -74,8 +74,7 @@ public class Snowflake {
 
 
     public long nextId(Class<? extends BaseEntry> clazz) {
-        Object o = lockMap.get(clazz);
-        synchronized (o) {
+        synchronized (lockMap.get(clazz)) {
             long timestamp = useSystemClock ? SystemClock.now() : System.currentTimeMillis();
             if (timestamp < lastTimestamp) {
                 throw new RuntimeException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));

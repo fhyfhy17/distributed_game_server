@@ -158,10 +158,11 @@ public class SerializeUtil {
     private static byte[] protoMts(Message m) {
         builder.setUid(m.getUid());
         builder.setId(m.getId());
-        builder.setData(ByteString.copyFrom(m.getData()));
+        if (m.getData() != null) {
+            builder.setData(ByteString.copyFrom(m.getData()));
+        }
         builder.setFrom(m.getFrom());
-        byte[] bytes = builder.build().toByteArray();
-        return bytes;
+        return builder.build().toByteArray();
     }
 
     private static Message protoStm(byte[] s) {

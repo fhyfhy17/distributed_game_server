@@ -8,7 +8,7 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 
 @Configuration
-public class ServerInfoConfig {
+public class ServerConfig {
 
     @Bean
     public SocketAddress socketAddress() {

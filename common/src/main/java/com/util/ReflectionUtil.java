@@ -1,13 +1,13 @@
 package com.util;
 
 import com.annotation.SeqClassName;
+import com.controller.BaseController;
 import com.entry.BaseEntry;
 import com.google.common.collect.Lists;
 import org.reflections.Reflections;
 
 import java.lang.annotation.Annotation;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ReflectionUtil {
 
@@ -53,10 +53,17 @@ public class ReflectionUtil {
 
     public static Set<Class<? extends BaseEntry>> getEntryClasses() {
         Reflections reflections = new Reflections("com.entry");
-        ConcurrentHashMap<Class<? extends BaseEntry>, Object> map = new ConcurrentHashMap<>();
         return reflections.getSubTypesOf(BaseEntry.class);
     }
 
+    //    public static Set<Class> getClasses(Class clazz, String... path) {
+//        Reflections reflections = new Reflections(path);
+//        return reflections.getSubTypesOf(clazz);
+//    }
+    public static Set<Class<? extends BaseController>> getEntryClasses2() {
+        Reflections reflections = new Reflections("com.controller");
+        return reflections.getSubTypesOf(BaseController.class);
+    }
 
     public static void main(String[] args) {
 //        getSeqClassNames();
