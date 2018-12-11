@@ -1,6 +1,6 @@
 package com.net.handler;
 
-import com.enums.ServerTypeEnum;
+import com.enums.TypeEnum;
 import com.handler.MessageThreadHandler;
 import com.manager.ServerInfoManager;
 import com.manager.VertxMessageManager;
@@ -38,7 +38,7 @@ public class GateMessageHandler extends MessageThreadHandler {
         int msgId = message.getId();
         switch (RouteUtil.route(msgId)) {
             case LOGIN:
-                String loginServerId = ServerInfoManager.hashChooseServer(message.getUid(), ServerTypeEnum.LOGIN);
+                String loginServerId = ServerInfoManager.hashChooseServer(message.getUid(), TypeEnum.ServerTypeEnum.LOGIN);
                 if (StringUtils.isEmpty(loginServerId)) {
                     log.error("没有发现loginServer");
                     return;

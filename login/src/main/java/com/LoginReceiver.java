@@ -1,6 +1,7 @@
 package com;
 
-import com.enums.GroupEnum;
+
+import com.enums.TypeEnum;
 import com.handler.LoginMessageHandler;
 import com.handler.MessageGroup;
 import com.handler.MessageThreadHandler;
@@ -16,7 +17,7 @@ public class LoginReceiver extends BaseReceiver {
 
     @PostConstruct
     public void startup() {
-        m = new MessageGroup(GroupEnum.LOGIN_GROUP.name()) {
+        m = new MessageGroup(TypeEnum.GroupEnum.LOGIN_GROUP.name()) {
             @Override
             public MessageThreadHandler getMessageThreadHandler() {
                 return new LoginMessageHandler();

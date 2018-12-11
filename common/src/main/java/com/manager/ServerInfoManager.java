@@ -1,7 +1,7 @@
 package com.manager;
 
 import cn.hutool.core.util.RandomUtil;
-import com.enums.ServerTypeEnum;
+import com.enums.TypeEnum;
 import com.pojo.ServerInfo;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,14 +36,14 @@ public class ServerInfoManager {
     /**
      * 随机一个服务
      */
-    public static ServerInfo randomServerInfo(ServerTypeEnum serverType) {
+    public static ServerInfo randomServerInfo(TypeEnum.ServerTypeEnum serverType) {
         List<ServerInfo> list = getAllServerInfos().values().stream().filter(
                 x -> x.getServerType() == serverType
         ).collect(Collectors.toList());
         return list.size() < 1 ? null : RandomUtil.randomEle(list);
     }
 
-    public static List<ServerInfo> getServerInfosByType(ServerTypeEnum serverType) {
+    public static List<ServerInfo> getServerInfosByType(TypeEnum.ServerTypeEnum serverType) {
         return getAllServerInfos().values().stream().filter(
                 x -> x.getServerType() == serverType
         ).collect(Collectors.toList());
@@ -53,7 +53,7 @@ public class ServerInfoManager {
         return serverInfos.get(serverId);
     }
 
-    public static String hashChooseServer(long uid, ServerTypeEnum typeEnum) {
+    public static String hashChooseServer(long uid, TypeEnum.ServerTypeEnum typeEnum) {
         List<ServerInfo> list = getServerInfosByType(typeEnum);
         if (list.size() < 1) {
             log.error("所有 {} 服务器都挂了", typeEnum);

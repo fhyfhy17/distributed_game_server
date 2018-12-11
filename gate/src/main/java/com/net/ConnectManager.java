@@ -1,7 +1,6 @@
 package com.net;
 
-import com.enums.GroupEnum;
-import com.enums.ServerTypeEnum;
+import com.enums.TypeEnum;
 import com.handler.MessageGroup;
 import com.handler.MessageThreadHandler;
 import com.manager.ServerInfoManager;
@@ -35,7 +34,7 @@ public class ConnectManager {
 
     @PostConstruct
     public void startup() {
-        m = new MessageGroup(GroupEnum.GATE_GROUP.name()) {
+        m = new MessageGroup(TypeEnum.GroupEnum.GATE_GROUP.name()) {
             @Override
             public MessageThreadHandler getMessageThreadHandler() {
                 return new GateMessageHandler();
@@ -67,7 +66,7 @@ public class ConnectManager {
         session.setUid(uid);
         //绑定一个game服务器
         //保存gameId信息
-        String gameId = ServerInfoManager.hashChooseServer(uid, ServerTypeEnum.GAME);
+        String gameId = ServerInfoManager.hashChooseServer(uid, TypeEnum.ServerTypeEnum.GAME);
         session.setGameId(gameId);
         this.userIdToConnectMap.put(uid, session);
         return session;

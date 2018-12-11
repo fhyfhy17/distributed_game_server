@@ -1,6 +1,6 @@
 package com.pojo;
 
-import com.enums.ServerTypeEnum;
+import com.enums.TypeEnum;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,7 +11,7 @@ public class ServerInfo implements Serializable {
      *
      */
     private static final long serialVersionUID = -533104123L;
-    private ServerTypeEnum serverType;
+    private TypeEnum.ServerTypeEnum serverType;
     private String serverId;
     private int type;
 }

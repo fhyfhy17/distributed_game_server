@@ -15,12 +15,8 @@ import java.util.List;
 @SeqClassName(name = "seq.UserEntry")
 public class UserEntry extends BaseEntry {
 
-    //    @Indexed
-//    @IncKey
-//    @Setter(AccessLevel.NONE)
-//    private long uid;
     public UserEntry(long id) {
-        this.id = id;
+        super(id);
     }
 
     @Indexed

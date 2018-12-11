@@ -1,7 +1,7 @@
 package com;
 
 import com.disruptor.DisruptorEnum;
-import com.enums.GroupEnum;
+import com.enums.TypeEnum;
 import com.handler.GameMessageHandler;
 import com.handler.MessageGroup;
 import com.handler.MessageThreadHandler;
@@ -19,7 +19,7 @@ public class GameReceiver extends BaseReceiver {
 
     @PostConstruct
     public void startup() {
-        m = new MessageGroup(GroupEnum.GAME_GROUP.name()) {
+        m = new MessageGroup(TypeEnum.GroupEnum.GAME_GROUP.name()) {
             @Override
             public MessageThreadHandler getMessageThreadHandler() {
                 return new GameMessageHandler();

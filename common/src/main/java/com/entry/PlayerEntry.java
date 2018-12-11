@@ -13,13 +13,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @SeqClassName(name = "seq.PlayerEntry")
 @ToString
 public class PlayerEntry extends BaseEntry {
-//    @Indexed
-//    @IncKey
-//    @Setter(AccessLevel.NONE)
-//    private long playerId;
 
     public PlayerEntry(long id) {
-        this.id = id;
+        super(id);
     }
 
     private long uid;

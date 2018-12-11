@@ -12,4 +12,8 @@ public class BaseEntry {
     @Id
     @Setter(AccessLevel.NONE)
     protected long id;
+
+    public BaseEntry(long id) {
+        this.id = id;
+    }
 }

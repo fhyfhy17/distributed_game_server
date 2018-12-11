@@ -1,6 +1,6 @@
 package com;
 
-import com.enums.GroupEnum;
+import com.enums.TypeEnum;
 import com.handler.MessageGroup;
 import com.handler.MessageThreadHandler;
 import com.net.handler.GateToClientMessageHandler;
@@ -15,7 +15,7 @@ public class GateReceiver extends BaseReceiver {
 
     @PostConstruct
     public void startup() {
-        m = new MessageGroup(GroupEnum.GATE_TO_CLIENT_GROUP.name()) {
+        m = new MessageGroup(TypeEnum.GroupEnum.GATE_TO_CLIENT_GROUP.name()) {
             @Override
             public MessageThreadHandler getMessageThreadHandler() {
                 return new GateToClientMessageHandler();
