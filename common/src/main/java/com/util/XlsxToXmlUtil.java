@@ -110,7 +110,7 @@ public class XlsxToXmlUtil {
             case NUMERIC:
                 if (DateUtil.isCellDateFormatted(cell)) {
 
-                    return String.valueOf(format.format(cell.getDateCellValue()));
+                    return format.format(cell.getDateCellValue());
                 } else {
                     String s = String.valueOf(cell.getNumericCellValue());
 
@@ -135,7 +135,7 @@ public class XlsxToXmlUtil {
     }
 
     public static void main(String[] args) throws IOException {
-        write("D://");
+        write("F:/xlsx/");
         // read();
         // getFiles(".");
     }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <tr id="long" limit="int"/>
+    <tr id="1" limit="5"/>
+    <tr id="2" limit="10"/>
+    <tr id="3" limit="15"/>
+</root>
+

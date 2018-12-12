@@ -1,6 +1,6 @@
 package com.enums;
 
-import com.google.common.collect.Iterables;
+import com.exception.NoEnumTypeException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,12 +19,12 @@ public interface TypeEnum {
 
     static <T extends TypeEnum> T getEnumByType(Class<T> enumTyps, int type) {
         List<T> enums = Arrays.asList(enumTyps.getEnumConstants());
-        return Iterables.find(enums, (TypeEnum item) -> item.getType() == type);
+        return enums.stream().filter(x -> x.getType() == type).findAny().orElseThrow(() -> new NoEnumTypeException(""));
     }
 
     static <T extends TypeEnum> T getEnumByName(Class<T> enumTyps, String name) {
         List<T> enums = Arrays.asList(enumTyps.getEnumConstants());
-        return Iterables.find(enums, (TypeEnum item) -> item.getName().equals(name));
+        return enums.stream().filter(x -> name.equals(x.getName())).findAny().orElseThrow(() -> new NoEnumTypeException(""));
     }
 
     /**
