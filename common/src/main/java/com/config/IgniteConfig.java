@@ -6,6 +6,7 @@ import com.pojo.ServerInfo;
 import com.util.ContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ignite.Ignite;
+import org.apache.ignite.IgniteAtomicSequence;
 import org.apache.ignite.Ignition;
 import org.apache.ignite.cluster.ClusterNode;
 import org.apache.ignite.configuration.DeploymentMode;
@@ -15,6 +16,7 @@ import org.apache.ignite.events.EventType;
 import org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi;
 import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi;
 import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
+import org.apache.ignite.spi.discovery.tcp.ipfinder.zk.TcpDiscoveryZookeeperIpFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,10 +48,13 @@ public class IgniteConfig {
                 .setCommunicationSpi(new TcpCommunicationSpi()
                         .setLocalAddress("localhost"))
                 .setDiscoverySpi(new TcpDiscoverySpi()
-                        .setIpFinder(new TcpDiscoveryVmIpFinder()
-                                .setAddresses(Arrays.asList("127.0.0.1:47500..47509")
-                                )
+                        .setIpFinder(new TcpDiscoveryZookeeperIpFinder()
+                                .setZkConnectionString("127.0.0.1:2181")
                         )
+//                        .setIpFinder(new TcpDiscoveryVmIpFinder()
+//                                .setAddresses(Arrays.asList("127.0.0.1:47500..47509")
+//                                )
+//                        )
                 )
 
                 .setMetricsLogFrequency(0);
@@ -84,6 +89,8 @@ public class IgniteConfig {
 
             return false;
         }, EventType.EVT_NODE_FAILED, EventType.EVT_NODE_LEFT, EventType.EVT_NODE_JOINED);
+
+
 
         return start;
     }

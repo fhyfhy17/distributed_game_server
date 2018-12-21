@@ -1,6 +1,7 @@
 package com.config;
 
-import com.enums.ServerTypeEnum;
+
+import com.enums.TypeEnum;
 import com.pojo.ServerInfo;
 import com.util.ContextUtil;
 import com.util.Snowflake;
@@ -13,7 +14,7 @@ public class ServerInfoConfig {
     @Bean
     public ServerInfo serverInfo() {
         ServerInfo serverInfo = new ServerInfo();
-        serverInfo.setServerType(ServerTypeEnum.values()[ContextUtil.type]);
+        serverInfo.setServerType(TypeEnum.ServerTypeEnum.values()[ContextUtil.type]);
         serverInfo.setServerId(ContextUtil.id);
         serverInfo.setType(ContextUtil.type);
         return serverInfo;

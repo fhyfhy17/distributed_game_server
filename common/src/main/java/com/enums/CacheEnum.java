@@ -5,5 +5,7 @@ public enum CacheEnum {
     PlayerEntryCache,
     /***/
     UserEntryCache,
+    /***/
+    UnionEntryCache,
     ;
 }

@@ -8,6 +8,8 @@ import com.entry.PlayerEntry;
 import com.enums.CacheEnum;
 import com.mongoListener.SaveEventListener;
 import com.util.IdCreator;
+import org.apache.ignite.Ignite;
+import org.apache.ignite.IgniteAtomicSequence;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.cache.CachePeekMode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,23 @@ public class WebTestEnter {
     UserRepository userRepository;
     @Autowired
     SaveEventListener saveEventListener;
+    @Autowired
+    private Ignite ignite;
+
+
+    @RequestMapping("/test/seq")
+    public void testSeq() {
+
+        IgniteAtomicSequence seq = ignite.atomicSequence(
+                "abctest", // Sequence name.
+                0,       // Initial value for sequence.
+                true     // Create if it does not exist.
+        );
+
+        seq.getAndAdd(2);
+        long l = seq.incrementAndGet();
+        System.out.println(l);
+    }
 
     @RequestMapping("/test/a")
     public void test() {
