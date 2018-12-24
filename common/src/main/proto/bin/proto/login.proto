@@ -62,7 +62,7 @@ message PLAYER_INFO{
 	int64 playerId		=2;
 	int32 level			=3;
 	string name			=4;
-	int32 coin			=5;
+	int64 coin			=5;
 }
 
 message CTS_GAME_LOGIN_PLAYER{
