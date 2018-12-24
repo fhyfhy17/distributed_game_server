@@ -24,6 +24,7 @@ public class PlayerEntry extends BaseEntry {
     private String name;
 
     private int level = 1;
-    private int coin;
+    private long exp;
+    private long coin;
 
 }

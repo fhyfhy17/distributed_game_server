@@ -23,7 +23,7 @@ public class UnionEntry extends BaseEntry {
         super(id);
     }
 
-    private int contribution;
+    private long contribution;
 
 
     private List<Long> playerList = new ArrayList<>();
