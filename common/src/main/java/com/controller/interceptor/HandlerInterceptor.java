@@ -8,10 +8,10 @@ import com.pojo.Message;
 // 这里的操作可以有很多,有实际项目了，还是好好改改。开启关闭某些模块 ，果然还是有个Module的比较好，可以过不去preHandle 不执行post
 // 但还是要把消息错误提示返回去。
 public interface HandlerInterceptor {
-    default boolean preHandle(Message message, ControllerHandler handler) throws Exception {
+    default boolean preHandle(Message message, ControllerHandler handler) {
         return true;
     }
 
-    default void postHandle(Message message, ControllerHandler handler,com.google.protobuf.Message result) throws Exception {
+    default void postHandle(Message message, ControllerHandler handler, com.google.protobuf.Message result) {
     }
 }

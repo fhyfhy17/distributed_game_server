@@ -3,6 +3,7 @@ package com.handler;
 import com.controller.ControllerFactory;
 import com.controller.ControllerHandler;
 import com.controller.interceptor.HandlerExecutionChain;
+import com.exception.exceptionNeedSendToClient.ExceptionNeedSendToClient;
 import com.pojo.Message;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.StopWatch;
@@ -50,11 +51,13 @@ public class MessageThreadHandler implements Runnable {
 
     public void pulse() {
         while (!pulseQueues.isEmpty()) {
+            ControllerHandler handler = null;
+            Message message = null;
             try {
-                Message message = pulseQueues.poll();
+                message = pulseQueues.poll();
                 final int cmdId = message.getId();
 
-                ControllerHandler handler = ControllerFactory.getControllerMap().get(cmdId);
+                handler = ControllerFactory.getControllerMap().get(cmdId);
                 if (handler == null) {
                     throw new IllegalStateException("收到不存在的消息，消息ID=" + cmdId);
                 }
@@ -66,6 +69,11 @@ public class MessageThreadHandler implements Runnable {
                 com.google.protobuf.Message result = (com.google.protobuf.Message) handler.invokeForController(message);
                 //拦截器后
                 HandlerExecutionChain.applyPostHandle(message, result, handler);
+            } catch (ExceptionNeedSendToClient exceptionNeedSendToClient) {
+                Class<?> returnType = handler.getMethod().getReturnType();
+                if (returnType.isAssignableFrom(com.google.protobuf.Message.class)) {
+                    HandlerExecutionChain.applyPostHandle(message, null, handler);
+                }
             } catch (Exception e) {
                 log.error("", e);
             }

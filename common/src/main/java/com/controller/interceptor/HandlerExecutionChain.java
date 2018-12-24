@@ -16,7 +16,7 @@ public class HandlerExecutionChain {
 
     private static List<HandlerInterceptor> interceptorList;
 
-    public static boolean applyPreHandle(Message message, ControllerHandler handler) throws Exception {
+    public static boolean applyPreHandle(Message message, ControllerHandler handler) {
         if (!ObjectUtils.isEmpty(interceptorList)) {
             for (int i = 0; i < interceptorList.size(); i++) {
                 HandlerInterceptor interceptor = interceptorList.get(i);
@@ -29,7 +29,7 @@ public class HandlerExecutionChain {
         return true;
     }
 
-    public static void applyPostHandle(Message message, com.google.protobuf.Message result, ControllerHandler handler) throws Exception {
+    public static void applyPostHandle(Message message, com.google.protobuf.Message result, ControllerHandler handler) {
         if (!ObjectUtils.isEmpty(interceptorList)) {
             for (int i = 0; i < interceptorList.size(); i++) {
                 HandlerInterceptor interceptor = interceptorList.get(i);

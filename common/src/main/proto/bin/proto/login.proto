@@ -86,4 +86,8 @@ message STC_PlayerInfo{
 	option(messageId) = 10013;
 	PLAYER_INFO playerInfo =1;
 }
-
+//统一错误回复
+message STC_UNIFIED_EXCEPTION{
+	option(messageId) = 10014;
+	string msg=1;
+} 

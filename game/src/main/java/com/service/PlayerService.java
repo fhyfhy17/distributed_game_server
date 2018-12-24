@@ -11,6 +11,7 @@ import com.entry.PlayerEntry;
 import com.entry.UserEntry;
 import com.enums.CacheEnum;
 import com.event.playerEvent.PlayerLoginEvent;
+import com.exception.exceptionNeedSendToClient.NoPlayerWhenLoginException;
 import com.google.common.eventbus.Subscribe;
 import com.net.msg.LOGIN_MSG;
 import com.pojo.Player;
@@ -39,17 +40,14 @@ public class PlayerService {
 
     @Subscribe
     @ServiceLog
-    public void login(PlayerLoginEvent playerLoginEvent) {
+    public void login(PlayerLoginEvent playerLoginEvent) throws NoPlayerWhenLoginException {
         long playerId = playerLoginEvent.getPlayerId();
         long uid = playerLoginEvent.getUid();
         LOGIN_MSG.STC_GAME_LOGIN_PLAYER.Builder builder = playerLoginEvent.getBuilder();
         Player player = loadPlayer(playerId);
-        if (Objects.isNull(player)) {
-            //TODO player不存在的处理
-        } else {
-            onlineService.putPlayer(uid, player);
-            onlineService.putPlayer(player);
-        }
+        onlineService.putPlayer(uid, player);
+        onlineService.putPlayer(player);
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("player", player);
         ServiceLogAspect.THREAD_LOCAL.set(jsonObject);
@@ -57,11 +55,10 @@ public class PlayerService {
     }
 
     //TODO 这种不存在的判断想办法用 异常来解决，就不用来回处理了（但是和事件模式好像有点冲突~~，没办法把异常传给调用方）
-    private Player loadPlayer(long playerId) {
+    private Player loadPlayer(long playerId) throws NoPlayerWhenLoginException {
         PlayerEntry playerEntry = (PlayerEntry) CacheManager.getCache(CacheEnum.PlayerEntryCache).get(playerId);
         if (Objects.isNull(playerEntry)) {
-            log.error("登录时不存在此player  playerId={}", playerId);
-            return null;
+            throw new NoPlayerWhenLoginException();
         }
         Player player = new Player();
         player.setPlayerEntry(playerEntry);

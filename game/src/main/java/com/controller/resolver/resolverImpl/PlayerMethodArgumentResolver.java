@@ -2,7 +2,7 @@ package com.controller.resolver.resolverImpl;
 
 import com.controller.resolver.ActionMethodArgumentResolver;
 import com.controller.resolver.MethodParameter;
-import com.exception.NoPlayerException;
+import com.exception.exceptionNeedSendToClient.NoPlayerException;
 import com.pojo.Message;
 import com.pojo.Player;
 import com.service.OnlineService;

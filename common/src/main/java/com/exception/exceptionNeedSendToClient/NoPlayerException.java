@@ -1,7 +1,7 @@
-package com.exception;
+package com.exception.exceptionNeedSendToClient;
 
 
-public class NoPlayerException extends Exception {
+public class NoPlayerException extends ExceptionNeedSendToClient {
 
     private static final long serialVersionUID = -4742832112872227456L;
 
