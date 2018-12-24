@@ -62,7 +62,7 @@ public class MessageThreadHandler implements Runnable {
                     throw new IllegalStateException("收到不存在的消息，消息ID=" + cmdId);
                 }
                 //拦截器前
-                if (!HandlerExecutionChain.applyPreHandle(message, handler)) {
+                if (HandlerExecutionChain.applyPreHandle(message, handler)) {
                     continue;
                 }
                 //针对method的每个参数进行处理， 处理多参数,返回result
