@@ -26,5 +26,5 @@ public class PlayerEntry extends BaseEntry {
     private int level = 1;
     private long exp;
     private long coin;
-
+    private long unionId;
 }

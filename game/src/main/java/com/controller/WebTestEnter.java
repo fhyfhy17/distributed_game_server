@@ -5,8 +5,10 @@ import com.dao.PlayerRepository;
 import com.dao.UserRepository;
 import com.entry.BaseEntry;
 import com.entry.PlayerEntry;
+import com.entry.UnionEntry;
 import com.enums.CacheEnum;
 import com.mongoListener.SaveEventListener;
+import com.service.UnionService;
 import com.util.IdCreator;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
@@ -29,6 +31,9 @@ public class WebTestEnter {
     SaveEventListener saveEventListener;
     @Autowired
     private Ignite ignite;
+
+    @Autowired
+    private UnionService unionService;
 
 
     @RequestMapping("/test/seq")
@@ -81,6 +86,28 @@ public class WebTestEnter {
         }
 
 
+    }
+
+    @RequestMapping("/test/addUnion")
+    public void addUnion() {
+        UnionEntry u = new UnionEntry(IdCreator.nextId(UnionEntry.class));
+        IgniteCache<Long, BaseEntry> cache = CacheManager.getCache(CacheEnum.UnionEntryCache);
+        cache.put(u.getId(), u);
+    }
+
+    @RequestMapping("/test/createPlayer")
+    public void createPlayer() {
+        PlayerEntry playerEntry = new PlayerEntry(IdCreator.nextId(PlayerEntry.class));
+        IgniteCache<Long, BaseEntry> cache = CacheManager.getCache(CacheEnum.PlayerEntryCache);
+        cache.put(playerEntry.getId(), playerEntry);
+//        1077939648774410240
+    }
+
+    @RequestMapping("/test/playerAddUnion")
+    public void playerAddUnion() {
+        unionService.examinePlayer(1077939648774410240L,1077941486252855296l);
+//        1077939648774410240
+//        1077941486252855296
     }
 
     @RequestMapping("/test/cache")

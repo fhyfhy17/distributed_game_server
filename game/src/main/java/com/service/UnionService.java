@@ -2,10 +2,13 @@ package com.service;
 
 import com.annotation.EventListener;
 import com.annotation.IgniteTransaction;
-import com.config.CacheManager;
+import com.annotation.Param;
+import com.aop.IgniteTransactionAspect;
 import com.dao.UnionRepository;
+import com.entry.PlayerEntry;
 import com.entry.UnionEntry;
 import com.enums.CacheEnum;
+import com.enums.CacheParamterEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +21,22 @@ public class UnionService {
     private UnionRepository unionRepository;
 
 
-    @IgniteTransaction(cacheEnum = {CacheEnum.UnionEntryCache, CacheEnum.PlayerEntryCache})
-    public void addContribute(long unionId, long contribute) {
+    @IgniteTransaction(cacheEnum = {CacheEnum.UnionEntryCache})
+    public void addContribute(@Param(p = CacheParamterEnum.UnionEntryCache) long unionId, long contribute) {
 
-        UnionEntry unionEntry = CacheManager.getUnionEntry(unionId);
+        UnionEntry unionEntry = (UnionEntry) IgniteTransactionAspect.THREAD_LOCAL.get()[0];
         unionEntry.setContribution(unionEntry.getContribution() + contribute);
 
     }
 
+    @IgniteTransaction(cacheEnum = {CacheEnum.UnionEntryCache, CacheEnum.PlayerEntryCache})
+    public void examinePlayer(@Param(p = CacheParamterEnum.UnionEntryCache) long unionId, @Param(p = CacheParamterEnum.PlayerEntryCache) long playerId) {
+        UnionEntry unionEntry = (UnionEntry) IgniteTransactionAspect.THREAD_LOCAL.get()[0];
+        PlayerEntry playerEntry = (PlayerEntry) IgniteTransactionAspect.THREAD_LOCAL.get()[1];
+        unionEntry.getApplyList().remove(playerId);
+        unionEntry.getPlayerList().add(playerId);
+        playerEntry.setUnionId(unionId);
+
+    }
 
 }
