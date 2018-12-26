@@ -30,7 +30,10 @@ public class UnionService {
     }
 
     @IgniteTransaction(cacheEnum = {CacheEnum.UnionEntryCache, CacheEnum.PlayerEntryCache})
-    public void examinePlayer(@Param(p = CacheParamterEnum.UnionEntryCache) long unionId, @Param(p = CacheParamterEnum.PlayerEntryCache) long playerId) {
+    public void examinePlayer(
+            @Param(p = CacheParamterEnum.UnionEntryCache) long unionId
+            , @Param(p = CacheParamterEnum.PlayerEntryCache) long playerId)
+    {
         UnionEntry unionEntry = (UnionEntry) IgniteTransactionAspect.THREAD_LOCAL.get()[0];
         PlayerEntry playerEntry = (PlayerEntry) IgniteTransactionAspect.THREAD_LOCAL.get()[1];
         unionEntry.getApplyList().remove(playerId);
