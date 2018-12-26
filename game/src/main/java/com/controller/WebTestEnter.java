@@ -9,9 +9,9 @@ import com.enums.CacheEnum;
 import com.mongoListener.SaveEventListener;
 import com.util.IdCreator;
 import org.apache.ignite.Ignite;
-import org.apache.ignite.IgniteAtomicSequence;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.cache.CachePeekMode;
+import org.apache.ignite.transactions.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,15 +34,33 @@ public class WebTestEnter {
     @RequestMapping("/test/seq")
     public void testSeq() {
 
-        IgniteAtomicSequence seq = ignite.atomicSequence(
-                "abctest", // Sequence name.
-                0,       // Initial value for sequence.
-                true     // Create if it does not exist.
-        );
+//        IgniteAtomicSequence seq = ignite.atomicSequence(
+//                "abctest", // Sequence name.
+//                0,       // Initial value for sequence.
+//                true     // Create if it does not exist.
+//        );
+//
+//        seq.getAndAdd(2);
+//        long l = seq.incrementAndGet();
 
-        seq.getAndAdd(2);
-        long l = seq.incrementAndGet();
-        System.out.println(l);
+        IgniteCache<Long, BaseEntry> cache = CacheManager.getCache(CacheEnum.PlayerEntryCache);
+        try (Transaction tx = ignite.transactions().txStart()) {
+
+
+            tx.commit();
+        }
+
+
+        cache.invoke(1071010079177838592L, (entry, args) -> {
+            PlayerEntry value = (PlayerEntry) entry.getValue();
+            value.setCoin(value.getCoin() + 3);
+            entry.setValue(value);
+            return null;
+        });
+
+        PlayerEntry p = (PlayerEntry) cache.get(1071010079177838592L);
+
+        System.out.println("给ID为5的加3个coin，现在的coin为: " + p.getCoin());
     }
 
     @RequestMapping("/test/a")

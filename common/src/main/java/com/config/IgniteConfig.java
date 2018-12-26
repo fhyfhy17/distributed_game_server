@@ -1,28 +1,32 @@
 package com.config;
 
 import com.Constant;
+import com.entry.BaseEntry;
+import com.enums.CacheEnum;
+import com.google.common.collect.Maps;
 import com.manager.ServerInfoManager;
 import com.pojo.ServerInfo;
 import com.util.ContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ignite.Ignite;
-import org.apache.ignite.IgniteAtomicSequence;
+import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
 import org.apache.ignite.cluster.ClusterNode;
+import org.apache.ignite.configuration.CacheConfiguration;
 import org.apache.ignite.configuration.DeploymentMode;
 import org.apache.ignite.configuration.IgniteConfiguration;
 import org.apache.ignite.events.DiscoveryEvent;
 import org.apache.ignite.events.EventType;
 import org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi;
 import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi;
-import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
 import org.apache.ignite.spi.discovery.tcp.ipfinder.zk.TcpDiscoveryZookeeperIpFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @Configuration
 @Slf4j
@@ -30,6 +34,15 @@ public class IgniteConfig {
 
     @Autowired
     private ServerInfo serverInfo;
+
+
+    private Map<CacheEnum, IgniteCache<Long, BaseEntry>> cacheMap;
+    @Autowired
+    private List<CacheConfiguration> repoList;
+
+    private boolean notServerInfo(Object o) {
+        return o == null || !o.getClass().isAssignableFrom(ServerInfo.class);
+    }
 
     @Bean("myIg")
     public Ignite igConfig() {
@@ -48,9 +61,9 @@ public class IgniteConfig {
                 .setCommunicationSpi(new TcpCommunicationSpi()
                         .setLocalAddress("localhost"))
                 .setDiscoverySpi(new TcpDiscoverySpi()
-                        .setIpFinder(new TcpDiscoveryZookeeperIpFinder()
-                                .setZkConnectionString("127.0.0.1:2181")
-                        )
+                                .setIpFinder(new TcpDiscoveryZookeeperIpFinder()
+                                        .setZkConnectionString("127.0.0.1:2181")
+                                )
 //                        .setIpFinder(new TcpDiscoveryVmIpFinder()
 //                                .setAddresses(Arrays.asList("127.0.0.1:47500..47509")
 //                                )
@@ -58,7 +71,22 @@ public class IgniteConfig {
                 )
 
                 .setMetricsLogFrequency(0);
+
+
+        CacheConfiguration[] cs = new CacheConfiguration[repoList.size()];
+        cfg.setCacheConfiguration(repoList.toArray(cs));
+
+
         Ignite start = Ignition.start(cfg);
+
+        Map<CacheEnum, IgniteCache<Long, BaseEntry>> map = Maps.newHashMap();
+        for (CacheConfiguration c : cs) {
+
+            map.put(CacheEnum.valueOf(c.getName()), start.cache(c.getName()));
+        }
+        cacheMap = map;
+
+
         for (ClusterNode node : start.cluster().forRemotes().nodes()) {
             Object attribute = node.attribute(Constant.SERVER_INFO);
             if (notServerInfo(attribute)) {
@@ -91,11 +119,11 @@ public class IgniteConfig {
         }, EventType.EVT_NODE_FAILED, EventType.EVT_NODE_LEFT, EventType.EVT_NODE_JOINED);
 
 
-
         return start;
     }
 
-    private boolean notServerInfo(Object o) {
-        return o == null || !o.getClass().isAssignableFrom(ServerInfo.class);
+    @Bean
+    public Map<CacheEnum, IgniteCache<Long, BaseEntry>> cacheMap() {
+        return cacheMap;
     }
 }

@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @EventListener
@@ -54,8 +55,11 @@ public class PlayerService {
         builder.setPlayerInfo(buildPlayerInfo(player.getPlayerEntry()));
     }
 
-    //TODO 这种不存在的判断想办法用 异常来解决，就不用来回处理了（但是和事件模式好像有点冲突~~，没办法把异常传给调用方）
     private Player loadPlayer(long playerId) throws NoPlayerWhenLoginException {
+        AtomicInteger a = new AtomicInteger();
+        a.addAndGet(2);
+
+
         PlayerEntry playerEntry = (PlayerEntry) CacheManager.getCache(CacheEnum.PlayerEntryCache).get(playerId);
         if (Objects.isNull(playerEntry)) {
             throw new NoPlayerWhenLoginException();

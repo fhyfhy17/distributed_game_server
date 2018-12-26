@@ -7,5 +7,7 @@ public enum CacheEnum {
     UserEntryCache,
     /***/
     UnionEntryCache,
+    /***/
+    TaskEntryCache,
     ;
 }

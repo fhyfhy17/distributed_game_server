@@ -1,14 +1,15 @@
 package com.config;
 
 import com.entry.BaseEntry;
+import com.entry.UnionEntry;
 import com.enums.CacheEnum;
 import org.apache.ignite.IgniteCache;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Map;
 
-@Component
+@Configuration
 public class CacheManager {
     @Autowired
     private static Map<CacheEnum, IgniteCache<Long, BaseEntry>> cacheMap;
@@ -25,4 +26,15 @@ public class CacheManager {
     public void setCacheMap(Map<CacheEnum, IgniteCache<Long, BaseEntry>> cacheMap) {
         CacheManager.cacheMap = cacheMap;
     }
+
+    public static UnionEntry getUnionEntry(long unionId) {
+        IgniteCache<Long, BaseEntry> unionCache = getCache(CacheEnum.UnionEntryCache);
+        UnionEntry unionEntry = (UnionEntry) unionCache.get(unionId);
+        //操作 entry
+        unionCache.put(unionEntry.getId(), unionEntry);
+
+
+        return unionEntry;
+    }
+
 }

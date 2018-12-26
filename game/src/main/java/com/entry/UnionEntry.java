@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,8 +26,11 @@ public class UnionEntry extends BaseEntry {
 
     private long contribution;
 
+    private List<Long> applyList = new ArrayList<>();
 
     private List<Long> playerList = new ArrayList<>();
+
+    private Date createTime = new Date();
 
 }
 
