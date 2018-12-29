@@ -11,7 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
+import org.apache.ignite.binary.BinaryBasicIdMapper;
+import org.apache.ignite.binary.BinaryBasicNameMapper;
 import org.apache.ignite.cluster.ClusterNode;
+import org.apache.ignite.configuration.BinaryConfiguration;
 import org.apache.ignite.configuration.CacheConfiguration;
 import org.apache.ignite.configuration.DeploymentMode;
 import org.apache.ignite.configuration.IgniteConfiguration;
@@ -37,7 +40,7 @@ public class IgniteConfig {
 
 
     private Map<CacheEnum, IgniteCache<Long, BaseEntry>> cacheMap;
-    @Autowired
+    @Autowired(required = false)
     private List<CacheConfiguration> repoList;
 
     private boolean notServerInfo(Object o) {
@@ -52,17 +55,18 @@ public class IgniteConfig {
         cfg.setUserAttributes(Collections.singletonMap(Constant.SERVER_INFO, serverInfo));
         cfg.setIgniteInstanceName(ContextUtil.id);
         cfg
-                .setDeploymentMode(DeploymentMode.SHARED)
-//                .setPeerClassLoadingEnabled(true)
-//                .setBinaryConfiguration(new BinaryConfiguration()
-//                        .setIdMapper(new BinaryBasicIdMapper())
-//                        .setNameMapper(new BinaryBasicNameMapper())
-//                        .setCompactFooter(true))
+                .setDeploymentMode(DeploymentMode.CONTINUOUS)
+                .setPeerClassLoadingEnabled(true)
+
+                .setBinaryConfiguration(new BinaryConfiguration()
+                        .setIdMapper(new BinaryBasicIdMapper())
+                        .setNameMapper(new BinaryBasicNameMapper())
+                        .setCompactFooter(true))
                 .setCommunicationSpi(new TcpCommunicationSpi()
                         .setLocalAddress("localhost"))
                 .setDiscoverySpi(new TcpDiscoverySpi()
                                 .setIpFinder(new TcpDiscoveryZookeeperIpFinder()
-                                        .setZkConnectionString("127.0.0.1:2181")
+                                        .setZkConnectionString(ContextUtil.zkIpPort)
                                 )
 //                        .setIpFinder(new TcpDiscoveryVmIpFinder()
 //                                .setAddresses(Arrays.asList("127.0.0.1:47500..47509")
@@ -71,21 +75,21 @@ public class IgniteConfig {
                 )
 
                 .setMetricsLogFrequency(0);
-
-
-        CacheConfiguration[] cs = new CacheConfiguration[repoList.size()];
-        cfg.setCacheConfiguration(repoList.toArray(cs));
-
+        CacheConfiguration[] cs = null;
+        if (repoList != null) {
+            cs = new CacheConfiguration[repoList.size()];
+            cfg.setCacheConfiguration(repoList.toArray(cs));
+        }
 
         Ignite start = Ignition.start(cfg);
+        if (cs != null) {
+            Map<CacheEnum, IgniteCache<Long, BaseEntry>> map = Maps.newHashMap();
+            for (CacheConfiguration c : cs) {
 
-        Map<CacheEnum, IgniteCache<Long, BaseEntry>> map = Maps.newHashMap();
-        for (CacheConfiguration c : cs) {
-
-            map.put(CacheEnum.valueOf(c.getName()), start.cache(c.getName()));
+                map.put(CacheEnum.valueOf(c.getName()), start.cache(c.getName()));
+            }
+            cacheMap = map;
         }
-        cacheMap = map;
-
 
         for (ClusterNode node : start.cluster().forRemotes().nodes()) {
             Object attribute = node.attribute(Constant.SERVER_INFO);

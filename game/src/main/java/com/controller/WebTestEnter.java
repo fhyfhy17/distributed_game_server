@@ -7,9 +7,13 @@ import com.entry.BaseEntry;
 import com.entry.PlayerEntry;
 import com.entry.UnionEntry;
 import com.enums.CacheEnum;
+import com.lock.zk.ZkDistributedLock;
 import com.mongoListener.SaveEventListener;
 import com.service.UnionService;
+import com.util.ContextUtil;
 import com.util.IdCreator;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.cache.CachePeekMode;
@@ -20,8 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.cache.Cache;
 import java.util.Iterator;
+import java.util.concurrent.atomic.AtomicInteger;
+
+//import com.config.RedissonConfig;
 
 @RestController
+@Slf4j
 public class WebTestEnter {
     @Autowired
     PlayerRepository playerRepository;
@@ -34,6 +42,8 @@ public class WebTestEnter {
 
     @Autowired
     private UnionService unionService;
+//    @Autowired
+//    RedissonConfig redissonConfig;
 
 
     @RequestMapping("/test/seq")
@@ -103,11 +113,71 @@ public class WebTestEnter {
 //        1077939648774410240
     }
 
+    AtomicInteger a = new AtomicInteger(0);
+    StopWatch s = new StopWatch();
+    ZkDistributedLock lock = new ZkDistributedLock(ContextUtil.zkIpPort, 1000, "textLock");
+
     @RequestMapping("/test/playerAddUnion")
     public void playerAddUnion() {
-        unionService.examinePlayer(1077939648774410240L,1077941486252855296l);
+        unionService.examinePlayer(1078490924780228608L, 1071010079177838592L);
 //        1077939648774410240
 //        1077941486252855296
+    }
+
+    @RequestMapping("/test/testZk")
+    public void testZk() {
+        s.reset();
+        s.start();
+        for (int i = 0; i < 1000; i++) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            new Thread(() -> {
+                lock.lock("a");
+                try {
+                    System.out.println(Thread.currentThread().getId() + " 获得了锁");
+                    int i1 = this.a.incrementAndGet();
+                    if (i1 != 0 && i1 % 1000 == 0) {
+                        s.stop();
+                        System.out.println("1000个 锁已经全部完事了，共用了：" + s.getTime());
+                    }
+
+                } finally {
+                    lock.unlock();
+                }
+
+//                RedissonClient lock = redissonConfig.getClient();
+//
+//
+////                RedissonRedLock redLock = new RedissonRedLock(lock.getLock("lock1"), lock.getLock("lock2"), lock.getLock("lock3"));
+//
+//                RLock redLock = lock.getLock("a");
+//                try {
+//                    boolean res = false;
+//                    try {
+//                        res = redLock.tryLock(30, 3, TimeUnit.SECONDS);
+//                        if (res) {
+//                            System.out.println(Thread.currentThread().getId() + " 获得了锁");
+//                            int i1 = this.a.incrementAndGet();
+//                            if (i1!=0&&i1 % 1000==0) {
+//                                s.stop();
+//                                System.out.println("1000个 锁已经全部完事了，共用了："+s.getTime());
+//                            }
+//                        }
+//
+//                    } catch (InterruptedException e) {
+//                        log.error("", e);
+//                    }
+//
+//                } finally {
+//                    redLock.unlock();
+//                }
+
+            }
+            ).start();
+        }
     }
 
     @RequestMapping("/test/cache")

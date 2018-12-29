@@ -9,6 +9,7 @@ public class ContextUtil {
     public static String id;
     public static int type;
     public static int tcpPort;
+    public static String zkIpPort;
 
     @Value("${server.serverId}")
 
@@ -24,6 +25,11 @@ public class ContextUtil {
     @Value("${server.type}")
     public void setType(int type) {
         ContextUtil.type = type;
+    }
+
+    @Value("${zk.ipPort}")
+    public void setZkIpPort(String zkIpPort) {
+        ContextUtil.zkIpPort = zkIpPort;
     }
 
     public static int getIntId() {

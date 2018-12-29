@@ -2,7 +2,7 @@ package com.service;
 
 import com.annotation.EventListener;
 import com.annotation.IgniteTransaction;
-import com.annotation.Param;
+import com.annotation.P;
 import com.aop.IgniteTransactionAspect;
 import com.dao.UnionRepository;
 import com.entry.PlayerEntry;
@@ -22,7 +22,7 @@ public class UnionService {
 
 
     @IgniteTransaction(cacheEnum = {CacheEnum.UnionEntryCache})
-    public void addContribute(@Param(p = CacheParamterEnum.UnionEntryCache) long unionId, long contribute) {
+    public void addContribute(@P(p = CacheParamterEnum.UnionEntryCache) long unionId, long contribute) {
 
         UnionEntry unionEntry = (UnionEntry) IgniteTransactionAspect.THREAD_LOCAL.get()[0];
         unionEntry.setContribution(unionEntry.getContribution() + contribute);
@@ -31,8 +31,8 @@ public class UnionService {
 
     @IgniteTransaction(cacheEnum = {CacheEnum.UnionEntryCache, CacheEnum.PlayerEntryCache})
     public void examinePlayer(
-            @Param(p = CacheParamterEnum.UnionEntryCache) long unionId
-            , @Param(p = CacheParamterEnum.PlayerEntryCache) long playerId)
+            @P(p = CacheParamterEnum.UnionEntryCache) long unionId
+            , @P(p = CacheParamterEnum.PlayerEntryCache) long playerId)
     {
         UnionEntry unionEntry = (UnionEntry) IgniteTransactionAspect.THREAD_LOCAL.get()[0];
         PlayerEntry playerEntry = (PlayerEntry) IgniteTransactionAspect.THREAD_LOCAL.get()[1];

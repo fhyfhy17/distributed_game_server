@@ -56,8 +56,6 @@ public class IgniteCacheConfig {
         cacheCfg.setAtomicityMode(CacheAtomicityMode.TRANSACTIONAL);
         cacheCfg.setReadThrough(true);
         cacheCfg.setWriteThrough(true);
-        cacheCfg.setWriteBehindEnabled(false);
-
         cacheCfg.setCacheStoreFactory(FactoryBuilder.factoryOf(UnionDBStore.class));
         cacheCfg.setCacheMode(CacheMode.PARTITIONED);
         cacheCfg.setBackups(3);
