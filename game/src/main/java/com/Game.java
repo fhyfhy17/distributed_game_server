@@ -12,7 +12,6 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
-//@EnableCaching(proxyTargetClass = true)
 public class Game implements CommandLineRunner {
     @Autowired
     SpringUtils springUtils;

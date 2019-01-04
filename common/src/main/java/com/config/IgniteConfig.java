@@ -63,7 +63,7 @@ public class IgniteConfig {
                         .setNameMapper(new BinaryBasicNameMapper())
                         .setCompactFooter(true))
                 .setCommunicationSpi(new TcpCommunicationSpi()
-                        .setLocalAddress("localhost"))
+                        .setLocalAddress("localhost").setMessageQueueLimit(1000000))
                 .setDiscoverySpi(new TcpDiscoverySpi()
                                 .setIpFinder(new TcpDiscoveryZookeeperIpFinder()
                                         .setZkConnectionString(ContextUtil.zkIpPort)
@@ -75,6 +75,7 @@ public class IgniteConfig {
                 )
 
                 .setMetricsLogFrequency(0);
+
         CacheConfiguration[] cs = null;
         if (repoList != null) {
             cs = new CacheConfiguration[repoList.size()];

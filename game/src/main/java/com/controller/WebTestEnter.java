@@ -8,6 +8,7 @@ import com.entry.PlayerEntry;
 import com.entry.UnionEntry;
 import com.enums.CacheEnum;
 import com.lock.zk.ZkDistributedLock;
+import com.manager.VertxMessage2Manager;
 import com.mongoListener.SaveEventListener;
 import com.service.UnionService;
 import com.util.ContextUtil;
@@ -16,9 +17,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.StopWatch;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
+import org.apache.ignite.IgniteMessaging;
 import org.apache.ignite.cache.CachePeekMode;
 import org.apache.ignite.transactions.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,7 +42,9 @@ public class WebTestEnter {
     SaveEventListener saveEventListener;
     @Autowired
     private Ignite ignite;
-
+    @Autowired
+    @Qualifier(value = "im")
+    private IgniteMessaging igniteMessaging;
     @Autowired
     private UnionService unionService;
 //    @Autowired
@@ -202,7 +207,21 @@ public class WebTestEnter {
             System.out.println(playerEntryMap.getKey());
             System.out.println(playerEntryMap.getValue().getId() + "_" + playerEntryMap.getValue().getName());
         }
+    }
 
+    @RequestMapping("/test/igniteMessage")
+    public void testIgniteMessage() {
+        for (int i = 0; i < 1000000; i++) {
+            igniteMessaging.sendOrdered("login-1", "abcdefghigklmnopqrstuvwxyz", 10000);
+        }
+
+    }
+
+    @RequestMapping("/test/vertxMessage")
+    public void testVertxMessage() {
+        for (int i = 0; i < 1000000; i++) {
+            VertxMessage2Manager.sendMessage("login-1a-0", "abcdefghigklmnopqrstuvwxyz");
+        }
 
     }
 }

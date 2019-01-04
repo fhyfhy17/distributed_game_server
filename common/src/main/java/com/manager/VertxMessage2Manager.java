@@ -1,7 +1,5 @@
 package com.manager;
 
-import com.pojo.Message;
-import com.util.SerializeUtil;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Context;
 import io.vertx.core.Future;
@@ -9,21 +7,16 @@ import io.vertx.core.Vertx;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class VertxMessageManager extends AbstractVerticle {
+public class VertxMessage2Manager extends AbstractVerticle {
 
     private static Vertx vertx;
-
     //TODO 现在发送时就hash了，但是接收端还没有针对处理，发送与接收策略还没有想清楚，以后改
-    public static void sendMessage(String queue, Message message) {
-        int count = (int) (message.getUid() % 3);
-        sendMessageToServer(queue + "-" + count, SerializeUtil.mts(message));
-    }
 
 
-    private static void sendMessageToServer(String queue, byte[] msg) {
+    public static void sendMessage(String queue, String msg) {
 //        log.info("发送消息到集群，目标= {}", queue);
         try {
-            vertx.eventBus().publish(queue,msg);
+            vertx.eventBus().publish(queue, msg);
 //            vertx.eventBus().send(queue, msg, rf -> {
 //                if (rf.succeeded()) {
 //
@@ -37,7 +30,7 @@ public class VertxMessageManager extends AbstractVerticle {
     @Override
     public void init(Vertx vertx, Context context) {
         super.init(vertx, context);
-        VertxMessageManager.vertx = vertx;
+        VertxMessage2Manager.vertx = vertx;
     }
 
     @Override

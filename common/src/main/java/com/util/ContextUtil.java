@@ -10,7 +10,7 @@ public class ContextUtil {
     public static int type;
     public static int tcpPort;
     public static String zkIpPort;
-
+    public static String ti;
     @Value("${server.serverId}")
 
     public void setId(String id) {
@@ -31,6 +31,12 @@ public class ContextUtil {
     public void setZkIpPort(String zkIpPort) {
         ContextUtil.zkIpPort = zkIpPort;
     }
+
+    @Value("${server.ti}")
+    public void setTi(String ti) {
+        ContextUtil.ti = ti;
+    }
+
 
     public static int getIntId() {
         String substring = ContextUtil.id.substring(ContextUtil.id.indexOf("-") + 1);

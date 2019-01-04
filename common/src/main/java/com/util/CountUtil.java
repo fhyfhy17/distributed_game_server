@@ -15,8 +15,9 @@ public class CountUtil {
         if (num == 1) {
             start = System.currentTimeMillis();
         }
-        if (num == 1000000) {
+        if (num % 1000000 == 0) {
             System.out.println("共用时：" + (System.currentTimeMillis() - start));
+            count.set(0);
         }
     }
 }
