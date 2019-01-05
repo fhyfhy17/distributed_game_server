@@ -2,7 +2,9 @@ package com.manager;
 
 import cn.hutool.core.util.RandomUtil;
 import com.enums.TypeEnum;
+import com.node.RemoteNode;
 import com.pojo.ServerInfo;
+import com.util.ContextUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -14,7 +16,7 @@ public class ServerInfoManager {
 
 
     private static ConcurrentHashMap<String, ServerInfo> serverInfos = new ConcurrentHashMap<>();
-
+    private static ConcurrentHashMap<String, RemoteNode> remotes = new ConcurrentHashMap<>();
     public static ConcurrentHashMap<String, ServerInfo> getAllServerInfos() {
         return serverInfos;
     }
@@ -24,6 +26,14 @@ public class ServerInfoManager {
     }
 
     public static void addServer(ServerInfo serverInfo) {
+
+        String hostAddress = serverInfo.getIp() + ":" + serverInfo.getPort();
+        if (serverInfo.getServerId() != ContextUtil.id) {
+            RemoteNode remoteNode = new RemoteNode(hostAddress);
+            remotes.put(serverInfo.getServerId(), remoteNode);
+            remoteNode.startup();
+        }
+
         serverInfos.put(serverInfo.getServerId(), serverInfo);
         log.info("新服务加入={}  ,所有服务={}", serverInfo.getServerId(), serverInfos);
     }
@@ -68,6 +78,10 @@ public class ServerInfoManager {
         String action = join ? "加入" : "离开";
         log.info(action + " 服务器 serverType= {} , serverId= {}", serverInfo.getServerId(), serverInfo.getServerType());
         log.info("当前所有的服务器={}", getAllServerInfos());
+    }
+
+    public static RemoteNode getRemoteNode(String serverId) {
+        return remotes.get(serverId);
     }
 
 }

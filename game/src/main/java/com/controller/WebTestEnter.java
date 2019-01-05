@@ -8,8 +8,10 @@ import com.entry.PlayerEntry;
 import com.entry.UnionEntry;
 import com.enums.CacheEnum;
 import com.lock.zk.ZkDistributedLock;
+import com.manager.ServerInfoManager;
 import com.manager.VertxMessage2Manager;
 import com.mongoListener.SaveEventListener;
+import com.node.RemoteNode;
 import com.service.UnionService;
 import com.util.ContextUtil;
 import com.util.IdCreator;
@@ -221,6 +223,15 @@ public class WebTestEnter {
     public void testVertxMessage() {
         for (int i = 0; i < 1000000; i++) {
             VertxMessage2Manager.sendMessage("login-1a-0", "abcdefghigklmnopqrstuvwxyz");
+        }
+
+    }
+
+    @RequestMapping("/test/zeromqMessage")
+    public void testZeromqMessage() {
+        for (int i = 0; i < 1000000; i++) {
+            RemoteNode remoteNode = ServerInfoManager.getRemoteNode("login-1");
+            remoteNode.sendReqMsg("abcdefghigklmnopqrstuvwxyz".getBytes());
         }
 
     }

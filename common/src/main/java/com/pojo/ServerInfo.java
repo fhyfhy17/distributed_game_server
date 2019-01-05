@@ -14,4 +14,6 @@ public class ServerInfo implements Serializable {
     private TypeEnum.ServerTypeEnum serverType;
     private String serverId;
     private int type;
+    private String ip;
+    private int port;
 }

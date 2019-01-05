@@ -144,5 +144,11 @@
             <artifactId>redisson</artifactId>
             <version>3.7.5</version>
         </dependency>
+        <dependency>
+            <groupId>org.zeromq</groupId>
+            <artifactId>jeromq</artifactId>
+            <version>0.4.3</version>
+        </dependency>
+
     </dependencies>
 </project>

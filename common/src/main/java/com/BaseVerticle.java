@@ -1,18 +1,14 @@
 package com;
 
 import com.manager.Message2ReceiveManager;
-import com.manager.MessageReceiveManager;
 import com.manager.VertxMessage2Manager;
-import com.manager.VertxMessageManager;
-import com.util.ContextUtil;
-import com.util.CountUtil;
+import com.node.Node;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.spi.cluster.ignite.IgniteClusterManager;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ignite.Ignite;
-import org.apache.ignite.IgniteMessaging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -55,21 +51,23 @@ public abstract class BaseVerticle {
         deploymentOptions.setWorker(true);
         deploymentOptions.setInstances(1);
         //部署发送1
-        vertx.deployVerticle(VertxMessageManager.class, deploymentOptions);
-        //部署接收1
-        vertx.deployVerticle(MessageReceiveManager.class, deploymentOptions);
+//        vertx.deployVerticle(VertxMessageManager.class, deploymentOptions);
+//        //部署接收1
+//        vertx.deployVerticle(MessageReceiveManager.class, deploymentOptions);
 
         vertx.deployVerticle(VertxMessage2Manager.class, deploymentOptions);
         vertx.deployVerticle(Message2ReceiveManager.class, deploymentOptions);
         //部署ignite消息
-        IgniteMessaging rmtMsg = ignite.message(ignite.cluster().forRemotes());
+//        IgniteMessaging rmtMsg = ignite.message(ignite.cluster().forRemotes());
 
 //        ignite.cluster().localNode().
-        CountUtil.start();
-        rmtMsg.localListen(ContextUtil.ti, (nodeId, msg) -> {
-            CountUtil.count();
-            return true; // Return true to continue listening.
-        });
+//        CountUtil.start();
+//        rmtMsg.localListen(ContextUtil.ti, (nodeId, msg) -> {
+//            CountUtil.count();
+//            return true; // Return true to continue listening.
+//        });
+
+        new Thread(() -> new Node().start()).start();
     }
 
     @Bean(destroyMethod = "")
