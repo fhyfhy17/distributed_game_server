@@ -2,7 +2,6 @@ package com;
 
 import com.manager.Message2ReceiveManager;
 import com.manager.VertxMessage2Manager;
-import com.node.Node;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
@@ -67,7 +66,7 @@ public abstract class BaseVerticle {
 //            return true; // Return true to continue listening.
 //        });
 
-        new Thread(() -> new Node().start()).start();
+//        new Thread(() -> new Node().start()).start();
     }
 
     @Bean(destroyMethod = "")
