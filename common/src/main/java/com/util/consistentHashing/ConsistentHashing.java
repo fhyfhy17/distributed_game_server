@@ -26,20 +26,7 @@ public class ConsistentHashing<T> {
     public ConsistentHashing() {
     }
 
-    public static void main(String[] args) {
-        IpNode ipNode1 = new IpNode("ipTest1", "192.168.0.1", 1);
-        IpNode ipNode2 = new IpNode("ipTest2", "192.168.0.2", 2);
-        IpNode ipNode3 = new IpNode("ipTest3", "192.168.0.3", 3);
 
-
-        ConsistentHashing<String> consistentHashing = new ConsistentHashing<>();
-        consistentHashing.addNode(ipNode1);
-        consistentHashing.addNode(ipNode2);
-        consistentHashing.addNode(ipNode3);
-
-        Node<String> abc = consistentHashing.getNodeByKey("abcde");
-        System.out.println(abc.getResource());
-    }
 
     public void addNode(Node<T> node) {
         rennlock.writeLock()
@@ -107,5 +94,20 @@ public class ConsistentHashing<T> {
         HashFunction hashFunction = Hashing.murmur3_128(123487545);
         HashCode hashCode = hashFunction.hashString(key, Charset.forName("utf-8"));
         return hashCode.asLong();
+    }
+
+    public static void main(String[] args) {
+        IpNode ipNode1 = new IpNode("ipTest1", "192.168.0.1", 1);
+        IpNode ipNode2 = new IpNode("ipTest2", "192.168.0.2", 2);
+        IpNode ipNode3 = new IpNode("ipTest3", "192.168.0.3", 3);
+
+
+        ConsistentHashing<String> consistentHashing = new ConsistentHashing<>();
+        consistentHashing.addNode(ipNode1);
+        consistentHashing.addNode(ipNode2);
+        consistentHashing.addNode(ipNode3);
+
+        Node<String> abc = consistentHashing.getNodeByKey("abcde");
+        System.out.println(abc.getResource());
     }
 }
