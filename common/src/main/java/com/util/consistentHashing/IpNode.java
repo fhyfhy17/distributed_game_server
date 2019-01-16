@@ -1,4 +1,4 @@
-package com.util.test;
+package com.util.consistentHashing;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
