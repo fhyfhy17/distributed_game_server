@@ -23,16 +23,38 @@ public class ConsistentHashing<T> {
 
     private List<Node<T>> nodeList = new ArrayList<>();
 
+    private final static int TRANSFORM = 100;//对应个数   ； 虚拟节点数=对应个数 * 权重
+
     public ConsistentHashing() {
     }
 
+    public static void main(String[] args) {
+        IpNode ipNode1 = new IpNode("ipTest1", "192.168.0.1", 1);
+        IpNode ipNode2 = new IpNode("ipTest2", "192.168.0.2", 2);
+        IpNode ipNode3 = new IpNode("ipTest3", "192.168.0.3", 3);
 
+
+        ConsistentHashing<String> consistentHashing = new ConsistentHashing<>();
+        consistentHashing.addNode(ipNode1);
+        consistentHashing.addNode(ipNode2);
+        consistentHashing.addNode(ipNode3);
+
+        Node<String> abc = consistentHashing.getNodeByKey("abcde");
+        System.out.println(abc.getResource() + " ");
+        System.out.println(consistentHashing.getVirtualNodeNum());
+    }
+
+    public int getVirtualNodeNum() {
+        return nodeMap.size();
+    }
 
     public void addNode(Node<T> node) {
         rennlock.writeLock()
                 .lock();
+        int num = node.getWeight() * TRANSFORM;
+
         try {
-            for (int i = 0; i < node.getWeight(); i++) {
+            for (int i = 0; i < num; i++) {
                 nodeMap.put(hashcode(node.getVirtualNodeName(i)), node);
             }
             nodeList.add(node);
@@ -41,27 +63,6 @@ public class ConsistentHashing<T> {
                     .unlock();
         }
 
-    }
-
-    public void removeNode(Node<T> node) {
-        if (node == null) {
-            return;
-        }
-        rennlock.writeLock()
-                .lock();
-
-        try {
-
-            for (int i = 0; i < node.getWeight(); i++) {
-                String virtualNodeName = node.getVirtualNodeName(i);
-                nodeMap.remove(hashcode(virtualNodeName));
-            }
-            nodeList.remove(node);
-
-        } finally {
-            rennlock.writeLock()
-                    .unlock();
-        }
     }
 
     public T getResourceByKey(String key) {
@@ -96,18 +97,24 @@ public class ConsistentHashing<T> {
         return hashCode.asLong();
     }
 
-    public static void main(String[] args) {
-        IpNode ipNode1 = new IpNode("ipTest1", "192.168.0.1", 1);
-        IpNode ipNode2 = new IpNode("ipTest2", "192.168.0.2", 2);
-        IpNode ipNode3 = new IpNode("ipTest3", "192.168.0.3", 3);
+    public void removeNode(Node<T> node) {
+        if (node == null) {
+            return;
+        }
+        rennlock.writeLock()
+                .lock();
 
+        try {
+            int num = node.getWeight() * TRANSFORM;
+            for (int i = 0; i < num; i++) {
+                String virtualNodeName = node.getVirtualNodeName(i);
+                nodeMap.remove(hashcode(virtualNodeName));
+            }
+            nodeList.remove(node);
 
-        ConsistentHashing<String> consistentHashing = new ConsistentHashing<>();
-        consistentHashing.addNode(ipNode1);
-        consistentHashing.addNode(ipNode2);
-        consistentHashing.addNode(ipNode3);
-
-        Node<String> abc = consistentHashing.getNodeByKey("abcde");
-        System.out.println(abc.getResource());
+        } finally {
+            rennlock.writeLock()
+                    .unlock();
+        }
     }
 }

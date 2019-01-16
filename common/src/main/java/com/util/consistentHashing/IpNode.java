@@ -1,15 +1,20 @@
 package com.util.consistentHashing;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class IpNode implements Node<String> {
 
     private String name;
     private String ip;
     private int weight;
+
+
+    public IpNode(String name, String ip, int weight) {
+        this.name = name;
+        this.ip = ip;
+        this.weight = weight;
+    }
 
     @Override
     public String getVirtualNodeName(int index) {
@@ -25,4 +30,6 @@ public class IpNode implements Node<String> {
     public String getResource() {
         return ip;
     }
+
+
 }
