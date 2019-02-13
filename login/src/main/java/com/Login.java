@@ -23,7 +23,7 @@ public class Login implements CommandLineRunner {
 
 
     @EventListener
-    void afterSrpingBoot(ApplicationReadyEvent event) throws Exception {
+    void afterSpringBoot(ApplicationReadyEvent event) throws Exception {
         ControllerFactory.init();
 
     }
