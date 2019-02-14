@@ -1,5 +1,8 @@
 package com;
 
+import com.google.protobuf.Message;
+import com.net.msg.LOGIN_MSG;
+
 public class Constant {
     public static final int GAME_PROTO_BEGIN = 10000;
     public static final String SERVER_MAP = "server_map";
@@ -9,4 +12,8 @@ public class Constant {
     public static final String INFINISPAN_CLUSTER_CACHE_NAME = "__vertx.distributed.cache";
 
     public static final long ID_BEGIN_INDEX = 100;
+
+    public static final int MESSAGE_RECEIVE_DEPLOY_NUM = 5;
+
+    public static final Message DEFAULT_ERROR_REPLY = LOGIN_MSG.STC_UNIFIED_EXCEPTION.newBuilder().build();
 }

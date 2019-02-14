@@ -1,7 +1,7 @@
 package com;
 
-import com.manager.Message2ReceiveManager;
-import com.manager.VertxMessage2Manager;
+import com.manager.MessageReceiveManager;
+import com.manager.VertxMessageManager;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
@@ -16,6 +16,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+
+import static com.Constant.MESSAGE_RECEIVE_DEPLOY_NUM;
 
 @Component
 @Slf4j
@@ -46,27 +48,27 @@ public abstract class BaseVerticle {
 
     public void start() {
         log.info("启动vertx");
-        DeploymentOptions deploymentOptions = new DeploymentOptions();
-        deploymentOptions.setWorker(true);
-        deploymentOptions.setInstances(1);
-        //部署发送1
-//        vertx.deployVerticle(VertxMessageManager.class, deploymentOptions);
-//        //部署接收1
-//        vertx.deployVerticle(MessageReceiveManager.class, deploymentOptions);
 
-        vertx.deployVerticle(VertxMessage2Manager.class, deploymentOptions);
-        vertx.deployVerticle(Message2ReceiveManager.class, deploymentOptions);
+        DeploymentOptions deploymentOptions = new DeploymentOptions().setInstances(MESSAGE_RECEIVE_DEPLOY_NUM).setWorker(true);
+        //部署发送1
+        vertx.deployVerticle(VertxMessageManager.class, deploymentOptions);
+
+        //部署接收5
+        vertx.deployVerticle(MessageReceiveManager.class, deploymentOptions);
+
         //部署ignite消息
 //        IgniteMessaging rmtMsg = ignite.message(ignite.cluster().forRemotes());
-
-//        ignite.cluster().localNode().
+//
+//
 //        CountUtil.start();
 //        rmtMsg.localListen(ContextUtil.ti, (nodeId, msg) -> {
 //            CountUtil.count();
 //            return true; // Return true to continue listening.
 //        });
 
-//        new Thread(() -> new Node().start()).start();
+//        Node node = new Node();
+//        node.setBaseReceiver(SpringUtils.getBeansOfType(BaseReceiver.class).values().iterator().next());
+//        new Thread(node::start).start();
     }
 
     @Bean(destroyMethod = "")

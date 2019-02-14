@@ -9,12 +9,16 @@ import com.entry.UnionEntry;
 import com.enums.CacheEnum;
 import com.lock.zk.ZkDistributedLock;
 import com.manager.ServerInfoManager;
-import com.manager.VertxMessage2Manager;
+import com.manager.VertxMessageManager;
 import com.mongoListener.SaveEventListener;
+import com.net.msg.LOGIN_MSG;
+import com.net.msg.Options;
 import com.node.RemoteNode;
+import com.pojo.Message;
 import com.service.UnionService;
 import com.util.ContextUtil;
 import com.util.IdCreator;
+import com.util.SerializeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.StopWatch;
 import org.apache.ignite.Ignite;
@@ -29,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.cache.Cache;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 //import com.config.RedissonConfig;
@@ -221,17 +226,36 @@ public class WebTestEnter {
 
     @RequestMapping("/test/vertxMessage")
     public void testVertxMessage() {
+        Random r = new Random();
+        Message message = new Message();
+        LOGIN_MSG.TEST_TIME.Builder builder = LOGIN_MSG.TEST_TIME.newBuilder();
+        builder.setMsg("abcdefghigklmnopqrstuvwxyz");
+
+        message.setData(builder.build().toByteArray());
+        message.setId(LOGIN_MSG.TEST_TIME.getDescriptor().getOptions().getExtension(Options.messageId));
+        message.setFrom(ContextUtil.id);
+
+
         for (int i = 0; i < 1000000; i++) {
-            VertxMessage2Manager.sendMessage("login-1a-0", "abcdefghigklmnopqrstuvwxyz");
+            message.setUid(1);
+            VertxMessageManager.sendMessage("login-1", message);
         }
 
     }
 
     @RequestMapping("/test/zeromqMessage")
     public void testZeromqMessage() {
+        Message message = new Message();
+        LOGIN_MSG.TEST_TIME.Builder builder = LOGIN_MSG.TEST_TIME.newBuilder();
+        builder.setMsg("abcdefghigklmnopqrstuvwxyz");
+
+        message.setData(builder.build().toByteArray());
+        message.setId(LOGIN_MSG.TEST_TIME.getDescriptor().getOptions().getExtension(Options.messageId));
+        message.setFrom(ContextUtil.id);
+        message.setUid(1);
         for (int i = 0; i < 1000000; i++) {
             RemoteNode remoteNode = ServerInfoManager.getRemoteNode("login-1");
-            remoteNode.sendReqMsg("abcdefghigklmnopqrstuvwxyz".getBytes());
+            remoteNode.sendReqMsg(SerializeUtil.mts(message));
         }
 
     }

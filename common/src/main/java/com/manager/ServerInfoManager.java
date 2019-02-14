@@ -26,7 +26,7 @@ public class ServerInfoManager {
 
     public static void addServer(ServerInfo serverInfo) {
 
-//        String hostAddress = serverInfo.getIp() + ":" + serverInfo.getPort();
+        String hostAddress = serverInfo.getIp() + ":" + serverInfo.getPort();
 //        if (serverInfo.getServerId() != ContextUtil.id) {
 //            RemoteNode remoteNode = new RemoteNode(hostAddress);
 //            remotes.put(serverInfo.getServerId(), remoteNode);

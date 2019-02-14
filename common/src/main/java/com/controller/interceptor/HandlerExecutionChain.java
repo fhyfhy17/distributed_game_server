@@ -20,13 +20,13 @@ public class HandlerExecutionChain {
         if (!ObjectUtils.isEmpty(interceptorList)) {
             for (int i = 0; i < interceptorList.size(); i++) {
                 HandlerInterceptor interceptor = interceptorList.get(i);
-                if (interceptor.preHandle(message, handler)) {
-                    return true;
+                if (!interceptor.preHandle(message, handler)) {
+                    return false;
                 }
             }
         }
 
-        return false;
+        return true;
     }
 
     public static void applyPostHandle(Message message, com.google.protobuf.Message result, ControllerHandler handler) {

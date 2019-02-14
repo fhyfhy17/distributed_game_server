@@ -8,22 +8,28 @@ import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static com.Constant.MESSAGE_RECEIVE_DEPLOY_NUM;
+
 @Slf4j
 public class VertxMessageManager extends AbstractVerticle {
 
-    private static Vertx vertx;
+    private static Vertx[] vertxs = new Vertx[MESSAGE_RECEIVE_DEPLOY_NUM];
+    private static AtomicInteger count = new AtomicInteger(-1);
 
     //TODO 现在发送时就hash了，但是接收端还没有针对处理，发送与接收策略还没有想清楚，以后改
     public static void sendMessage(String queue, Message message) {
-        int count = (int) (message.getUid() % 3);
-        sendMessageToServer(queue + "-" + count, SerializeUtil.mts(message));
+        int count = (int) (message.getUid() % MESSAGE_RECEIVE_DEPLOY_NUM);
+        sendMessageToServer(queue + "-" + count, SerializeUtil.mts(message), count);
     }
 
 
-    private static void sendMessageToServer(String queue, byte[] msg) {
+    private static void sendMessageToServer(String queue, byte[] msg, int count) {
 //        log.info("发送消息到集群，目标= {}", queue);
         try {
-            vertx.eventBus().publish(queue,msg);
+//            System.out.println("发送的vertx :"+count);
+            vertxs[count].eventBus().publish(queue, msg);
 //            vertx.eventBus().send(queue, msg, rf -> {
 //                if (rf.succeeded()) {
 //
@@ -37,7 +43,9 @@ public class VertxMessageManager extends AbstractVerticle {
     @Override
     public void init(Vertx vertx, Context context) {
         super.init(vertx, context);
-        VertxMessageManager.vertx = vertx;
+        int i = count.incrementAndGet();
+        System.out.println("启动发送器 " + i);
+        VertxMessageManager.vertxs[i] = vertx;
     }
 
     @Override

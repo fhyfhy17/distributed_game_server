@@ -21,11 +21,11 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>login</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.1.2.RELEASE</version>
                 <configuration>
                     <mainClass>com.Login</mainClass>
                     <layout>ZIP</layout>
@@ -39,6 +39,5 @@
                 </executions>
             </plugin>
         </plugins>
-
     </build>
 </project>

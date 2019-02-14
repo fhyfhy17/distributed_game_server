@@ -91,3 +91,9 @@ message STC_UNIFIED_EXCEPTION{
 	option(messageId) = 10014;
 	string msg=1;
 } 
+
+//Test收发时间
+message TEST_TIME{
+	option(messageId) = 10015;
+	string msg=1;
+} 

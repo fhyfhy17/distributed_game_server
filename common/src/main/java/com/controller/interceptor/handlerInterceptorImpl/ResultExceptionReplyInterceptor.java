@@ -1,5 +1,6 @@
 package com.controller.interceptor.handlerInterceptorImpl;
 
+import com.Constant;
 import com.controller.ControllerHandler;
 import com.controller.interceptor.HandlerInterceptor;
 import com.manager.VertxMessageManager;
@@ -10,8 +11,6 @@ import com.util.ContextUtil;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
-
 @Order(4)
 @Component
 //结果拦截器 （如果报错了，给客户端返回的消息）
@@ -19,9 +18,10 @@ import java.util.Objects;
 public class ResultExceptionReplyInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(Message message, ControllerHandler handler, com.google.protobuf.Message result) {
-        if (!Objects.isNull(result)) {
+        if (!Constant.DEFAULT_ERROR_REPLY.equals(result)) {
             return;
         }
+
         Message messageResult = buildMessage();
         VertxMessageManager.sendMessage(message.getFrom(), messageResult);
     }

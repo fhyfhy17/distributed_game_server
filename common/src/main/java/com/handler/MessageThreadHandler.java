@@ -1,5 +1,6 @@
 package com.handler;
 
+import com.Constant;
 import com.controller.ControllerFactory;
 import com.controller.ControllerHandler;
 import com.controller.interceptor.HandlerExecutionChain;
@@ -62,17 +63,20 @@ public class MessageThreadHandler implements Runnable {
                     throw new IllegalStateException("收到不存在的消息，消息ID=" + cmdId);
                 }
                 //拦截器前
-                if (HandlerExecutionChain.applyPreHandle(message, handler)) {
+                if (!HandlerExecutionChain.applyPreHandle(message, handler)) {
                     continue;
                 }
                 //针对method的每个参数进行处理， 处理多参数,返回result
                 com.google.protobuf.Message result = (com.google.protobuf.Message) handler.invokeForController(message);
                 //拦截器后
                 HandlerExecutionChain.applyPostHandle(message, result, handler);
+                //TODO 这还是不对啊，手动抛出的异常，要区分，如果是约定错误，要单独发前端
+                // 由意外 导致的系统错误等， 要包装成统一的错误，
+                // 或者 全都走统一协议，把提示发过去就得了。 具体前端怎么处理这个，还要不要转圈，怎么结束。这个需要商量
             } catch (ExceptionNeedSendToClient exceptionNeedSendToClient) {
                 Class<?> returnType = handler.getMethod().getReturnType();
                 if (returnType.isAssignableFrom(com.google.protobuf.Message.class)) {
-                    HandlerExecutionChain.applyPostHandle(message, null, handler);
+                    HandlerExecutionChain.applyPostHandle(message, Constant.DEFAULT_ERROR_REPLY, handler);
                 }
             } catch (Exception e) {
                 log.error("", e);

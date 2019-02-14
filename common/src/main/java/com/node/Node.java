@@ -2,8 +2,8 @@ package com.node;
 
 import com.BaseReceiver;
 import com.util.ContextUtil;
-import com.util.CountUtil;
 import com.util.IpUtil;
+import com.util.SerializeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.zeromq.ZContext;
@@ -62,7 +62,7 @@ public class Node {
             zmqPull.bind("tcp://" + host);
 
             log.info("启动节点 ={} 完毕", host);
-            CountUtil.start();
+//            CountUtil.start();
             while (running) {
                 try {
                     long startTime = System.currentTimeMillis();
@@ -96,8 +96,8 @@ public class Node {
                 break;
             }
 
-            CountUtil.count();
-//            baseReceiver.onReceive(SerializeUtil.stm(buf));
+//            CountUtil.count();
+            baseReceiver.onReceive(SerializeUtil.stm(buf));
         }
     }
 

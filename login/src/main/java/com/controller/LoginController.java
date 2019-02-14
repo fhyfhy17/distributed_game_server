@@ -4,6 +4,7 @@ package com.controller;
 import com.entry.UserEntry;
 import com.net.msg.LOGIN_MSG;
 import com.service.LoginService;
+import com.util.CountUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -30,6 +31,14 @@ public class LoginController extends BaseController {
         }
 
         return builder.build();
+
+    }
+
+
+    public void login(UidContext context, LOGIN_MSG.TEST_TIME req) {
+        CountUtil.count();
+        String username = req.getMsg();
+
 
     }
 }

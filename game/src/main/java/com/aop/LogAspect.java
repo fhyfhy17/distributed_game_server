@@ -29,7 +29,7 @@ public class LogAspect {
 
 
     @Around("logPoint()")
-    public Object arond(ProceedingJoinPoint pjp) throws Throwable {
+    public Object around(ProceedingJoinPoint pjp) throws Throwable {
 
         StringBuilder sb = new StringBuilder();
 
