@@ -5,8 +5,6 @@ import com.google.protobuf.Message;
 import com.net.msg.Options;
 import com.util.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
-import sun.reflect.MethodAccessor;
-import sun.reflect.ReflectionFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -39,8 +37,8 @@ public class ControllerFactory {
                                 log.error("重复的msgid ={} controllerName ={} methodName ={}", msgId, controller.getClass().getSimpleName(), method.getName());
                                 continue;
                             }
-                            MethodAccessor methodAccessor = ReflectionFactory.getReflectionFactory().newMethodAccessor(method);
-                            controllerMap.put(msgId, new ControllerHandler(controller, method, msgId, methodAccessor));
+                        
+                            controllerMap.put(msgId, new ControllerHandler(controller, method, msgId));
                         } catch (IllegalAccessException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException e) {
                             log.error("", e);
                         }

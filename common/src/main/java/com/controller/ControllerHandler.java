@@ -6,7 +6,6 @@ import com.pojo.Message;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.reflect.MethodAccessor;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -18,14 +17,12 @@ public class ControllerHandler {
     private Method method;
     private MethodParameter[] parameters;
     private int msgId;
-    private MethodAccessor methodAccessor;
 
-    public ControllerHandler(BaseController action, Method method, int msgId, MethodAccessor methodAccessor) {
+    public ControllerHandler(BaseController action, Method method, int msgId) {
 
         this.action = action;
         this.method = method;
         this.msgId = msgId;
-        this.methodAccessor = methodAccessor;
         Class<?>[] parameterTypes = this.method.getParameterTypes();
         MethodParameter[] parameters = new MethodParameter[parameterTypes.length];
         for (int i = 0; i < parameterTypes.length; i++) {
@@ -36,7 +33,7 @@ public class ControllerHandler {
 
     public Object invokeForController(Message message) throws Exception {
         Object[] args = getMethodArgumentValues(message);
-        return this.methodAccessor.invoke(this.action, args);
+        return this.method.invoke(this.action, args);
 
     }
 
