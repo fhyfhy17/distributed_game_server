@@ -1,7 +1,7 @@
 # distributed_game_server
 
 -----
-##  项目属于试水。  经过研究，ignite ,hazelcast等并不适合游戏开发，本项目已废弃，可用的项目地址 ： https://github.com/fhyfhy17/simple_game_server
+##  项目属于试水。  经过研究，ignite ,hazelcast等并不适合游戏开发，本项目已废弃，可用的项目地址 ：[simple_game_server](https://github.com/fhyfhy17/simple_game_server)
 
 ## 分布式Java游戏服务器
 
